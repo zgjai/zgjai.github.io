@@ -70,7 +70,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="JVM,Class文件结构," />
 
 
 
@@ -86,15 +86,23 @@
 
 
 
-<meta name="description" content="若文章有误，可email:18710057269@163.com">
-<meta property="og:type" content="website">
-<meta property="og:title" content="知行合一">
-<meta property="og:url" content="https://zgjai.github.io/index.html">
+<meta name="description" content="Class文件结构目前活跃在JVM上的语言，除了Java，还有Scala、Groovy、Clojure等等。对于JVM来说，Class文件是其对外的一个接口。只要Class文件的结构符合标准，不管编写这个程序的源语言是什么，JVM都能够执行它。详细的Class文件结构描述，可以查看相应版本的Java虚拟机规范，本系列文章主要结合实例探索Class文件的主要组成部分。
+Class文件整体结构Java">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Class文件结构(一)">
+<meta property="og:url" content="https://zgjai.github.io/2016/10/14/Class文件结构-一/index.html">
 <meta property="og:site_name" content="知行合一">
-<meta property="og:description" content="若文章有误，可email:18710057269@163.com">
+<meta property="og:description" content="Class文件结构目前活跃在JVM上的语言，除了Java，还有Scala、Groovy、Clojure等等。对于JVM来说，Class文件是其对外的一个接口。只要Class文件的结构符合标准，不管编写这个程序的源语言是什么，JVM都能够执行它。详细的Class文件结构描述，可以查看相应版本的Java虚拟机规范，本系列文章主要结合实例探索Class文件的主要组成部分。
+Class文件整体结构Java">
+<meta property="og:image" content="http://o793hh4oz.bkt.clouddn.com/14764462536409.jpg">
+<meta property="og:image" content="http://o793hh4oz.bkt.clouddn.com/14764470928090.jpg">
+<meta property="og:image" content="http://o793hh4oz.bkt.clouddn.com/14764376829625.jpg">
+<meta property="og:updated_time" content="2016-10-14T12:51:29.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="知行合一">
-<meta name="twitter:description" content="若文章有误，可email:18710057269@163.com">
+<meta name="twitter:title" content="Class文件结构(一)">
+<meta name="twitter:description" content="Class文件结构目前活跃在JVM上的语言，除了Java，还有Scala、Groovy、Clojure等等。对于JVM来说，Class文件是其对外的一个接口。只要Class文件的结构符合标准，不管编写这个程序的源语言是什么，JVM都能够执行它。详细的Class文件结构描述，可以查看相应版本的Java虚拟机规范，本系列文章主要结合实例探索Class文件的主要组成部分。
+Class文件整体结构Java">
+<meta name="twitter:image" content="http://o793hh4oz.bkt.clouddn.com/14764462536409.jpg">
 
 
 
@@ -115,9 +123,9 @@
 
 
 
-  <link rel="canonical" href="https://zgjai.github.io/"/>
+  <link rel="canonical" href="https://zgjai.github.io/2016/10/14/Class文件结构-一/"/>
 
-  <title> 知行合一 </title>
+  <title> Class文件结构(一) | 知行合一 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -147,9 +155,7 @@
     
   
 
-  <div class="container one-collumn sidebar-position-left 
-   page-home 
- ">
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -246,9 +252,9 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
 
   
   
@@ -268,10 +274,7 @@
             
             
               
-                
-                <a class="post-title-link" href="/2016/10/14/Class文件结构-一/" itemprop="url">
-                  Class文件结构(一)
-                </a>
+                Class文件结构(一)
               
             
           </h1>
@@ -339,172 +342,144 @@
       
 
       
-        
-          
-          Class文件结构目前活跃在JVM上的语言，除了Java，还有Scala、Groovy、Clojure等等。对于JVM来说，Class文件是其对外的一个接口。只要Class文件的结构符合标准，不管编写这个程序的源语言是什么，JVM都能够执行它。详细的Class文件结构描述，可以查看相应版本的Java
-          ...
-
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2016/10/14/Class文件结构-一/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
+        <h1 id="Class文件结构"><a href="#Class文件结构" class="headerlink" title="Class文件结构"></a>Class文件结构</h1><p>目前活跃在JVM上的语言，除了Java，还有Scala、Groovy、Clojure等等。对于JVM来说，Class文件是其对外的一个接口。只要Class文件的结构符合标准，不管编写这个程序的源语言是什么，JVM都能够执行它。详细的Class文件结构描述，可以查看相应版本的Java虚拟机规范，本系列文章主要结合实例探索Class文件的主要组成部分。</p>
+<h3 id="Class文件整体结构"><a href="#Class文件整体结构" class="headerlink" title="Class文件整体结构"></a>Class文件整体结构</h3><p>Java8虚拟机规范中对Class文件结构的定义如下：</p>
+<pre><code>ClassFile {
+   u4             magic;
+   u2             minor_version;
+   u2             major_version;
+   u2             constant_pool_count;
+   cp_info        constant_pool[constant_pool_count-1];
+   u2             access_flags;
+   u2             this_class;
+   u2             super_class;
+   u2             interfaces_count;
+   u2             interfaces[interfaces_count];
+   u2             fields_count;
+   field_info     fields[fields_count];
+   u2             methods_count;
+   method_info    methods[methods_count];
+   u2             attributes_count;
+   attribute_info attributes[attributes_count];
+}
+</code></pre><p>所有的数据类型都是无符号数(u)，数字表示所占用的字节数(4表示4字节，2表示2字节)。</p>
+<p>先介绍一下本系列查看Class文件内容结构的两个工具：<br><strong>a.Hex Fiend</strong><br>作用为查看一个Class文件的16进制源码，效果如(图1)所示</p>
+<h5 id="图1"><a href="#图1" class="headerlink" title="图1:"></a>图1:</h5><p><img src="http://o793hh4oz.bkt.clouddn.com/14764462536409.jpg" alt=""></p>
+<p><strong>b.jclasslib</strong><br>作用为可视化的查看Class文件的内容结构，效果如(图2)所示</p>
+<h5 id="图2"><a href="#图2" class="headerlink" title="图2:"></a>图2:</h5><p><img src="http://o793hh4oz.bkt.clouddn.com/14764470928090.jpg" alt=""></p>
+<h5 id="图1-1"><a href="#图1-1" class="headerlink" title="图1-1:"></a>图1-1:</h5><p><img src="http://o793hh4oz.bkt.clouddn.com/14764376829625.jpg" alt=""></p>
+<p><strong><em>magic(魔数)</em></strong><br>用于标识Class文件，固定为：0xCAFEBABE。图1-1是一个class文件的开头一部分，可以看到文件的开始就是magic，占用4字节。</p>
+<p><strong><em>minor_version(次版本号)</em></strong> &amp;&amp; <strong><em>major_version(主版本号)</em></strong><br>这两个版本号共同构成了class文件的版本，这个版本的作用在于，让虚拟机知道，当前class文件是不是可被执行。基本规则是，高版本的虚拟机可以执行低版本(&lt;=关系)的class文件，低版本的虚拟机不能执行高版本(&gt;关系)的class文件。<br>如上图1-1，可以看出这个class文件的主版本为52(十进制)，次版本为0。由1.8版本的javac编译器编译生成的class文件的版本号就是这样的，而这个class就可以被1.8的虚拟机执行。</p>
+<p><strong><em>constant_pool_count(常量池数量)</em></strong><br>记录了这个Class中的所有常量的数量加1，也即常量池的大小。<br>如上图1-1，这个class的常量池数量的大小为129。</p>
+<p><strong><em>constant_pool(常量池)</em></strong><br>常量池中存储着这个class相关的所有常量，它的大小是所有常量的数量加1，因为index为0时，内容为空。</p>
+<blockquote>
+<p>在Class文件格式规范制定之时，设计者将第0项常量空出来是有特殊考虑的，这样做的目的在于满足后面某些指向常量池的索引值的数据在特定情况下需要表达“不引用任何一个常量池项目”的含义，这种情况就可以把索引值置为0来表示。(该段话引用自周志明老师的《深入理解Java虚拟机》第2版)</p>
+</blockquote>
+<p>常量池中存储的数据类型有多种，但它们又一个共同的抽象结构：</p>
+<pre><code>cp_info {
+    u1 tag;
+    u1 info[];
+}
+</code></pre><p>其中tag用于标识是哪种类型的常量，具体的对应关系表见<a href="http://docs.oracle.com/javase/specs/jvms/se8/html/jvms-4.html#jvms-4.4-140" target="_blank" rel="external">官方文档</a>。info[]字段的内容格式根据tag的值的变化而变化。具体的每种常量类型的介绍在本系列后续进行。</p>
+<h3 id="未完待续。。。"><a href="#未完待续。。。" class="headerlink" title="未完待续。。。"></a>未完待续。。。</h3>
       
     </div>
 
     <div>
       
+        
+
+      
     </div>
 
     <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="/images/wx.jpg" alt="guijiang.zhang WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="/images/zfb.jpg" alt="guijiang.zhang Alipay"/>
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
       
     </div>
 
     <footer class="post-footer">
       
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/10/09/开始/" itemprop="url">
-                  开始
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-10-09T20:44:44+08:00" content="2016-10-09">
-              2016-10-09
-            </time>
-          </span>
-
+        <div class="post-tags">
           
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/other/" itemprop="url" rel="index">
-                    <span itemprop="name">其他</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
+            <a href="/tags/JVM/" rel="tag">#JVM</a>
           
-
-          
-            
-          
-
-          
-
-          
-          
-             <span id="/2016/10/09/开始/" class="leancloud_visitors" data-flag-title="开始">
-               &nbsp; | &nbsp;
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               <span class="post-meta-item-text">阅读次数 </span>
-               <span class="leancloud-visitors-count"></span>
-              </span>
-          
-
+            <a href="/tags/Class文件结构/" rel="tag">#Class文件结构</a>
           
         </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
       
 
       
-        
-          
-          开始断断续续地折腾了好长时间，总算是用GitHub Pages和Hexo把博客搭建好了。很久之前就想开始写博客，不过因为拖延症加上自身知识储备确实不足，所以一直拖着没有实施。不过最近一年的工作经历学习过程，自己感觉通过写博客来进行学习到的知识的总结其实是很好的方式，通过这种方式，将输入的知识，经过自
-          ...
-
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2016/10/09/开始/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/10/09/开始/" rel="next" title="开始">
+                <i class="fa fa-chevron-left"></i> 开始
+              </a>
+            
           </div>
-        
-      
-    </div>
 
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
       
 
       
-
-      
-      
-        <div class="post-eof"></div>
       
     </footer>
   </article>
 
 
-    
-  </section>
 
-  
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+  <div class="page-footer">
+      
+        <div id="eof" class="print-invisible">
+          <hr class="eof">
+        </div>
+
+        <div class="copyright" style="clear:both;">
+           <p><span>本文标题:</span><a href="/2016/10/14/Class文件结构-一/">Class文件结构(一)</a></p>
+           <p><span>文章作者:</span><a href="/" title="访问 guijiang.zhang 的个人博客">guijiang.zhang</a></p>
+           <p><span>发布时间:</span>2016年10月14日 - 20时10分</p>
+           <p><span>最后更新:</span>2016年10月14日 - 20时10分</p>
+           <p><span>原始链接:</span><a href="/2016/10/14/Class文件结构-一/" title="Class文件结构(一)">https://zgjai.github.io/2016/10/14/Class文件结构-一/</a></p>
+           <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/" title="Attribution-NonCommercial 4.0 International (CC BY-NC 4.0)">Attribution-NonCommercial 4.0</a></p>
+           <p><span>转载请保留以上信息。</span></p>
+        </div>
+      
+
+      
+
+    </div>
+
 
 
           </div>
@@ -512,6 +487,10 @@
 
 
           
+  <div class="comments" id="comments">
+    
+  </div>
+
 
         </div>
         
@@ -531,8 +510,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel  sidebar-panel-active ">
+      <section class="site-overview sidebar-panel ">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/pic.jpg"
@@ -582,6 +570,17 @@
 
       </section>
 
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Class文件结构"><span class="nav-number">1.</span> <span class="nav-text">Class文件结构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Class文件整体结构"><span class="nav-number">1.0.1.</span> <span class="nav-text">Class文件整体结构</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#图1"><span class="nav-number">1.0.1.0.1.</span> <span class="nav-text">图1:</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#图2"><span class="nav-number">1.0.1.0.2.</span> <span class="nav-text">图2:</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#图1-1"><span class="nav-number">1.0.1.0.3.</span> <span class="nav-text">图1-1:</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#未完待续。。。"><span class="nav-number">1.0.2.</span> <span class="nav-text">未完待续。。。</span></a></li></ol></li></ol></li></ol></div>
+            
+          </div>
+        </section>
       
 
     </div>
@@ -678,6 +677,10 @@
   
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
 
   
 
