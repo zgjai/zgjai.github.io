@@ -70,7 +70,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="其他," />
+  <meta name="keywords" content="JVM,Class文件结构," />
 
 
 
@@ -86,19 +86,28 @@
 
 
 
-<meta name="description" content="开始断断续续地折腾了好长时间，总算是用GitHub Pages和Hexo把博客搭建好了。很久之前就想开始写博客，不过因为拖延症加上自身知识储备确实不足，所以一直拖着没有实施。不过最近一年的工作经历学习过程，自己感觉通过写博客来进行学习到的知识的总结其实是很好的方式，通过这种方式，将输入的知识，经过自己的思考，输出到文章博客上，这个过程能让知识的留存率转换率都有一个质的提升。
-计划接下去，对自己的要">
+<meta name="description" content="续access_flags(访问标识)访问标识用于表示Class的属性(final、public等，具体值与描述见官方文档)。
+this_class(类索引)当前Class的名称在常量池中的索引。
+super_class(父类索引)当前Class的父类的名称在常量池中的索引。
+interfaces_count(接口数量)当前Class继承的接口数量。
+interfaces[interfaces_c">
 <meta property="og:type" content="article">
-<meta property="og:title" content="开始">
-<meta property="og:url" content="https://zgjai.github.io/2016/10/09/开始/index.html">
+<meta property="og:title" content="Class文件结构(二)">
+<meta property="og:url" content="https://zgjai.github.io/2016/10/20/Class文件结构-二/index.html">
 <meta property="og:site_name" content="知行合一">
-<meta property="og:description" content="开始断断续续地折腾了好长时间，总算是用GitHub Pages和Hexo把博客搭建好了。很久之前就想开始写博客，不过因为拖延症加上自身知识储备确实不足，所以一直拖着没有实施。不过最近一年的工作经历学习过程，自己感觉通过写博客来进行学习到的知识的总结其实是很好的方式，通过这种方式，将输入的知识，经过自己的思考，输出到文章博客上，这个过程能让知识的留存率转换率都有一个质的提升。
-计划接下去，对自己的要">
-<meta property="og:updated_time" content="2016-10-09T12:51:52.000Z">
+<meta property="og:description" content="续access_flags(访问标识)访问标识用于表示Class的属性(final、public等，具体值与描述见官方文档)。
+this_class(类索引)当前Class的名称在常量池中的索引。
+super_class(父类索引)当前Class的父类的名称在常量池中的索引。
+interfaces_count(接口数量)当前Class继承的接口数量。
+interfaces[interfaces_c">
+<meta property="og:updated_time" content="2016-10-20T13:01:14.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="开始">
-<meta name="twitter:description" content="开始断断续续地折腾了好长时间，总算是用GitHub Pages和Hexo把博客搭建好了。很久之前就想开始写博客，不过因为拖延症加上自身知识储备确实不足，所以一直拖着没有实施。不过最近一年的工作经历学习过程，自己感觉通过写博客来进行学习到的知识的总结其实是很好的方式，通过这种方式，将输入的知识，经过自己的思考，输出到文章博客上，这个过程能让知识的留存率转换率都有一个质的提升。
-计划接下去，对自己的要">
+<meta name="twitter:title" content="Class文件结构(二)">
+<meta name="twitter:description" content="续access_flags(访问标识)访问标识用于表示Class的属性(final、public等，具体值与描述见官方文档)。
+this_class(类索引)当前Class的名称在常量池中的索引。
+super_class(父类索引)当前Class的父类的名称在常量池中的索引。
+interfaces_count(接口数量)当前Class继承的接口数量。
+interfaces[interfaces_c">
 
 
 
@@ -119,9 +128,9 @@
 
 
 
-  <link rel="canonical" href="https://zgjai.github.io/2016/10/09/开始/"/>
+  <link rel="canonical" href="https://zgjai.github.io/2016/10/20/Class文件结构-二/"/>
 
-  <title> 开始 | 知行合一 </title>
+  <title> Class文件结构(二) | 知行合一 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -270,7 +279,7 @@
             
             
               
-                开始
+                Class文件结构(二)
               
             
           </h1>
@@ -282,8 +291,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-10-09T20:44:44+08:00" content="2016-10-09">
-              2016-10-09
+            <time itemprop="dateCreated" datetime="2016-10-20T21:00:19+08:00" content="2016-10-20">
+              2016-10-20
             </time>
           </span>
 
@@ -296,8 +305,8 @@
               <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/other/" itemprop="url" rel="index">
-                    <span itemprop="name">其他</span>
+                  <a href="/categories/JVM/" itemprop="url" rel="index">
+                    <span itemprop="name">JVM</span>
                   </a>
                 </span>
 
@@ -316,7 +325,7 @@
 
           
           
-             <span id="/2016/10/09/开始/" class="leancloud_visitors" data-flag-title="开始">
+             <span id="/2016/10/20/Class文件结构-二/" class="leancloud_visitors" data-flag-title="Class文件结构(二)">
                &nbsp; | &nbsp;
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -338,19 +347,42 @@
       
 
       
-        <h2 id="开始"><a href="#开始" class="headerlink" title="开始"></a>开始</h2><p>断断续续地折腾了好长时间，总算是用<a href="https://pages.github.com" target="_blank" rel="external">GitHub Pages</a>和<a href="https://hexo.io" target="_blank" rel="external">Hexo</a>把<a href="https://zgjai.github.io">博客</a>搭建好了。很久之前就想开始写博客，不过因为拖延症加上自身知识储备确实不足，所以一直拖着没有实施。不过最近一年的工作经历学习过程，自己感觉通过写博客来进行学习到的知识的总结其实是很好的方式，通过这种方式，将输入的知识，经过自己的思考，输出到文章博客上，这个过程能让知识的留存率转换率都有一个质的提升。</p>
-<h2 id="计划"><a href="#计划" class="headerlink" title="计划"></a>计划</h2><p>接下去，对自己的要求是，每周输出1～2篇博客。<br>主要的技术内容包括：</p>
-<ul>
-<li>JDK源码阅读（主要是lang、util、concurrent）</li>
-<li>JVM相关（主要是内存模型、类加载机制、垃圾回收、class内存布局、调优）</li>
-<li>J2EE相关（Spring、Tomcat）</li>
-<li>基础数据结构和算法</li>
-<li>分布式系统（基础知识、各种开源框架、大型网站架构）</li>
-<li>机器学习（另一种思维方式）</li>
-<li>前端（更好的沟通，更好的网站优化）</li>
-</ul>
-<p>这些技术真要都能有所涉猎并达到一定的深度，怎么也得5～10年吧，那个时候又不知道出现了什么新的技术了。<br>路要一步步走，希望自己能静下心来踏踏实实地完成这个计划。</p>
-
+        <h3 id="续"><a href="#续" class="headerlink" title="续"></a>续</h3><p><strong><em>access_flags(访问标识)</em></strong><br>访问标识用于表示Class的属性(final、public等，具体值与描述见<a href="http://docs.oracle.com/javase/specs/jvms/se8/html/jvms-4.html#jvms-4.1-200-E.1" target="_blank" rel="external">官方文档</a>)。</p>
+<p><strong><em>this_class(类索引)</em></strong><br>当前Class的名称在常量池中的索引。</p>
+<p><strong><em>super_class(父类索引)</em></strong><br>当前Class的父类的名称在常量池中的索引。</p>
+<p><strong><em>interfaces_count(接口数量)</em></strong><br>当前Class继承的接口数量。</p>
+<p><strong><em>interfaces[interfaces_count]</em></strong><br>当前Class继承的接口的名称在常量池中的索引组成的列表。</p>
+<p><strong><em>fields_count(变量数量)</em></strong><br>当前Class包含的变量数量。</p>
+<p><strong><em>fields[fields_count]</em></strong><br>fields表中存储的数据都是具有相同结构的：</p>
+<pre><code>field_info {
+u2             access_flags;
+u2             name_index;
+u2             descriptor_index;
+u2             attributes_count;
+attribute_info attributes[attributes_count];
+}
+</code></pre><p>access_flags的值与前面Class的access_flags的值有一些区别，<a href="http://docs.oracle.com/javase/specs/jvms/se8/html/jvms-4.html#jvms-4.5-200-A.1" target="_blank" rel="external">详情</a>。</p>
+<p>name_index是这个字段的名称在常量池中的索引位置。</p>
+<p>descriptor_index这个后续结合实例细看。</p>
+<p>attributes_count是附加属性的数量。</p>
+<p>attributes[attributes_count]自然就是附加属性表。</p>
+<p><strong><em>methods_count(方法数量)</em></strong><br>当前Class包含的方法数量。</p>
+<p><strong><em>methods[methods_count]</em></strong><br>methods表中存储的数据的结构为:</p>
+<pre><code>method_info {
+u2             access_flags;
+u2             name_index;
+u2             descriptor_index;
+u2             attributes_count;
+attribute_info attributes[attributes_count];
+}
+</code></pre><p><strong><em>attributes_count(附加属性数量)</em></strong><br>当前的Class的附加属性的数量。</p>
+<p><strong><em>attributes[attributes_count]</em></strong><br>attributes表中存储的数据的结构为:</p>
+<pre><code>attribute_info {
+u2 attribute_name_index;
+u4 attribute_length;
+u1 info[attribute_length];
+}
+</code></pre><h4 id="以上两篇的内容就是Class文件的整体结构，从第三篇开始将结合实例分析Class文件的结构。"><a href="#以上两篇的内容就是Class文件的整体结构，从第三篇开始将结合实例分析Class文件的结构。" class="headerlink" title="以上两篇的内容就是Class文件的整体结构，从第三篇开始将结合实例分析Class文件的结构。"></a>以上两篇的内容就是Class文件的整体结构，从第三篇开始将结合实例分析Class文件的结构。</h4><h3 id="未完待续。。。"><a href="#未完待续。。。" class="headerlink" title="未完待续。。。"></a>未完待续。。。</h3>
       
     </div>
 
@@ -393,7 +425,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/其他/" rel="tag">#其他</a>
+            <a href="/tags/JVM/" rel="tag">#JVM</a>
+          
+            <a href="/tags/Class文件结构/" rel="tag">#Class文件结构</a>
           
         </div>
       
@@ -402,13 +436,13 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
+              <a href="/2016/10/19/vim常用命令/" rel="next" title="vim常用命令">
+                <i class="fa fa-chevron-left"></i> vim常用命令
+              </a>
+            
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/10/14/Class文件结构-一/" rel="prev" title="Class文件结构(一)">
-                Class文件结构(一) <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -433,11 +467,11 @@
         </div>
 
         <div class="copyright" style="clear:both;">
-           <p><span>本文标题:</span><a href="/2016/10/09/开始/">开始</a></p>
+           <p><span>本文标题:</span><a href="/2016/10/20/Class文件结构-二/">Class文件结构(二)</a></p>
            <p><span>文章作者:</span><a href="/" title="访问 guijiang.zhang 的个人博客">guijiang.zhang</a></p>
-           <p><span>发布时间:</span>2016年10月9日 - 20时10分</p>
-           <p><span>最后更新:</span>2016年10月9日 - 20时10分</p>
-           <p><span>原始链接:</span><a href="/2016/10/09/开始/" title="开始">https://zgjai.github.io/2016/10/09/开始/</a></p>
+           <p><span>发布时间:</span>2016年10月20日 - 21时10分</p>
+           <p><span>最后更新:</span>2016年10月20日 - 21时10分</p>
+           <p><span>原始链接:</span><a href="/2016/10/20/Class文件结构-二/" title="Class文件结构(二)">https://zgjai.github.io/2016/10/20/Class文件结构-二/</a></p>
            <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/" title="Attribution-NonCommercial 4.0 International (CC BY-NC 4.0)">Attribution-NonCommercial 4.0</a></p>
            <p><span>转载请保留以上信息。</span></p>
         </div>
@@ -544,7 +578,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#开始"><span class="nav-number">1.</span> <span class="nav-text">开始</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#计划"><span class="nav-number">2.</span> <span class="nav-text">计划</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#续"><span class="nav-number">1.</span> <span class="nav-text">续</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#以上两篇的内容就是Class文件的整体结构，从第三篇开始将结合实例分析Class文件的结构。"><span class="nav-number">1.1.</span> <span class="nav-text">以上两篇的内容就是Class文件的整体结构，从第三篇开始将结合实例分析Class文件的结构。</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#未完待续。。。"><span class="nav-number">2.</span> <span class="nav-text">未完待续。。。</span></a></li></ol></div>
             
           </div>
         </section>
