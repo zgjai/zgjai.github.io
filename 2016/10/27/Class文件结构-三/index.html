@@ -113,8 +113,8 @@ public interface ClassInterface {
 <meta property="og:image" content="http://o793hh4oz.bkt.clouddn.com/14772743125046.jpg">
 <meta property="og:image" content="http://o793hh4oz.bkt.clouddn.com/14772743229192.jpg">
 <meta property="og:image" content="http://o793hh4oz.bkt.clouddn.com/14773570626501.jpg">
-<meta property="og:image" content="https://zgjai.github.io/media/14773585213202.jpg">
-<meta property="og:updated_time" content="2016-10-27T01:42:21.000Z">
+<meta property="og:image" content="http://o793hh4oz.bkt.clouddn.com/14773585213202.jpg">
+<meta property="og:updated_time" content="2016-10-27T01:50:00.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Class文件结构(三)">
 <meta name="twitter:description" content="看系列上一篇续接下来，通过两个Class文件分析JVM规定的Class的文件结构，分析以jclasslib为主，Hex为辅。两个Class的源码如下：
@@ -384,7 +384,7 @@ public interface ClassInterface {
 <p></p><h5 id="2-2">图2-2</h5><br><img src="http://o793hh4oz.bkt.clouddn.com/14772743229192.jpg" alt=""><p></p>
 <p></p><h5 id="2-3">图2-3</h5><br><img src="http://o793hh4oz.bkt.clouddn.com/14773570626501.jpg" alt=""><p></p>
 <p>从上面3张图中，可以清晰的看出JVM规范中定义的Class的文件结构，其中magic字段没有写出，因为每个Class文件的magic字段都一样，为一个定值(0xCAFEBABE)。<br>其他的字段都是按照规范中定义的顺序依次列出的，其中5个数组结构的对应着图中左侧5个折叠的文件夹，需要注意的是，但某个数组为空时，可以看到其样式不再是文件夹，而是普通的文件。<br>比如<a href="#2-1">图2-1</a>中  <strong>Interfaces count</strong>  为0，相应的 <strong>Interfaces[]</strong> 数组就为空。而在实际存储时，如果数组为空，则不占用任何字节。如<a href="#1-2">图1-2</a>，这是ClassInterface类的Class文件由Hex打开的一部分内容，截图内容从 <strong>Access flags</strong> 开始，为0x0601，跟<a href="#2-1">图2-1</a>中是相符合的，接下去是 <strong>This class</strong> 为0x0001， <strong>Super class</strong> 为0x0002。再接下去，就应该是 <strong>Interfaces count</strong> 的值，为0x0000，即为0，这时 <strong>Interfaces[]</strong> 为空，不占用任何字节，从 <a href="#1-2">图1-2</a> 中可以看到在0x0000之后是0x0002，这个其实是 <strong>Fields count</strong> 的值。</p>
-<p></p><h5 id="1-2">图1-2</h5><br><img src="media/14773585213202.jpg" alt=""><p></p>
+<p></p><h5 id="1-2">图1-2</h5><br><img src="http://o793hh4oz.bkt.clouddn.com/14773585213202.jpg" alt=""><p></p>
 <p>下面结合3张图，看一下这3个类的Class文件属性都有什么异同。</p>
 <ul>
 <li>由于3个Class文件都是由1.8版本的javac编译而成，所以它们的 <strong>Minor version</strong> 和 <strong>Major version</strong> 都相同。</li>
