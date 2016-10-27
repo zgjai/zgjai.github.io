@@ -70,7 +70,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="vim,Linux,工具," />
+  <meta name="keywords" content="JVM,Class文件结构," />
 
 
 
@@ -86,33 +86,48 @@
 
 
 
-<meta name="description" content="vim常用命令在服务器上编辑文件的时候，只能通过vi去编辑，熟悉一些常用命令还是很有必要的。现在的系统，一般vi是等同于vim的，输入vi命令，实际也是使用的vim。如图1，通过软链接，将vi指向了vim。
-图1
-Google出来几个挺好的参考资料：
+<meta name="description" content="看系列上一篇续接下来，通过两个Class文件分析JVM规定的Class的文件结构，分析以jclasslib为主，Hex为辅。两个Class的源码如下：
+public interface ClassInterface {
 
-通过命令vimtutor，查看官方的入门文档。
-http://pizn.github.io/2012/03/03/vim-commonly-use">
+    void testInterface();
+
+    int returnInt();
+
+    int num = 1;
+
+    String str = &amp;quot">
 <meta property="og:type" content="article">
-<meta property="og:title" content="vim常用命令">
-<meta property="og:url" content="https://zgjai.github.io/2016/10/19/vim常用命令/index.html">
+<meta property="og:title" content="Class文件结构(三)">
+<meta property="og:url" content="https://zgjai.github.io/2016/10/27/Class文件结构-三/index.html">
 <meta property="og:site_name" content="知行合一">
-<meta property="og:description" content="vim常用命令在服务器上编辑文件的时候，只能通过vi去编辑，熟悉一些常用命令还是很有必要的。现在的系统，一般vi是等同于vim的，输入vi命令，实际也是使用的vim。如图1，通过软链接，将vi指向了vim。
-图1
-Google出来几个挺好的参考资料：
+<meta property="og:description" content="看系列上一篇续接下来，通过两个Class文件分析JVM规定的Class的文件结构，分析以jclasslib为主，Hex为辅。两个Class的源码如下：
+public interface ClassInterface {
 
-通过命令vimtutor，查看官方的入门文档。
-http://pizn.github.io/2012/03/03/vim-commonly-use">
-<meta property="og:image" content="http://o793hh4oz.bkt.clouddn.com/14766866192917.jpg">
-<meta property="og:updated_time" content="2016-10-19T12:03:20.000Z">
+    void testInterface();
+
+    int returnInt();
+
+    int num = 1;
+
+    String str = &amp;quot">
+<meta property="og:image" content="http://o793hh4oz.bkt.clouddn.com/14772743125046.jpg">
+<meta property="og:image" content="http://o793hh4oz.bkt.clouddn.com/14772743229192.jpg">
+<meta property="og:image" content="http://o793hh4oz.bkt.clouddn.com/14773570626501.jpg">
+<meta property="og:image" content="https://zgjai.github.io/media/14773585213202.jpg">
+<meta property="og:updated_time" content="2016-10-27T01:42:21.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="vim常用命令">
-<meta name="twitter:description" content="vim常用命令在服务器上编辑文件的时候，只能通过vi去编辑，熟悉一些常用命令还是很有必要的。现在的系统，一般vi是等同于vim的，输入vi命令，实际也是使用的vim。如图1，通过软链接，将vi指向了vim。
-图1
-Google出来几个挺好的参考资料：
+<meta name="twitter:title" content="Class文件结构(三)">
+<meta name="twitter:description" content="看系列上一篇续接下来，通过两个Class文件分析JVM规定的Class的文件结构，分析以jclasslib为主，Hex为辅。两个Class的源码如下：
+public interface ClassInterface {
 
-通过命令vimtutor，查看官方的入门文档。
-http://pizn.github.io/2012/03/03/vim-commonly-use">
-<meta name="twitter:image" content="http://o793hh4oz.bkt.clouddn.com/14766866192917.jpg">
+    void testInterface();
+
+    int returnInt();
+
+    int num = 1;
+
+    String str = &amp;quot">
+<meta name="twitter:image" content="http://o793hh4oz.bkt.clouddn.com/14772743125046.jpg">
 
 
 
@@ -133,9 +148,9 @@ http://pizn.github.io/2012/03/03/vim-commonly-use">
 
 
 
-  <link rel="canonical" href="https://zgjai.github.io/2016/10/19/vim常用命令/"/>
+  <link rel="canonical" href="https://zgjai.github.io/2016/10/27/Class文件结构-三/"/>
 
-  <title> vim常用命令 | 知行合一 </title>
+  <title> Class文件结构(三) | 知行合一 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -284,7 +299,7 @@ http://pizn.github.io/2012/03/03/vim-commonly-use">
             
             
               
-                vim常用命令
+                Class文件结构(三)
               
             
           </h1>
@@ -296,8 +311,8 @@ http://pizn.github.io/2012/03/03/vim-commonly-use">
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-10-19T20:02:08+08:00" content="2016-10-19">
-              2016-10-19
+            <time itemprop="dateCreated" datetime="2016-10-27T09:38:45+08:00" content="2016-10-27">
+              2016-10-27
             </time>
           </span>
 
@@ -310,8 +325,8 @@ http://pizn.github.io/2012/03/03/vim-commonly-use">
               <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Linux/" itemprop="url" rel="index">
-                    <span itemprop="name">Linux</span>
+                  <a href="/categories/JVM/" itemprop="url" rel="index">
+                    <span itemprop="name">JVM</span>
                   </a>
                 </span>
 
@@ -330,7 +345,7 @@ http://pizn.github.io/2012/03/03/vim-commonly-use">
 
           
           
-             <span id="/2016/10/19/vim常用命令/" class="leancloud_visitors" data-flag-title="vim常用命令">
+             <span id="/2016/10/27/Class文件结构-三/" class="leancloud_visitors" data-flag-title="Class文件结构(三)">
                &nbsp; | &nbsp;
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -352,15 +367,33 @@ http://pizn.github.io/2012/03/03/vim-commonly-use">
       
 
       
-        <h1 id="vim常用命令"><a href="#vim常用命令" class="headerlink" title="vim常用命令"></a>vim常用命令</h1><p>在服务器上编辑文件的时候，只能通过vi去编辑，熟悉一些常用命令还是很有必要的。现在的系统，一般vi是等同于vim的，输入vi命令，实际也是使用的vim。如图1，通过软链接，将vi指向了vim。</p>
-<h5 id="图1"><a href="#图1" class="headerlink" title="图1"></a>图1</h5><p><img src="http://o793hh4oz.bkt.clouddn.com/14766866192917.jpg" alt=""></p>
-<p>Google出来几个挺好的参考资料：</p>
-<ol>
-<li>通过命令<code>vimtutor</code>，查看官方的入门文档。</li>
-<li><a href="http://pizn.github.io/2012/03/03/vim-commonly-used-command.html" target="_blank" rel="external">http://pizn.github.io/2012/03/03/vim-commonly-used-command.html</a></li>
-<li><a href="https://segmentfault.com/a/1190000004341413" target="_blank" rel="external">https://segmentfault.com/a/1190000004341413</a></li>
-</ol>
+        <h3 id="看系列上一篇"><a href="#看系列上一篇" class="headerlink" title="看系列上一篇"></a><a href="https://zgjai.github.io/2016/10/20/Class文件结构-二/">看系列上一篇</a></h3><h3 id="续"><a href="#续" class="headerlink" title="续"></a>续</h3><p>接下来，通过两个Class文件分析JVM规定的Class的文件结构，分析以jclasslib为主，Hex为辅。两个Class的源码如下：</p>
+<pre><code>public interface ClassInterface {
 
+    void testInterface();
+
+    int returnInt();
+
+    int num = 1;
+
+    String str = &quot;str&quot;;
+}
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div></pre></td><td class="code"><pre><div class="line">public class ClassStructureTest implements ClassInterface &#123;</div><div class="line">    private static final String privateFinalStaticString = &quot;privateFinalStaticStringValue&quot;;</div><div class="line">    private static String privateStaticString = &quot;privateStaticStringValue&quot;;</div><div class="line">    private final String privateFinalString = &quot;privateFinalStringValue&quot;;</div><div class="line">    public String publicString = &quot;publicStringValue&quot;;</div><div class="line">    private String privateString = &quot;privateStringValue&quot;;</div><div class="line">    public Integer publicInteger = 0x33;</div><div class="line">    private int privateInt = 0x44;</div><div class="line">    private final Long privateFinalLong = 0x1111L;</div><div class="line">    public final long publicFinalNativeLong = 0x2222L;</div><div class="line">    private static final List&lt;String&gt; privateStaticFinalStringList = new ArrayList&lt;String&gt;();</div><div class="line">    public static Map&lt;String, String&gt; publicStaticMap = new HashMap&lt;String, String&gt;();</div><div class="line">    public static final int num = 2;</div><div class="line"></div><div class="line">    static &#123;</div><div class="line">        privateStaticFinalStringList.add(&quot;first&quot;);</div><div class="line">        privateStaticFinalStringList.add(&quot;second&quot;);</div><div class="line">        privateStaticFinalStringList.add(&quot;third&quot;);</div><div class="line"></div><div class="line">        publicStaticMap.put(&quot;1&quot;, &quot;firstValue&quot;);</div><div class="line">        publicStaticMap.put(&quot;2&quot;, &quot;secondValue&quot;);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    public static void staticFunction() &#123;</div><div class="line">        System.out.print(&quot;staticFunction&quot;);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    public void function() &#123;</div><div class="line">        System.out.print(&quot;function&quot;);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    public void testInterface() &#123;</div><div class="line"></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    public int returnInt() &#123;</div><div class="line">        return 0;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>可以看到第一个是一个接口，第二个是一个继承了这个接口的类。<a href="#2-1">图2-1</a>是ClassInterface的Class文件结构，<a href="#2-2">图2-2</a>是ClassStructureTest的Class文件结构。<a href="#2-3">图2-3</a>是Object的Class文件结构。</p>
+<p></p><h5 id="2-1">图2-1</h5><br><img src="http://o793hh4oz.bkt.clouddn.com/14772743125046.jpg" alt=""><p></p>
+<p></p><h5 id="2-2">图2-2</h5><br><img src="http://o793hh4oz.bkt.clouddn.com/14772743229192.jpg" alt=""><p></p>
+<p></p><h5 id="2-3">图2-3</h5><br><img src="http://o793hh4oz.bkt.clouddn.com/14773570626501.jpg" alt=""><p></p>
+<p>从上面3张图中，可以清晰的看出JVM规范中定义的Class的文件结构，其中magic字段没有写出，因为每个Class文件的magic字段都一样，为一个定值(0xCAFEBABE)。<br>其他的字段都是按照规范中定义的顺序依次列出的，其中5个数组结构的对应着图中左侧5个折叠的文件夹，需要注意的是，但某个数组为空时，可以看到其样式不再是文件夹，而是普通的文件。<br>比如<a href="#2-1">图2-1</a>中  <strong>Interfaces count</strong>  为0，相应的 <strong>Interfaces[]</strong> 数组就为空。而在实际存储时，如果数组为空，则不占用任何字节。如<a href="#1-2">图1-2</a>，这是ClassInterface类的Class文件由Hex打开的一部分内容，截图内容从 <strong>Access flags</strong> 开始，为0x0601，跟<a href="#2-1">图2-1</a>中是相符合的，接下去是 <strong>This class</strong> 为0x0001， <strong>Super class</strong> 为0x0002。再接下去，就应该是 <strong>Interfaces count</strong> 的值，为0x0000，即为0，这时 <strong>Interfaces[]</strong> 为空，不占用任何字节，从 <a href="#1-2">图1-2</a> 中可以看到在0x0000之后是0x0002，这个其实是 <strong>Fields count</strong> 的值。</p>
+<p></p><h5 id="1-2">图1-2</h5><br><img src="media/14773585213202.jpg" alt=""><p></p>
+<p>下面结合3张图，看一下这3个类的Class文件属性都有什么异同。</p>
+<ul>
+<li>由于3个Class文件都是由1.8版本的javac编译而成，所以它们的 <strong>Minor version</strong> 和 <strong>Major version</strong> 都相同。</li>
+<li><strong>Constant pool count</strong> 即 <strong>常量池大小</strong> 完全跟类的具体内容相关，所以3个Class文件的该值均不同是完全正常的（当然了，这个值也是可能一样的）。</li>
+<li><strong>Access flags</strong> 表示类的访问属性，可以看到两个public class (<em>Object, ClassStructureTest</em>) 的属性值都为0x0021，这是由两个flag (<em>ACC_PUBLIC, ACC_SUPER</em>) 构成，其中 <em>ACC_SUPER</em> 是现代编译器编译class和enum时都会设置的(interface和annotation不会)。再来看ClassInterface的访问属性，为0x0601 (<em>ACC_PUBLIC, ACC_INTERFACE, ACC_ABSTRACT</em>)，public,interface都很好理解，而接口自然是抽象的，没有具体实现的，所以也设置了abstract属性。一个public enum的访问属性值为 0x4031， 一个public annotation的访问属性值为 0x2601，可以自己思考一下为什么。</li>
+<li><strong>This class | Super class</strong> 是当前类或者父类的信息在常量池中的索引，他们在常量池中的存储结构都是一样的，具体的结构后续讲。需要注意的是Object的父类，我们都知道java中Object是终极父类，它自己是没有父类的。这时候前文讲到的 <strong>常量池中存储着这个class相关的所有常量，它的大小是所有常量的数量加1，因为index为0时，内容为空。</strong> 就派上用场了，将Object的父类的索引指向常量池中不存在的0就可以了，表示不存在。</li>
+<li>下面几个count都是类中实际信息得出的值，没什么好说的，有兴趣的可以自己数一下。</li>
+</ul>
+<h4 id="下一篇将会展开看几个池的存储内容和结构"><a href="#下一篇将会展开看几个池的存储内容和结构" class="headerlink" title="下一篇将会展开看几个池的存储内容和结构"></a>下一篇将会展开看几个池的存储内容和结构</h4><h3 id="未完待续。。。"><a href="#未完待续。。。" class="headerlink" title="未完待续。。。"></a>未完待续。。。</h3>
       
     </div>
 
@@ -403,11 +436,9 @@ http://pizn.github.io/2012/03/03/vim-commonly-use">
       
         <div class="post-tags">
           
-            <a href="/tags/vim/" rel="tag">#vim</a>
+            <a href="/tags/JVM/" rel="tag">#JVM</a>
           
-            <a href="/tags/Linux/" rel="tag">#Linux</a>
-          
-            <a href="/tags/工具/" rel="tag">#工具</a>
+            <a href="/tags/Class文件结构/" rel="tag">#Class文件结构</a>
           
         </div>
       
@@ -416,17 +447,13 @@ http://pizn.github.io/2012/03/03/vim-commonly-use">
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/10/14/Class文件结构-一/" rel="next" title="Class文件结构(一)">
-                <i class="fa fa-chevron-left"></i> Class文件结构(一)
+              <a href="/2016/10/20/Class文件结构-二/" rel="next" title="Class文件结构(二)">
+                <i class="fa fa-chevron-left"></i> Class文件结构(二)
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/10/20/Class文件结构-二/" rel="prev" title="Class文件结构(二)">
-                Class文件结构(二) <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -451,11 +478,11 @@ http://pizn.github.io/2012/03/03/vim-commonly-use">
         </div>
 
         <div class="copyright" style="clear:both;">
-           <p><span>本文标题:</span><a href="/2016/10/19/vim常用命令/">vim常用命令</a></p>
+           <p><span>本文标题:</span><a href="/2016/10/27/Class文件结构-三/">Class文件结构(三)</a></p>
            <p><span>文章作者:</span><a href="/" title="访问 guijiang.zhang 的个人博客">guijiang.zhang</a></p>
-           <p><span>发布时间:</span>2016年10月19日 - 20时10分</p>
-           <p><span>最后更新:</span>2016年10月19日 - 20时10分</p>
-           <p><span>原始链接:</span><a href="/2016/10/19/vim常用命令/" title="vim常用命令">https://zgjai.github.io/2016/10/19/vim常用命令/</a></p>
+           <p><span>发布时间:</span>2016年10月27日 - 09时10分</p>
+           <p><span>最后更新:</span>2016年10月27日 - 09时10分</p>
+           <p><span>原始链接:</span><a href="/2016/10/27/Class文件结构-三/" title="Class文件结构(三)">https://zgjai.github.io/2016/10/27/Class文件结构-三/</a></p>
            <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/" title="Attribution-NonCommercial 4.0 International (CC BY-NC 4.0)">Attribution-NonCommercial 4.0</a></p>
            <p><span>转载请保留以上信息。</span></p>
         </div>
@@ -562,7 +589,7 @@ http://pizn.github.io/2012/03/03/vim-commonly-use">
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#vim常用命令"><span class="nav-number">1.</span> <span class="nav-text">vim常用命令</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#图1"><span class="nav-number">1.0.0.0.1.</span> <span class="nav-text">图1</span></a></li></ol></li></ol></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#看系列上一篇"><span class="nav-number">1.</span> <span class="nav-text">看系列上一篇</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#续"><span class="nav-number">2.</span> <span class="nav-text">续</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#2-1"><span class="nav-number">2.0.1.</span> <span class="nav-text">图2-1</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-2"><span class="nav-number">2.0.2.</span> <span class="nav-text">图2-2</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-3"><span class="nav-number">2.0.3.</span> <span class="nav-text">图2-3</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#1-2"><span class="nav-number">2.0.4.</span> <span class="nav-text">图1-2</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#下一篇将会展开看几个池的存储内容和结构"><span class="nav-number">2.1.</span> <span class="nav-text">下一篇将会展开看几个池的存储内容和结构</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#未完待续。。。"><span class="nav-number">3.</span> <span class="nav-text">未完待续。。。</span></a></li></ol></div>
             
           </div>
         </section>
