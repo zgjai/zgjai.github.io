@@ -114,7 +114,7 @@ public interface ClassInterface {
 <meta property="og:image" content="http://o793hh4oz.bkt.clouddn.com/14772743229192.jpg">
 <meta property="og:image" content="http://o793hh4oz.bkt.clouddn.com/14773570626501.jpg">
 <meta property="og:image" content="http://o793hh4oz.bkt.clouddn.com/14773585213202.jpg">
-<meta property="og:updated_time" content="2016-10-27T01:50:00.000Z">
+<meta property="og:updated_time" content="2016-11-10T02:08:42.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Class文件结构(三)">
 <meta name="twitter:description" content="看系列上一篇续接下来，通过两个Class文件分析JVM规定的Class的文件结构，分析以jclasslib为主，Hex为辅。两个Class的源码如下：
@@ -393,7 +393,7 @@ public interface ClassInterface {
 <li><strong>This class | Super class</strong> 是当前类或者父类的信息在常量池中的索引，他们在常量池中的存储结构都是一样的，具体的结构后续讲。需要注意的是Object的父类，我们都知道java中Object是终极父类，它自己是没有父类的。这时候前文讲到的 <strong>常量池中存储着这个class相关的所有常量，它的大小是所有常量的数量加1，因为index为0时，内容为空。</strong> 就派上用场了，将Object的父类的索引指向常量池中不存在的0就可以了，表示不存在。</li>
 <li>下面几个count都是类中实际信息得出的值，没什么好说的，有兴趣的可以自己数一下。</li>
 </ul>
-<h4 id="下一篇将会展开看几个池的存储内容和结构"><a href="#下一篇将会展开看几个池的存储内容和结构" class="headerlink" title="下一篇将会展开看几个池的存储内容和结构"></a>下一篇将会展开看几个池的存储内容和结构</h4><h3 id="未完待续。。。"><a href="#未完待续。。。" class="headerlink" title="未完待续。。。"></a>未完待续。。。</h3>
+<h4 id="下一篇将会展开看几个池的存储内容和结构"><a href="#下一篇将会展开看几个池的存储内容和结构" class="headerlink" title="下一篇将会展开看几个池的存储内容和结构"></a>下一篇将会展开看几个池的存储内容和结构</h4><h3 id="未完待续。。。"><a href="#未完待续。。。" class="headerlink" title="未完待续。。。"></a>未完待续。。。</h3><h3 id="看系列下一篇"><a href="#看系列下一篇" class="headerlink" title="看系列下一篇"></a><a href="https://zgjai.github.io/2016/11/10/Class文件结构-四/#more">看系列下一篇</a></h3>
       
     </div>
 
@@ -485,7 +485,7 @@ public interface ClassInterface {
            <p><span>本文标题:</span><a href="/2016/10/27/Class文件结构-三/">Class文件结构(三)</a></p>
            <p><span>文章作者:</span><a href="/" title="访问 guijiang.zhang 的个人博客">guijiang.zhang</a></p>
            <p><span>发布时间:</span>2016年10月27日 - 09时10分</p>
-           <p><span>最后更新:</span>2016年10月27日 - 09时10分</p>
+           <p><span>最后更新:</span>2016年11月10日 - 10时11分</p>
            <p><span>原始链接:</span><a href="/2016/10/27/Class文件结构-三/" title="Class文件结构(三)">https://zgjai.github.io/2016/10/27/Class文件结构-三/</a></p>
            <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/" title="Attribution-NonCommercial 4.0 International (CC BY-NC 4.0)">Attribution-NonCommercial 4.0</a></p>
            <p><span>转载请保留以上信息。</span></p>
@@ -547,7 +547,7 @@ public interface ClassInterface {
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">6</span>
+              <span class="site-state-item-count">7</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -593,7 +593,7 @@ public interface ClassInterface {
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#看系列上一篇"><span class="nav-number">1.</span> <span class="nav-text">看系列上一篇</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#续"><span class="nav-number">2.</span> <span class="nav-text">续</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#2-1"><span class="nav-number">2.0.1.</span> <span class="nav-text">图2-1</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-2"><span class="nav-number">2.0.2.</span> <span class="nav-text">图2-2</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-3"><span class="nav-number">2.0.3.</span> <span class="nav-text">图2-3</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#1-2"><span class="nav-number">2.0.4.</span> <span class="nav-text">图1-2</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#下一篇将会展开看几个池的存储内容和结构"><span class="nav-number">2.1.</span> <span class="nav-text">下一篇将会展开看几个池的存储内容和结构</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#未完待续。。。"><span class="nav-number">3.</span> <span class="nav-text">未完待续。。。</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#看系列上一篇"><span class="nav-number">1.</span> <span class="nav-text">看系列上一篇</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#续"><span class="nav-number">2.</span> <span class="nav-text">续</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#2-1"><span class="nav-number">2.0.1.</span> <span class="nav-text">图2-1</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-2"><span class="nav-number">2.0.2.</span> <span class="nav-text">图2-2</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-3"><span class="nav-number">2.0.3.</span> <span class="nav-text">图2-3</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#1-2"><span class="nav-number">2.0.4.</span> <span class="nav-text">图1-2</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#下一篇将会展开看几个池的存储内容和结构"><span class="nav-number">2.1.</span> <span class="nav-text">下一篇将会展开看几个池的存储内容和结构</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#未完待续。。。"><span class="nav-number">3.</span> <span class="nav-text">未完待续。。。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#看系列下一篇"><span class="nav-number">4.</span> <span class="nav-text">看系列下一篇</span></a></li></ol></div>
             
           </div>
         </section>

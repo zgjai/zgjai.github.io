@@ -70,7 +70,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Linux,工具,vim," />
+  <meta name="keywords" content="JVM,Class文件结构," />
 
 
 
@@ -86,33 +86,45 @@
 
 
 
-<meta name="description" content="vim常用命令在服务器上编辑文件的时候，只能通过vi去编辑，熟悉一些常用命令还是很有必要的。现在的系统，一般vi是等同于vim的，输入vi命令，实际也是使用的vim。如图1，通过软链接，将vi指向了vim。
-图1
-Google出来几个挺好的参考资料：
-
-通过命令vimtutor，查看官方的入门文档。
-http://pizn.github.io/2012/03/03/vim-commonly-use">
+<meta name="description" content="看系列上一篇续最近在看《自己动手写Java虚拟机》，作者也写了一个查看Class文件结构的工具，叫classpy，可以直接在github上下到jar包。
+图3-1
+图3-1就是该软件的截图。
+接下来，详细了解一下常量池(Constant pool)的存储结构。常量池中的内容都符合这样的格式:
+cp_info {
+    u1 tag;
+    u1 info[];
+}
+其中tag的作用就是标识 i">
 <meta property="og:type" content="article">
-<meta property="og:title" content="vim常用命令">
-<meta property="og:url" content="https://zgjai.github.io/2016/10/19/vim常用命令/index.html">
+<meta property="og:title" content="Class文件结构(四)">
+<meta property="og:url" content="https://zgjai.github.io/2016/11/10/Class文件结构-四/index.html">
 <meta property="og:site_name" content="知行合一">
-<meta property="og:description" content="vim常用命令在服务器上编辑文件的时候，只能通过vi去编辑，熟悉一些常用命令还是很有必要的。现在的系统，一般vi是等同于vim的，输入vi命令，实际也是使用的vim。如图1，通过软链接，将vi指向了vim。
-图1
-Google出来几个挺好的参考资料：
-
-通过命令vimtutor，查看官方的入门文档。
-http://pizn.github.io/2012/03/03/vim-commonly-use">
-<meta property="og:image" content="http://o793hh4oz.bkt.clouddn.com/14766866192917.jpg">
-<meta property="og:updated_time" content="2016-10-19T12:03:20.000Z">
+<meta property="og:description" content="看系列上一篇续最近在看《自己动手写Java虚拟机》，作者也写了一个查看Class文件结构的工具，叫classpy，可以直接在github上下到jar包。
+图3-1
+图3-1就是该软件的截图。
+接下来，详细了解一下常量池(Constant pool)的存储结构。常量池中的内容都符合这样的格式:
+cp_info {
+    u1 tag;
+    u1 info[];
+}
+其中tag的作用就是标识 i">
+<meta property="og:image" content="http://o793hh4oz.bkt.clouddn.com/14785682357420.jpg">
+<meta property="og:image" content="http://o793hh4oz.bkt.clouddn.com/14787405615222.jpg">
+<meta property="og:image" content="http://o793hh4oz.bkt.clouddn.com/14787415639542.jpg">
+<meta property="og:image" content="http://o793hh4oz.bkt.clouddn.com/14787431628554.jpg">
+<meta property="og:updated_time" content="2016-11-10T02:09:10.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="vim常用命令">
-<meta name="twitter:description" content="vim常用命令在服务器上编辑文件的时候，只能通过vi去编辑，熟悉一些常用命令还是很有必要的。现在的系统，一般vi是等同于vim的，输入vi命令，实际也是使用的vim。如图1，通过软链接，将vi指向了vim。
-图1
-Google出来几个挺好的参考资料：
-
-通过命令vimtutor，查看官方的入门文档。
-http://pizn.github.io/2012/03/03/vim-commonly-use">
-<meta name="twitter:image" content="http://o793hh4oz.bkt.clouddn.com/14766866192917.jpg">
+<meta name="twitter:title" content="Class文件结构(四)">
+<meta name="twitter:description" content="看系列上一篇续最近在看《自己动手写Java虚拟机》，作者也写了一个查看Class文件结构的工具，叫classpy，可以直接在github上下到jar包。
+图3-1
+图3-1就是该软件的截图。
+接下来，详细了解一下常量池(Constant pool)的存储结构。常量池中的内容都符合这样的格式:
+cp_info {
+    u1 tag;
+    u1 info[];
+}
+其中tag的作用就是标识 i">
+<meta name="twitter:image" content="http://o793hh4oz.bkt.clouddn.com/14785682357420.jpg">
 
 
 
@@ -133,9 +145,9 @@ http://pizn.github.io/2012/03/03/vim-commonly-use">
 
 
 
-  <link rel="canonical" href="https://zgjai.github.io/2016/10/19/vim常用命令/"/>
+  <link rel="canonical" href="https://zgjai.github.io/2016/11/10/Class文件结构-四/"/>
 
-  <title> vim常用命令 | 知行合一 </title>
+  <title> Class文件结构(四) | 知行合一 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -284,7 +296,7 @@ http://pizn.github.io/2012/03/03/vim-commonly-use">
             
             
               
-                vim常用命令
+                Class文件结构(四)
               
             
           </h1>
@@ -296,8 +308,8 @@ http://pizn.github.io/2012/03/03/vim-commonly-use">
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-10-19T20:02:08+08:00" content="2016-10-19">
-              2016-10-19
+            <time itemprop="dateCreated" datetime="2016-11-10T10:07:05+08:00" content="2016-11-10">
+              2016-11-10
             </time>
           </span>
 
@@ -310,8 +322,8 @@ http://pizn.github.io/2012/03/03/vim-commonly-use">
               <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Linux/" itemprop="url" rel="index">
-                    <span itemprop="name">Linux</span>
+                  <a href="/categories/JVM/" itemprop="url" rel="index">
+                    <span itemprop="name">JVM</span>
                   </a>
                 </span>
 
@@ -330,7 +342,7 @@ http://pizn.github.io/2012/03/03/vim-commonly-use">
 
           
           
-             <span id="/2016/10/19/vim常用命令/" class="leancloud_visitors" data-flag-title="vim常用命令">
+             <span id="/2016/11/10/Class文件结构-四/" class="leancloud_visitors" data-flag-title="Class文件结构(四)">
                &nbsp; | &nbsp;
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -352,15 +364,53 @@ http://pizn.github.io/2012/03/03/vim-commonly-use">
       
 
       
-        <h1 id="vim常用命令"><a href="#vim常用命令" class="headerlink" title="vim常用命令"></a>vim常用命令</h1><p>在服务器上编辑文件的时候，只能通过vi去编辑，熟悉一些常用命令还是很有必要的。现在的系统，一般vi是等同于vim的，输入vi命令，实际也是使用的vim。如图1，通过软链接，将vi指向了vim。</p>
-<h5 id="图1"><a href="#图1" class="headerlink" title="图1"></a>图1</h5><p><img src="http://o793hh4oz.bkt.clouddn.com/14766866192917.jpg" alt=""></p>
-<p>Google出来几个挺好的参考资料：</p>
-<ol>
-<li>通过命令<code>vimtutor</code>，查看官方的入门文档。</li>
-<li><a href="http://pizn.github.io/2012/03/03/vim-commonly-used-command.html" target="_blank" rel="external">http://pizn.github.io/2012/03/03/vim-commonly-used-command.html</a></li>
-<li><a href="https://segmentfault.com/a/1190000004341413" target="_blank" rel="external">https://segmentfault.com/a/1190000004341413</a></li>
-</ol>
-
+        <h3 id="看系列上一篇"><a href="#看系列上一篇" class="headerlink" title="看系列上一篇"></a><a href="https://zgjai.github.io/2016/10/27/Class文件结构-三/#more">看系列上一篇</a></h3><h3 id="续"><a href="#续" class="headerlink" title="续"></a>续</h3><p>最近在看《自己动手写Java虚拟机》，作者也写了一个查看Class文件结构的工具，叫classpy，可以直接在github上下到jar包。</p>
+<p></p><h5 id="3-1">图3-1</h5><br><img src="http://o793hh4oz.bkt.clouddn.com/14785682357420.jpg" alt=""><p></p>
+<p><a href="#3-1">图3-1</a>就是该软件的截图。</p>
+<p>接下来，详细了解一下常量池(<strong>Constant pool</strong>)的存储结构。常量池中的内容都符合这样的格式:</p>
+<pre><code>cp_info {
+    u1 tag;
+    u1 info[];
+}
+</code></pre><p>其中tag的作用就是标识 <strong>info[]</strong> 应该是什么样的内容，具体的不同类型与tag的对应关系可以参见<a href="http://docs.oracle.com/javase/specs/jvms/se8/html/jvms-4.html#jvms-4.4-140" target="_blank" rel="external">点我</a>。表格中第一列就是存储的数据的类型，第二列就是相应的tag值。</p>
+<p>我们按 <em>tag值从小到大的顺序</em> 来了解一下每种类型的结构。</p>
+<h4 id="CONSTANT-Utf8-info"><a href="#CONSTANT-Utf8-info" class="headerlink" title="CONSTANT_Utf8_info"></a>CONSTANT_Utf8_info</h4><p>该类型结构为</p>
+<pre><code>CONSTANT_Utf8_info {
+    u1 tag;
+    u2 length;
+    u1 bytes[length];
+}
+</code></pre><p></p><h5 id="3-2">图3-2</h5><br><img src="http://o793hh4oz.bkt.clouddn.com/14787405615222.jpg" alt=""><br><a href="#3-2">图3-2</a>是常量池中索引为70的位置存储的数据，类型是Utf8。<p></p>
+<ul>
+<li>tag<br>  此处应为1，<a href="#3-2">图3-2</a>中tag符合。</li>
+<li>length<br>  bytes[]数据长度，因为该字段占用2个字节，最大为65535，也就意味着代码中方法变量命名，最大不能超过64KB(因为可以为中文，中文占用的大小跟英文不一样，只能通过占用空间大小判断)。<a href="#3-2">图3-2</a>中存储的数据长度为7，可以通过存储的内容 <em>zeroInt</em> 验证。</li>
+<li>bytes[]<br>  bytes[]中存储着采用了 <a href="http://docs.oracle.com/javase/7/docs/api/java/io/DataInput.html#modified-utf-8" target="_blank" rel="external"><strong>Modified UTF-8</strong></a> 编码的数据。<a href="#3-2">图3-2</a>中即为 <em>zeroInt</em> ，这实际上是在java文件中定义的一个变量的名称。</li>
+</ul>
+<h4 id="CONSTANT-Integer-info"><a href="#CONSTANT-Integer-info" class="headerlink" title="CONSTANT_Integer_info"></a>CONSTANT_Integer_info</h4><p>该结构类型为</p>
+<pre><code>CONSTANT_Integer_info {
+    u1 tag;
+    u4 bytes;
+}
+</code></pre><p></p><h5 id="3-3">图3-3</h5><br><img src="http://o793hh4oz.bkt.clouddn.com/14787415639542.jpg" alt=""><br><a href="#3-3">图3-3</a>是常量池中索引为69的位置存储的数据，类型是Integer。<p></p>
+<ul>
+<li>tag<br>  此处应为3</li>
+<li>bytes<br>  存储着int常量的值，占用4个字节，按大端字节序存储。</li>
+</ul>
+<h4 id="CONSTANT-Float-info"><a href="#CONSTANT-Float-info" class="headerlink" title="CONSTANT_Float_info"></a>CONSTANT_Float_info</h4><p>该类型其实跟 <strong>CONSTANT_Integer_info</strong> 结构完全一样，区别在于bytes中存储的是符合 <strong>IEEE 754</strong> 标准的浮点数，tag值为4。</p>
+<h4 id="CONSTANT-Long-info"><a href="#CONSTANT-Long-info" class="headerlink" title="CONSTANT_Long_info"></a>CONSTANT_Long_info</h4><p>该类型结构为</p>
+<pre><code>CONSTANT_Long_info {
+   u1 tag;
+   u4 high_bytes;
+   u4 low_bytes;
+}
+</code></pre><p></p><h5 id="3-4">图3-4</h5><br><img src="http://o793hh4oz.bkt.clouddn.com/14787431628554.jpg" alt=""><br><a href="#3-4">图3-4</a>是常量池中索引为11的位置存储的数据，类型是Long。<br><strong>注意</strong><br>在Class文件中，所有占用8字节的常量(Long、Double)，都会被分为两部分，在常量池中也会占用两个位置，如<a href="#3-4">图3-4</a>中的Long常量，就占用了索引位置为11和12的两个位置。下一个常量池中的数据的索引就是13。<p></p>
+<ul>
+<li>tag<br>  此处应为5</li>
+<li>high_bytes<br>  Long型常量的高4字节的数据</li>
+<li>low_bytes<br>  Long型常量的低4字节的数据</li>
+</ul>
+<h4 id="CONSTANT-Double-info"><a href="#CONSTANT-Double-info" class="headerlink" title="CONSTANT_Double_info"></a>CONSTANT_Double_info</h4><p>该类型其实跟 <strong>CONSTANT_Long_info</strong> 结构完全一样，区别在于bytes中存储的是符合 <strong>IEEE 754</strong> 标准的浮点数，tag值为6。</p>
+<h3 id="未完待续。。。"><a href="#未完待续。。。" class="headerlink" title="未完待续。。。"></a>未完待续。。。</h3>
       
     </div>
 
@@ -403,11 +453,9 @@ http://pizn.github.io/2012/03/03/vim-commonly-use">
       
         <div class="post-tags">
           
-            <a href="/tags/Linux/" rel="tag">#Linux</a>
+            <a href="/tags/JVM/" rel="tag">#JVM</a>
           
-            <a href="/tags/工具/" rel="tag">#工具</a>
-          
-            <a href="/tags/vim/" rel="tag">#vim</a>
+            <a href="/tags/Class文件结构/" rel="tag">#Class文件结构</a>
           
         </div>
       
@@ -416,17 +464,13 @@ http://pizn.github.io/2012/03/03/vim-commonly-use">
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/10/14/Class文件结构-一/" rel="next" title="Class文件结构(一)">
-                <i class="fa fa-chevron-left"></i> Class文件结构(一)
+              <a href="/2016/11/02/Top命令详解-一/" rel="next" title="Top命令详解(一)">
+                <i class="fa fa-chevron-left"></i> Top命令详解(一)
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/10/20/Class文件结构-二/" rel="prev" title="Class文件结构(二)">
-                Class文件结构(二) <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -451,11 +495,11 @@ http://pizn.github.io/2012/03/03/vim-commonly-use">
         </div>
 
         <div class="copyright" style="clear:both;">
-           <p><span>本文标题:</span><a href="/2016/10/19/vim常用命令/">vim常用命令</a></p>
+           <p><span>本文标题:</span><a href="/2016/11/10/Class文件结构-四/">Class文件结构(四)</a></p>
            <p><span>文章作者:</span><a href="/" title="访问 guijiang.zhang 的个人博客">guijiang.zhang</a></p>
-           <p><span>发布时间:</span>2016年10月19日 - 20时10分</p>
-           <p><span>最后更新:</span>2016年10月19日 - 20时10分</p>
-           <p><span>原始链接:</span><a href="/2016/10/19/vim常用命令/" title="vim常用命令">https://zgjai.github.io/2016/10/19/vim常用命令/</a></p>
+           <p><span>发布时间:</span>2016年11月10日 - 10时11分</p>
+           <p><span>最后更新:</span>2016年11月10日 - 10时11分</p>
+           <p><span>原始链接:</span><a href="/2016/11/10/Class文件结构-四/" title="Class文件结构(四)">https://zgjai.github.io/2016/11/10/Class文件结构-四/</a></p>
            <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/" title="Attribution-NonCommercial 4.0 International (CC BY-NC 4.0)">Attribution-NonCommercial 4.0</a></p>
            <p><span>转载请保留以上信息。</span></p>
         </div>
@@ -562,7 +606,7 @@ http://pizn.github.io/2012/03/03/vim-commonly-use">
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#vim常用命令"><span class="nav-number">1.</span> <span class="nav-text">vim常用命令</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#图1"><span class="nav-number">1.0.0.0.1.</span> <span class="nav-text">图1</span></a></li></ol></li></ol></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#看系列上一篇"><span class="nav-number">1.</span> <span class="nav-text">看系列上一篇</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#续"><span class="nav-number">2.</span> <span class="nav-text">续</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#3-1"><span class="nav-number">2.0.1.</span> <span class="nav-text">图3-1</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#CONSTANT-Utf8-info"><span class="nav-number">2.1.</span> <span class="nav-text">CONSTANT_Utf8_info</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#3-2"><span class="nav-number">2.1.1.</span> <span class="nav-text">图3-2</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#CONSTANT-Integer-info"><span class="nav-number">2.2.</span> <span class="nav-text">CONSTANT_Integer_info</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#3-3"><span class="nav-number">2.2.1.</span> <span class="nav-text">图3-3</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#CONSTANT-Float-info"><span class="nav-number">2.3.</span> <span class="nav-text">CONSTANT_Float_info</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#CONSTANT-Long-info"><span class="nav-number">2.4.</span> <span class="nav-text">CONSTANT_Long_info</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#3-4"><span class="nav-number">2.4.1.</span> <span class="nav-text">图3-4</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#CONSTANT-Double-info"><span class="nav-number">2.5.</span> <span class="nav-text">CONSTANT_Double_info</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#未完待续。。。"><span class="nav-number">3.</span> <span class="nav-text">未完待续。。。</span></a></li></ol></div>
             
           </div>
         </section>
