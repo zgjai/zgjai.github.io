@@ -5,10 +5,10 @@
   
 
 
-<html class="theme-next mist use-motion">
+<html class="theme-next mist use-motion" lang="zh-Hans">
 <head>
   <meta charset="UTF-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 
 
@@ -65,21 +65,21 @@
 
 
 
-<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
 
-<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
-
-
-  <meta name="keywords" content="性能分析,Linux,工具," />
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
+  <meta name="keywords" content="Linux,工具,性能分析," />
 
 
 
 
 
 
-  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
 
 
 
@@ -116,24 +116,35 @@ top是在服务器上查看系统整体负载与运行情况的非常好的命�
 
 
 
-<script type="text/javascript" id="hexo.configuration">
+<script type="text/javascript" id="hexo.configurations">
   var NexT = window.NexT || {};
   var CONFIG = {
+    root: '/',
     scheme: 'Mist',
     sidebar: {"position":"left","display":"hide"},
     fancybox: true,
     motion: true,
     duoshuo: {
-      userId: 0,
+      userId: '0',
       author: 'guijiang.zhang'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: "",
+      labels: ""
     }
   };
 </script>
 
 
 
-
   <link rel="canonical" href="https://zgjai.github.io/2016/11/02/Top命令详解-一/"/>
+
+
+
+
 
   <title> Top命令详解(一) | 知行合一 </title>
 </head>
@@ -254,6 +265,8 @@ top是在服务器上查看系统整体负载与运行情况的非常好的命�
   
 </nav>
 
+
+
  </div>
     </header>
 
@@ -267,13 +280,26 @@ top是在服务器上查看系统整体负载与运行情况的非常好的命�
     
 
   
-  
 
   
   
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="https://zgjai.github.io/2016/11/02/Top命令详解-一/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="guijiang.zhang">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/images/pic.jpg">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="知行合一">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="知行合一" src="">
+    </span>
+  </span>
 
     
       <header class="post-header">
@@ -296,9 +322,19 @@ top是在服务器上查看系统整体负载与运行情况的非常好的命�
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-11-02T13:17:32+08:00" content="2016-11-02">
+            <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-11-02T13:17:32+08:00">
               2016-11-02
             </time>
+
+            &nbsp;|&nbsp;
+
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-check-o"></i>
+            </span>
+            <time title="Post modified" itemprop="dateModified" datetime="2016-11-11T15:02:53+08:00">
+              2016-11-11
+            </time>
+            
           </span>
 
           
@@ -309,7 +345,7 @@ top是在服务器上查看系统整体负载与运行情况的非常好的命�
               </span>
               <span class="post-meta-item-text">分类于</span>
               
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
                   <a href="/categories/Linux/" itemprop="url" rel="index">
                     <span itemprop="name">Linux</span>
                   </a>
@@ -321,7 +357,7 @@ top是在服务器上查看系统整体负载与运行情况的非常好的命�
                 
 
               
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
                   <a href="/categories/Linux/性能分析工具/" itemprop="url" rel="index">
                     <span itemprop="name">性能分析工具</span>
                   </a>
@@ -353,6 +389,9 @@ top是在服务器上查看系统整体负载与运行情况的非常好的命�
           
 
           
+          
+          
+
         </div>
       </header>
     
@@ -449,15 +488,16 @@ top是在服务器上查看系统整体负载与运行情况的非常好的命�
       
     </div>
 
+
     <footer class="post-footer">
       
         <div class="post-tags">
           
-            <a href="/tags/性能分析/" rel="tag">#性能分析</a>
+            <a href="/tags/Linux/" rel="tag"># Linux</a>
           
-            <a href="/tags/Linux/" rel="tag">#Linux</a>
+            <a href="/tags/工具/" rel="tag"># 工具</a>
           
-            <a href="/tags/工具/" rel="tag">#工具</a>
+            <a href="/tags/性能分析/" rel="tag"># 性能分析</a>
           
         </div>
       
@@ -471,6 +511,8 @@ top是在服务器上查看系统整体负载与运行情况的非常好的命�
               </a>
             
           </div>
+
+          <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
             
@@ -493,28 +535,6 @@ top是在服务器上查看系统整体负载与运行情况的非常好的命�
       
     </div>
   </div>
-
-  <div class="page-footer">
-      
-        <div id="eof" class="print-invisible">
-          <hr class="eof">
-        </div>
-
-        <div class="copyright" style="clear:both;">
-           <p><span>本文标题:</span><a href="/2016/11/02/Top命令详解-一/">Top命令详解(一)</a></p>
-           <p><span>文章作者:</span><a href="/" title="访问 guijiang.zhang 的个人博客">guijiang.zhang</a></p>
-           <p><span>发布时间:</span>2016年11月2日 - 13时11分</p>
-           <p><span>最后更新:</span>2016年11月11日 - 15时11分</p>
-           <p><span>原始链接:</span><a href="/2016/11/02/Top命令详解-一/" title="Top命令详解(一)">https://zgjai.github.io/2016/11/02/Top命令详解-一/</a></p>
-           <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/" title="Attribution-NonCommercial 4.0 International (CC BY-NC 4.0)">Attribution-NonCommercial 4.0</a></p>
-           <p><span>转载请保留以上信息。</span></p>
-        </div>
-      
-
-      
-
-    </div>
-
 
 
           </div>
@@ -555,7 +575,7 @@ top是在服务器上查看系统整体负载与运行情况的非常好的命�
         </ul>
       
 
-      <section class="site-overview sidebar-panel ">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/pic.jpg"
@@ -603,19 +623,27 @@ top是在服务器上查看系统整体负载与运行情况的非常好的命�
         
         
 
+        
+
+
       </section>
 
       
+      <!--noindex-->
         <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
           <div class="post-toc">
+
             
               
             
+
             
               <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#TOP"><span class="nav-number">1.</span> <span class="nav-text">TOP</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#本系列Linux命令均基于图0系统实践。"><span class="nav-number">1.0.1.</span> <span class="nav-text">本系列Linux命令均基于图0系统实践。</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#0"><span class="nav-number">1.0.1.0.1.</span> <span class="nav-text">图0</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#1-1"><span class="nav-number">1.0.1.0.2.</span> <span class="nav-text">图1-1</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第一部分"><span class="nav-number">1.0.2.</span> <span class="nav-text">第一部分</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-2"><span class="nav-number">1.0.2.0.1.</span> <span class="nav-text">图1-2</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#1-3"><span class="nav-number">1.0.2.0.2.</span> <span class="nav-text">图1-3</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#1-4"><span class="nav-number">1.0.2.0.3.</span> <span class="nav-text">图1-4</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#1-5"><span class="nav-number">1.0.2.0.4.</span> <span class="nav-text">图1-5</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#1-6"><span class="nav-number">1.0.2.0.5.</span> <span class="nav-text">图1-6</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#未完待续。。。"><span class="nav-number">1.0.3.</span> <span class="nav-text">未完待续。。。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#看系列下一篇"><span class="nav-number">1.0.4.</span> <span class="nav-text">看系列下一篇</span></a></li></ol></li></ol></li></ol></div>
             
+
           </div>
         </section>
+      <!--/noindex-->
       
 
     </div>
@@ -638,16 +666,7 @@ top是在服务器上查看系统整体负载与运行情况的非常好的命�
   <span class="author" itemprop="copyrightHolder">guijiang.zhang</span>
 </div>
 
-<div class="powered-by">
-  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
-</div>
 
-<div class="theme-info">
-  主题 -
-  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
-    NexT.Mist
-  </a>
-</div>
 
         
 
@@ -702,33 +721,38 @@ top是在服务器上查看系统整体负载与运行情况的非常好的命�
   
 
 
-  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
 
-  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
-
-
-
-  
-  
-
-  
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
 
 
 
   
+  
 
-
-  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
 
 
 
   
 
 
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
 
   
+
+
+
+  
+
+
+
+
+	
 
 
 
@@ -848,11 +872,24 @@ top是在服务器上查看系统整体负载与运行情况的非常好的命�
 
 
   
-<script type="text/javascript" async src="//push.zhanzhang.baidu.com/push.js">
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
 </script>
 
 
-<a href="https://github.com/zgjai"><img style="position: absolute; top: 0; left: 0; border: 0;" src="https://camo.githubusercontent.com/82b228a3648bf44fc1163ef44c62fcc60081495e/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f6c6566745f7265645f6161303030302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_left_red_aa0000.png"></a>
+  
+
 
 </body>
 </html>
