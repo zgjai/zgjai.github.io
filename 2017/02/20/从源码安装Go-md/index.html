@@ -70,7 +70,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Linux,工具,性能分析," />
+  <meta name="keywords" content="Go,Go原理," />
 
 
 
@@ -86,45 +86,37 @@
 
 
 
-<meta name="description" content="看系列上一篇续第二部分图1-7
-图1-7就是TOP命令第二部分的内容。每一行是一个进程相关信息，每一列是一个系统属性。
+<meta name="description" content="从源码安装Go这俩月来，迷上了Go语言，也看了不少运行时的源码，为了更好的了解Go的底层原理，决定从源码编译一把，这样就能够在源码关键的地方自己输出一些信息，辅助理解底层原理。整个过程还是非常简单的，相比于openJDK，不知道简单了多少。。。
+编译流程(Mac为例)
+下载go1.4版本(点我下载)
+将下载的压缩包解压，并放到预想的目录下，假定为
+/home/go1.4
 
-PID  进程的id  
-USER  进程所有者  
-PR  进程的调度优先级，值越小优先级越高。这个字段的一些值是’RT’。这意味这这些进程运行在实时态。  
-NI  nice值，也会影响进程的优先级。
-VIRT  进程占用的虚拟内存
-RES  进程占用的物理内存
-SHR">
+编译安装go1.4
+cd">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Top命令详解(二)">
-<meta property="og:url" content="https://zgjai.github.io/2016/11/11/Top命令详解-二/index.html">
+<meta property="og:title" content="从源码安装Go.md">
+<meta property="og:url" content="https://zgjai.github.io/2017/02/20/从源码安装Go-md/index.html">
 <meta property="og:site_name" content="知行合一">
-<meta property="og:description" content="看系列上一篇续第二部分图1-7
-图1-7就是TOP命令第二部分的内容。每一行是一个进程相关信息，每一列是一个系统属性。
+<meta property="og:description" content="从源码安装Go这俩月来，迷上了Go语言，也看了不少运行时的源码，为了更好的了解Go的底层原理，决定从源码编译一把，这样就能够在源码关键的地方自己输出一些信息，辅助理解底层原理。整个过程还是非常简单的，相比于openJDK，不知道简单了多少。。。
+编译流程(Mac为例)
+下载go1.4版本(点我下载)
+将下载的压缩包解压，并放到预想的目录下，假定为
+/home/go1.4
 
-PID  进程的id  
-USER  进程所有者  
-PR  进程的调度优先级，值越小优先级越高。这个字段的一些值是’RT’。这意味这这些进程运行在实时态。  
-NI  nice值，也会影响进程的优先级。
-VIRT  进程占用的虚拟内存
-RES  进程占用的物理内存
-SHR">
-<meta property="og:image" content="http://o793hh4oz.bkt.clouddn.com/14788277434530.jpg">
-<meta property="og:updated_time" content="2016-11-11T07:02:32.000Z">
+编译安装go1.4
+cd">
+<meta property="og:updated_time" content="2017-02-20T09:53:42.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Top命令详解(二)">
-<meta name="twitter:description" content="看系列上一篇续第二部分图1-7
-图1-7就是TOP命令第二部分的内容。每一行是一个进程相关信息，每一列是一个系统属性。
+<meta name="twitter:title" content="从源码安装Go.md">
+<meta name="twitter:description" content="从源码安装Go这俩月来，迷上了Go语言，也看了不少运行时的源码，为了更好的了解Go的底层原理，决定从源码编译一把，这样就能够在源码关键的地方自己输出一些信息，辅助理解底层原理。整个过程还是非常简单的，相比于openJDK，不知道简单了多少。。。
+编译流程(Mac为例)
+下载go1.4版本(点我下载)
+将下载的压缩包解压，并放到预想的目录下，假定为
+/home/go1.4
 
-PID  进程的id  
-USER  进程所有者  
-PR  进程的调度优先级，值越小优先级越高。这个字段的一些值是’RT’。这意味这这些进程运行在实时态。  
-NI  nice值，也会影响进程的优先级。
-VIRT  进程占用的虚拟内存
-RES  进程占用的物理内存
-SHR">
-<meta name="twitter:image" content="http://o793hh4oz.bkt.clouddn.com/14788277434530.jpg">
+编译安装go1.4
+cd">
 
 
 
@@ -152,13 +144,13 @@ SHR">
 
 
 
-  <link rel="canonical" href="https://zgjai.github.io/2016/11/11/Top命令详解-二/"/>
+  <link rel="canonical" href="https://zgjai.github.io/2017/02/20/从源码安装Go-md/"/>
 
 
 
 
 
-  <title> Top命令详解(二) | 知行合一 </title>
+  <title> 从源码安装Go.md | 知行合一 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -298,7 +290,7 @@ SHR">
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="https://zgjai.github.io/2016/11/11/Top命令详解-二/">
+  <link itemprop="mainEntityOfPage" href="https://zgjai.github.io/2017/02/20/从源码安装Go-md/">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <meta itemprop="name" content="guijiang.zhang">
@@ -322,7 +314,7 @@ SHR">
             
             
               
-                Top命令详解(二)
+                从源码安装Go.md
               
             
           </h1>
@@ -334,8 +326,8 @@ SHR">
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-11-11T14:53:22+08:00">
-              2016-11-11
+            <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-02-20T20:46:37+08:00">
+              2017-02-20
             </time>
 
             &nbsp;|&nbsp;
@@ -343,8 +335,8 @@ SHR">
             <span class="post-meta-item-icon">
               <i class="fa fa-calendar-check-o"></i>
             </span>
-            <time title="Post modified" itemprop="dateModified" datetime="2016-11-11T15:02:32+08:00">
-              2016-11-11
+            <time title="Post modified" itemprop="dateModified" datetime="2017-02-20T17:53:42+08:00">
+              2017-02-20
             </time>
             
           </span>
@@ -358,20 +350,8 @@ SHR">
               <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Linux/" itemprop="url" rel="index">
-                    <span itemprop="name">Linux</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Linux/性能分析工具/" itemprop="url" rel="index">
-                    <span itemprop="name">性能分析工具</span>
+                  <a href="/categories/Go/" itemprop="url" rel="index">
+                    <span itemprop="name">Go</span>
                   </a>
                 </span>
 
@@ -390,7 +370,7 @@ SHR">
 
           
           
-             <span id="/2016/11/11/Top命令详解-二/" class="leancloud_visitors" data-flag-title="Top命令详解(二)">
+             <span id="/2017/02/20/从源码安装Go-md/" class="leancloud_visitors" data-flag-title="从源码安装Go.md">
                &nbsp; | &nbsp;
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -415,49 +395,28 @@ SHR">
       
 
       
-        <h3 id="看系列上一篇"><a href="#看系列上一篇" class="headerlink" title="看系列上一篇"></a><a href="https://zgjai.github.io/2016/11/02/Top命令详解-一/#more">看系列上一篇</a></h3><h3 id="续"><a href="#续" class="headerlink" title="续"></a>续</h3><h3 id="第二部分"><a href="#第二部分" class="headerlink" title="第二部分"></a>第二部分</h3><p></p><h5 id="1-7">图1-7</h5><br><img src="http://o793hh4oz.bkt.clouddn.com/14788277434530.jpg" alt=""><p></p>
-<p><a href="#1-7">图1-7</a>就是TOP命令第二部分的内容。<br>每一行是一个进程相关信息，每一列是一个系统属性。</p>
-<ul>
-<li>PID<br>  进程的id  </li>
-<li>USER<br>  进程所有者  </li>
-<li>PR<br>  进程的调度优先级，值越小优先级越高。这个字段的一些值是’RT’。这意味这这些进程运行在实时态。  </li>
-<li>NI<br>  nice值，也会影响进程的优先级。</li>
-<li>VIRT<br>  进程占用的虚拟内存</li>
-<li>RES<br>  进程占用的物理内存</li>
-<li>SHR<br>  进程占用的共享内存</li>
-<li>S<br>  进程的状态。<ul>
-<li>D 不可中断的睡眠态</li>
-<li>S 睡眠态</li>
-<li>R 运行态</li>
-<li>Z 僵死态</li>
-<li>T 被跟踪或已终止</li>
-<li>N 该进程优先级为负数</li>
-</ul>
+        <h1 id="从源码安装Go"><a href="#从源码安装Go" class="headerlink" title="从源码安装Go"></a>从源码安装Go</h1><p>这俩月来，迷上了Go语言，也看了不少运行时的源码，为了更好的了解Go的底层原理，决定从源码编译一把，这样就能够在源码关键的地方自己输出一些信息，辅助理解底层原理。整个过程还是非常简单的，相比于openJDK，不知道简单了多少。。。</p>
+<h3 id="编译流程-Mac为例"><a href="#编译流程-Mac为例" class="headerlink" title="编译流程(Mac为例)"></a>编译流程(Mac为例)</h3><ol>
+<li>下载go1.4版本(<a href="https://storage.googleapis.com/golang/go1.4-bootstrap-20161024.tar.gz" target="_blank" rel="external">点我下载</a>)</li>
+<li><p>将下载的压缩包解压，并放到预想的目录下，假定为</p>
+<pre><code>/home/go1.4
+</code></pre></li>
+<li><p>编译安装go1.4</p>
+<pre><code>cd /home/go1.4/src
+./make.bash
+</code></pre></li>
+<li><p>通过git下载go源码</p>
+<pre><code>git clone https://go.googlesource.com/go
+cd go
+git checkout go1.8
+</code></pre></li>
+<li><p>通过go1.4编译1.8</p>
+<pre><code>cd src
+GOROOT_BOOTSTRAP=/home/go1.4 ./make.bash
+</code></pre></li>
+<li><p>大功告成，之后就可以自己添加一些代码，然后重复5的编译步骤就可以了，可以用alias偷懒</p>
 </li>
-<li>%CPU<br>  从上次更新到现在，进程占用CPU的使用率</li>
-<li>%MEM<br>  进程占用的物理内存的百分比</li>
-<li>TIME+<br>  该进程启动后占用的总的CPU时间</li>
-<li>COMMAND<br>  启动该进程的命令</li>
-</ul>
-<h3 id="第三部分"><a href="#第三部分" class="headerlink" title="第三部分"></a>第三部分</h3><p>下面介绍一些与TOP命令的交互快捷键</p>
-<ul>
-<li>q<br>  退出TOP命令</li>
-<li>回车 或 空格<br>  top命令默认在一个特定间隔(3秒)后刷新显示。要手动刷新，可以输入回车或者空格。</li>
-<li>s 或 d<br>  设置刷新时间间隔</li>
-<li>c<br>  切换是否显示进程启动时的完整路径和程序名</li>
-<li>i<br>  切换显示空闲任务</li>
-<li>x 或 y<br>  切换高亮信息：’x’将排序字段高亮显示（纵列）；’y’将运行进程高亮显示（横行）</li>
-<li>u<br>  显示特定用户的进程</li>
-<li>n 或 #<br>  设置最大显示的任务数量</li>
-<li>k<br>  用于发送信号给任务（通常是结束任务）</li>
-<li>r<br>  重新设置一个任务的调度优先级</li>
-<li>S<br>  累计模式，会把已完成或退出的子进程占用的CPU时间累计到父进程的MITE+</li>
-<li>P<br>  按%CPU使用率排行</li>
-<li>T<br>  按MITE+排行</li>
-<li>M<br>  按%MEM排行</li>
-<li>W<br>  保存对top的设置到文件^/.toprc，下次启动将自动调用toprc文件的设置</li>
-<li>1<br>  切换多核CPU显示</li>
-</ul>
+</ol>
 
       
     </div>
@@ -502,11 +461,9 @@ SHR">
       
         <div class="post-tags">
           
-            <a href="/tags/Linux/" rel="tag"># Linux</a>
+            <a href="/tags/Go/" rel="tag"># Go</a>
           
-            <a href="/tags/工具/" rel="tag"># 工具</a>
-          
-            <a href="/tags/性能分析/" rel="tag"># 性能分析</a>
+            <a href="/tags/Go原理/" rel="tag"># Go原理</a>
           
         </div>
       
@@ -515,7 +472,7 @@ SHR">
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/11/10/Class文件结构-四/" rel="next" title="Class文件结构(四)">
+              <a href="/2017/01/10/Class文件结构-四/" rel="next" title="Class文件结构(四)">
                 <i class="fa fa-chevron-left"></i> Class文件结构(四)
               </a>
             
@@ -599,7 +556,7 @@ SHR">
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-count">5</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -608,7 +565,7 @@ SHR">
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-count">9</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -643,7 +600,7 @@ SHR">
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#看系列上一篇"><span class="nav-number">1.</span> <span class="nav-text">看系列上一篇</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#续"><span class="nav-number">2.</span> <span class="nav-text">续</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第二部分"><span class="nav-number">3.</span> <span class="nav-text">第二部分</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-7"><span class="nav-number">3.0.1.</span> <span class="nav-text">图1-7</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第三部分"><span class="nav-number">4.</span> <span class="nav-text">第三部分</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#从源码安装Go"><span class="nav-number">1.</span> <span class="nav-text">从源码安装Go</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#编译流程-Mac为例"><span class="nav-number">1.0.1.</span> <span class="nav-text">编译流程(Mac为例)</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
@@ -664,7 +621,7 @@ SHR">
         <div class="copyright" >
   
   &copy; 
-  <span itemprop="copyrightYear">2016</span>
+  <span itemprop="copyrightYear">2017</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
