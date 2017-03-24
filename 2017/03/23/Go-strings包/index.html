@@ -70,7 +70,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Linux,工具,性能分析," />
+  <meta name="keywords" content="Go,Go原理,Go源码," />
 
 
 
@@ -86,34 +86,28 @@
 
 
 
-<meta name="description" content="TOP本系列Linux命令均基于图0系统实践。图0
-top是在服务器上查看系统整体负载与运行情况的非常好的命令。本篇将具体介绍其功能与使用。
-图1-1
-图1-1是运行 top 时的截图，这些信息可以从图中白行分隔为两部分。上面部分是系统运行时整体信息，包括load、cpu使用、内存使用等等；下面部分是当前系统中存在的进程，他们是按某个条件排序的，比如cpu占用时间，这个排序规则是可以调整的，后续会">
+<meta name="description" content="func Comparefunc Compare(a, b string) int
+返回值：a==b时为0，a&amp;gt;b时为1，a&amp;lt;b时为-1
+Compare函数用于比较两个字符串，但是，强烈建议不要使用，而应该直接使用==、&amp;lt;、&amp;gt;，代码中注释如下：
+
+Compare is included only for symmetry with package bytes.It is u">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Top命令详解">
-<meta property="og:url" content="https://zgjai.github.io/2016/12/02/Top命令详解-一/index.html">
+<meta property="og:title" content="Go strings包">
+<meta property="og:url" content="https://zgjai.github.io/2017/03/23/Go-strings包/index.html">
 <meta property="og:site_name" content="知行合一">
-<meta property="og:description" content="TOP本系列Linux命令均基于图0系统实践。图0
-top是在服务器上查看系统整体负载与运行情况的非常好的命令。本篇将具体介绍其功能与使用。
-图1-1
-图1-1是运行 top 时的截图，这些信息可以从图中白行分隔为两部分。上面部分是系统运行时整体信息，包括load、cpu使用、内存使用等等；下面部分是当前系统中存在的进程，他们是按某个条件排序的，比如cpu占用时间，这个排序规则是可以调整的，后续会">
-<meta property="og:image" content="http://o793hh4oz.bkt.clouddn.com/14779627738663.jpg">
-<meta property="og:image" content="http://o793hh4oz.bkt.clouddn.com/14776543048170.jpg">
-<meta property="og:image" content="http://o793hh4oz.bkt.clouddn.com/14779629898855.jpg">
-<meta property="og:image" content="http://o793hh4oz.bkt.clouddn.com/14779629963652.jpg">
-<meta property="og:image" content="http://o793hh4oz.bkt.clouddn.com/14779630074519.jpg">
-<meta property="og:image" content="http://o793hh4oz.bkt.clouddn.com/14779630159060.jpg">
-<meta property="og:image" content="http://o793hh4oz.bkt.clouddn.com/14779630239953.jpg">
-<meta property="og:image" content="http://o793hh4oz.bkt.clouddn.com/14788277434530.jpg">
-<meta property="og:updated_time" content="2017-01-22T01:49:03.000Z">
+<meta property="og:description" content="func Comparefunc Compare(a, b string) int
+返回值：a==b时为0，a&amp;gt;b时为1，a&amp;lt;b时为-1
+Compare函数用于比较两个字符串，但是，强烈建议不要使用，而应该直接使用==、&amp;lt;、&amp;gt;，代码中注释如下：
+
+Compare is included only for symmetry with package bytes.It is u">
+<meta property="og:updated_time" content="2017-03-24T03:36:09.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Top命令详解">
-<meta name="twitter:description" content="TOP本系列Linux命令均基于图0系统实践。图0
-top是在服务器上查看系统整体负载与运行情况的非常好的命令。本篇将具体介绍其功能与使用。
-图1-1
-图1-1是运行 top 时的截图，这些信息可以从图中白行分隔为两部分。上面部分是系统运行时整体信息，包括load、cpu使用、内存使用等等；下面部分是当前系统中存在的进程，他们是按某个条件排序的，比如cpu占用时间，这个排序规则是可以调整的，后续会">
-<meta name="twitter:image" content="http://o793hh4oz.bkt.clouddn.com/14779627738663.jpg">
+<meta name="twitter:title" content="Go strings包">
+<meta name="twitter:description" content="func Comparefunc Compare(a, b string) int
+返回值：a==b时为0，a&amp;gt;b时为1，a&amp;lt;b时为-1
+Compare函数用于比较两个字符串，但是，强烈建议不要使用，而应该直接使用==、&amp;lt;、&amp;gt;，代码中注释如下：
+
+Compare is included only for symmetry with package bytes.It is u">
 
 
 
@@ -141,13 +135,13 @@ top是在服务器上查看系统整体负载与运行情况的非常好的命�
 
 
 
-  <link rel="canonical" href="https://zgjai.github.io/2016/12/02/Top命令详解-一/"/>
+  <link rel="canonical" href="https://zgjai.github.io/2017/03/23/Go-strings包/"/>
 
 
 
 
 
-  <title> Top命令详解 | 知行合一 </title>
+  <title> Go strings包 | 知行合一 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -287,7 +281,7 @@ top是在服务器上查看系统整体负载与运行情况的非常好的命�
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="https://zgjai.github.io/2016/12/02/Top命令详解-一/">
+  <link itemprop="mainEntityOfPage" href="https://zgjai.github.io/2017/03/23/Go-strings包/">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <meta itemprop="name" content="guijiang.zhang">
@@ -311,7 +305,7 @@ top是在服务器上查看系统整体负载与运行情况的非常好的命�
             
             
               
-                Top命令详解
+                Go strings包
               
             
           </h1>
@@ -323,8 +317,8 @@ top是在服务器上查看系统整体负载与运行情况的非常好的命�
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-12-02T13:17:32+08:00">
-              2016-12-02
+            <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-03-23T09:32:32+08:00">
+              2017-03-23
             </time>
 
             
@@ -342,8 +336,8 @@ top是在服务器上查看系统整体负载与运行情况的非常好的命�
               <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Linux/" itemprop="url" rel="index">
-                    <span itemprop="name">Linux</span>
+                  <a href="/categories/Go/" itemprop="url" rel="index">
+                    <span itemprop="name">Go</span>
                   </a>
                 </span>
 
@@ -354,8 +348,8 @@ top是在服务器上查看系统整体负载与运行情况的非常好的命�
 
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Linux/性能分析工具/" itemprop="url" rel="index">
-                    <span itemprop="name">性能分析工具</span>
+                  <a href="/categories/Go/Go源码阅读笔记/" itemprop="url" rel="index">
+                    <span itemprop="name">Go源码阅读笔记</span>
                   </a>
                 </span>
 
@@ -374,7 +368,7 @@ top是在服务器上查看系统整体负载与运行情况的非常好的命�
 
           
           
-             <span id="/2016/12/02/Top命令详解-一/" class="leancloud_visitors" data-flag-title="Top命令详解">
+             <span id="/2017/03/23/Go-strings包/" class="leancloud_visitors" data-flag-title="Go strings包">
                &nbsp; | &nbsp;
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -399,96 +393,91 @@ top是在服务器上查看系统整体负载与运行情况的非常好的命�
       
 
       
-        <h1 id="TOP"><a href="#TOP" class="headerlink" title="TOP"></a>TOP</h1><h3 id="本系列Linux命令均基于图0系统实践。"><a href="#本系列Linux命令均基于图0系统实践。" class="headerlink" title="本系列Linux命令均基于图0系统实践。"></a>本系列Linux命令均基于<a href="#0">图0</a>系统实践。</h3><p></p><h5 id="0">图0</h5><br><img src="http://o793hh4oz.bkt.clouddn.com/14779627738663.jpg" alt=""><p></p>
-<p>top是在服务器上查看系统整体负载与运行情况的非常好的命令。本篇将具体介绍其功能与使用。</p>
-<p></p><h5 id="1-1">图1-1</h5><br><img src="http://o793hh4oz.bkt.clouddn.com/14776543048170.jpg" alt=""><p></p>
-<p><a href="#1-1">图1-1</a>是运行 <strong>top</strong> 时的截图，这些信息可以从图中白行分隔为两部分。上面部分是系统运行时整体信息，包括load、cpu使用、内存使用等等；下面部分是当前系统中存在的进程，他们是按某个条件排序的，比如cpu占用时间，这个排序规则是可以调整的，后续会具体讲。</p>
-<h3 id="第一部分"><a href="#第一部分" class="headerlink" title="第一部分"></a>第一部分</h3><p>下面从第一行开始具体了解一下每一行的含义。</p>
-<p></p><h5 id="1-2">图1-2</h5><br><img src="http://o793hh4oz.bkt.clouddn.com/14779629898855.jpg" alt=""><br><a href="#1-2">图1-2</a>是第1行的截图。<br>表示的信息为:<p></p>
-<ul>
-<li>当前时间，即 <strong>09:02:18</strong></li>
-<li>系统已运行的时间，即 <strong>286days,14:51</strong></li>
-<li>当前登陆用户数量，即 <strong>1 user</strong></li>
-<li>load均值，即 <strong>3.18,2.87,2.59</strong></li>
-</ul>
-<p>其中需要注意的是load，它有3个值，分别表示1分钟内，5分钟内，15分钟内的load均值。5跟15分钟的值是相对重要的，因为可能1分钟内的load比较高，但很快就降回去了，没有持续很久。load反映的当前CPU的负载状况，当一个CPU核心的load值(load/cpu核心数)为1时，表示已经满载了，其实就需要立即处理了，一般大于0.7时，就应该调整系统或者增加CPU核心了。具体的关于load的介绍请参考<a href="http://blog.scoutapp.com/articles/2009/07/31/understanding-load-averages" target="_blank" rel="external">UNDERSTANDING LINUX CPU LOAD</a></p>
-<p></p><h5 id="1-3">图1-3</h5><br><img src="http://o793hh4oz.bkt.clouddn.com/14779629963652.jpg" alt=""><br><a href="#1-3">图1-3</a>是第2行的截图。<br>表示的信息为:<p></p>
-<ul>
-<li>系统中总的进程数，即 <strong>614 total</strong></li>
-<li>系统中正在运行的进程数，即 <strong>1 running</strong></li>
-<li>正在睡眠的进程数，即 <strong>63 sleeping</strong></li>
-<li>停止的进程数，即 <strong>0 stopped</strong></li>
-<li>僵尸进程数，即 <strong>0 zombie</strong></li>
-</ul>
-<p></p><h5 id="1-4">图1-4</h5><br><img src="http://o793hh4oz.bkt.clouddn.com/14779630074519.jpg" alt=""><br><a href="#1-4">图1-4</a>是第3行的截图。<br>表示的信息为:<p></p>
-<ul>
-<li>用户(us, user)进程(未调整优先级的)占用的CPU时间，即 <strong>13.5%us</strong></li>
-<li>系统(sy, system)进程占用的CPU时间，即 <strong>0.3%sy</strong></li>
-<li>已调整优先级(ni, niced)的进程占用的CPU时间，即 <strong>0.0%ni</strong></li>
-<li>空闲(id, idle)CPU时间，即 <strong>86.2%id</strong></li>
-<li>等待输入输出(wa, IO wait)的CPU时间，即 <strong>0.0%wa</strong></li>
-<li>处理硬件中断(hi, hardware)的CPU时间，即 <strong>0.0%hi</strong></li>
-<li>处理软件中断(si, software)的CPU时间，即 <strong>0.0%si</strong></li>
-<li>这个虚拟机被hypervisor偷去的CPU时间，如果当前处于一个hypervisor下的vm，实际上hypervisor也是要消耗一部分CPU处理时间的，即 <strong>0.0%st</strong></li>
-</ul>
-<p></p><h5 id="1-5">图1-5</h5><br><img src="http://o793hh4oz.bkt.clouddn.com/14779630159060.jpg" alt=""><br><a href="#1-5">图1-5</a>是第4行的截图。<br>表示的信息为:<p></p>
-<ul>
-<li>全部可用物理内存，即 <strong>65980420k total</strong></li>
-<li>已使用物理内存，即 <strong>65714000k used</strong></li>
-<li>空闲物理内存，即 <strong>266420k free</strong></li>
-<li>缓冲区占用的内存，即 <strong>89380k buffers</strong></li>
-</ul>
-<p></p><h5 id="1-6">图1-6</h5><br><img src="http://o793hh4oz.bkt.clouddn.com/14779630239953.jpg" alt=""><br><a href="#1-6">图1-6</a>是第5行的截图。<br>表示信息为:<p></p>
-<ul>
-<li>交换区总量，即 <strong>50331644k total</strong></li>
-<li>已使用的交换区，即 <strong>0k used</strong></li>
-<li>空闲的交换区，即 <strong>50331644k free</strong></li>
-<li>缓存占用的内存，即 <strong>11463508k cached</strong></li>
-</ul>
-<h3 id="第二部分"><a href="#第二部分" class="headerlink" title="第二部分"></a>第二部分</h3><p></p><h5 id="1-7">图1-7</h5><br><img src="http://o793hh4oz.bkt.clouddn.com/14788277434530.jpg" alt=""><p></p>
-<p><a href="#1-7">图1-7</a>就是TOP命令第二部分的内容。<br>每一行是一个进程相关信息，每一列是一个系统属性。</p>
-<ul>
-<li>PID<br>  进程的id  </li>
-<li>USER<br>  进程所有者  </li>
-<li>PR<br>  进程的调度优先级，值越小优先级越高。这个字段的一些值是’RT’。这意味这这些进程运行在实时态。  </li>
-<li>NI<br>  nice值，也会影响进程的优先级。</li>
-<li>VIRT<br>  进程占用的虚拟内存</li>
-<li>RES<br>  进程占用的物理内存</li>
-<li>SHR<br>  进程占用的共享内存</li>
-<li>S<br>  进程的状态。<ul>
-<li>D 不可中断的睡眠态</li>
-<li>S 睡眠态</li>
-<li>R 运行态</li>
-<li>Z 僵死态</li>
-<li>T 被跟踪或已终止</li>
-<li>N 该进程优先级为负数</li>
-</ul>
-</li>
-<li>%CPU<br>  从上次更新到现在，进程占用CPU的使用率</li>
-<li>%MEM<br>  进程占用的物理内存的百分比</li>
-<li>TIME+<br>  该进程启动后占用的总的CPU时间</li>
-<li>COMMAND<br>  启动该进程的命令</li>
-</ul>
-<h3 id="第三部分"><a href="#第三部分" class="headerlink" title="第三部分"></a>第三部分</h3><p>下面介绍一些与TOP命令的交互快捷键</p>
-<ul>
-<li>q<br>  退出TOP命令</li>
-<li>回车 或 空格<br>  top命令默认在一个特定间隔(3秒)后刷新显示。要手动刷新，可以输入回车或者空格。</li>
-<li>s 或 d<br>  设置刷新时间间隔</li>
-<li>c<br>  切换是否显示进程启动时的完整路径和程序名</li>
-<li>i<br>  切换显示空闲任务</li>
-<li>x 或 y<br>  切换高亮信息：’x’将排序字段高亮显示（纵列）；’y’将运行进程高亮显示（横行）</li>
-<li>u<br>  显示特定用户的进程</li>
-<li>n 或 #<br>  设置最大显示的任务数量</li>
-<li>k<br>  用于发送信号给任务（通常是结束任务）</li>
-<li>r<br>  重新设置一个任务的调度优先级</li>
-<li>S<br>  累计模式，会把已完成或退出的子进程占用的CPU时间累计到父进程的MITE+</li>
-<li>P<br>  按%CPU使用率排行</li>
-<li>T<br>  按MITE+排行</li>
-<li>M<br>  按%MEM排行</li>
-<li>W<br>  保存对top的设置到文件^/.toprc，下次启动将自动调用toprc文件的设置</li>
-<li>1<br>  切换多核CPU显示</li>
-</ul>
+        <h2 id="func-Compare"><a href="#func-Compare" class="headerlink" title="func Compare"></a>func Compare</h2><pre><code>func Compare(a, b string) int
+返回值：a==b时为0，a&gt;b时为1，a&lt;b时为-1
+</code></pre><p>Compare函数用于比较两个字符串，<strong>但是，强烈建议不要使用，而应该直接使用==、&lt;、&gt;</strong>，代码中注释如下：</p>
+<blockquote>
+<p>Compare is included only for symmetry with package bytes.It is usually clearer and always faster to use the built-in string comparison operators ==, &lt;, &gt;, and so on.</p>
+</blockquote>
+<h2 id="func-Contains"><a href="#func-Contains" class="headerlink" title="func Contains"></a>func Contains</h2><pre><code>func Contains(s, substr string) bool
+返回值：s中包含substr为true，否则为false
+</code></pre><p><strong>实现原理：</strong><br>直接通过另一个函数Index(s, sep string)来实现，但Index的返回值大于等于0时，就表示存在这个substr。</p>
+<h2 id="func-ContainsAny"><a href="#func-ContainsAny" class="headerlink" title="func ContainsAny"></a>func ContainsAny</h2><pre><code>func ContainsAny(s, chars string) bool
+返回值：s中包含substr中任意一个字符为true，否则为false
+</code></pre><p><strong>实现原理：</strong><br>直接通过另一个函数IndexAny(s, sep string)来实现，但IndexAny的返回值大于等于0时，就表示存在这个substr。</p>
+<h2 id="func-ContainsRune"><a href="#func-ContainsRune" class="headerlink" title="func ContainsRune"></a>func ContainsRune</h2><pre><code>func ContainsRune(s string, r rune) bool
+返回值：s中包含r表示的字符则为true，否则为false
+</code></pre><p><strong>实现原理：</strong><br>直接通过另一个函数IndexRune(s string, r rune)来实现，但IndexRune的返回值大于等于0时，就表示存在这个substr。</p>
+<h2 id="func-Count"><a href="#func-Count" class="headerlink" title="func Count"></a>func Count</h2><pre><code>func Count(s, sep string) int
+返回值：sep在s中出现的次数，如果sep为空字符，返回s中unicode字符的数量加1。
+</code></pre><p><strong>实现原理：</strong><br>借助于Index函数，巧妙的实现</p>
+<pre><code>for {
+  // offset就是上一个sep的最后一个字符的index
+    i := Index(s[offset:], sep)
+    if i == -1 {
+        return n
+    }
+    n++
+    offset += i + len(sep)
+}
+</code></pre><h2 id="func-EqualFold"><a href="#func-EqualFold" class="headerlink" title="func EqualFold"></a>func EqualFold</h2><pre><code>func EqualFold(s, t string) bool
+返回值：s等于t为true，否则为false。忽略大小写。
+</code></pre><p><strong>实现原理：</strong><br>每次取出s跟t的第一个字符进行比较，直到遇到不相等的，直接返回false。</p>
+<h2 id="func-Fields"><a href="#func-Fields" class="headerlink" title="func Fields"></a>func Fields</h2><pre><code>func Fields(s string) []string
+返回值：根据一个或多个连续的空格分割s为一个字符串数组，如果s为空或只包含空格，则返回空数组。
+</code></pre><p><strong>实现原理：</strong><br>通过调用FieldsFunc函数实现。</p>
+<h2 id="func-FieldsFunc"><a href="#func-FieldsFunc" class="headerlink" title="func FieldsFunc"></a>func FieldsFunc</h2><pre><code>func FieldsFunc(s string, f func(rune) bool) []string
+返回值：根据一个或多个连续的符合f的字符分割s为一个字符串数组
+</code></pre><p><strong>实现原理：</strong></p>
+<pre><code>// 第一遍遍历s，计算出将会分隔出的string的数量
+// but why?
+// 猜测：如果s很大，分隔出来的string也很多，slice的扩张就会消耗过多时间。
+// 直接计算出来，最开始就make一个所需容量的slice会节省copy的时间。
+n := 0
+  inField := false
+  for _, rune := range s {
+      wasInField := inField
+      inField = !f(rune)
+      if inField &amp;&amp; !wasInField {
+         n++
+      }
+   }
 
+
+// 根据计算出来的n，make一个string slice
+a := make([]string, n)
+// na代表了a的index，没存进去一个string，则++
+na := 0
+// fieldStart是比较关键的
+// fieldStart == -1时，是在寻找下一个符合条件的string的开始
+// fieldStart &gt;= 0时，是在寻找当前符合条件的string的末尾
+fieldStart := -1 // Set to -1 when looking for start of field.
+for i, rune := range s {
+    if f(rune) {
+        if fieldStart &gt;= 0 {
+            a[na] = s[fieldStart:i]
+            na++
+            fieldStart = -1
+        }
+    } else if fieldStart == -1 {
+        fieldStart = i
+    }
+}
+// 不能忘了最后剩下的部分
+if fieldStart &gt;= 0 { // Last field might end at EOF.
+    a[na] = s[fieldStart:]
+}
+</code></pre><h2 id="func-HasPrefix"><a href="#func-HasPrefix" class="headerlink" title="func HasPrefix"></a>func HasPrefix</h2><pre><code>func HasPrefix(s, prefix string) bool
+返回值：s包含prefix前缀则为true，否则为false。prefix为空时固定返回true。
+</code></pre><p><strong>实现原理：</strong></p>
+<pre><code>// 简单粗暴
+return len(s) &gt;= len(prefix) &amp;&amp; s[0:len(prefix)] == prefix
+</code></pre><h2 id="func-HasSuffix"><a href="#func-HasSuffix" class="headerlink" title="func HasSuffix"></a>func HasSuffix</h2><pre><code>func HasPrefix(s, suffix string) bool
+返回值：s包含suffix后缀则为true，否则为false。suffix为空时固定返回true。
+</code></pre><p><strong>实现原理：</strong></p>
+<pre><code>// 简单粗暴
+return len(s) &gt;= len(suffix) &amp;&amp; s[len(s)-len(suffix):] == suffix
+</code></pre>
       
     </div>
 
@@ -532,11 +521,11 @@ top是在服务器上查看系统整体负载与运行情况的非常好的命�
       
         <div class="post-tags">
           
-            <a href="/tags/Linux/" rel="tag"># Linux</a>
+            <a href="/tags/Go/" rel="tag"># Go</a>
           
-            <a href="/tags/工具/" rel="tag"># 工具</a>
+            <a href="/tags/Go原理/" rel="tag"># Go原理</a>
           
-            <a href="/tags/性能分析/" rel="tag"># 性能分析</a>
+            <a href="/tags/Go源码/" rel="tag"># Go源码</a>
           
         </div>
       
@@ -545,8 +534,8 @@ top是在服务器上查看系统整体负载与运行情况的非常好的命�
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/11/19/vim常用命令/" rel="next" title="vim常用命令">
-                <i class="fa fa-chevron-left"></i> vim常用命令
+              <a href="/2017/03/19/Go源码目录/" rel="next" title="Go源码目录">
+                <i class="fa fa-chevron-left"></i> Go源码目录
               </a>
             
           </div>
@@ -554,10 +543,6 @@ top是在服务器上查看系统整体负载与运行情况的非常好的命�
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/12/14/Class文件结构-一/" rel="prev" title="Class文件结构(一)">
-                Class文件结构(一) <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -677,7 +662,7 @@ top是在服务器上查看系统整体负载与运行情况的非常好的命�
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#TOP"><span class="nav-number">1.</span> <span class="nav-text">TOP</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#本系列Linux命令均基于图0系统实践。"><span class="nav-number">1.0.1.</span> <span class="nav-text">本系列Linux命令均基于图0系统实践。</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#0"><span class="nav-number">1.0.1.0.1.</span> <span class="nav-text">图0</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#1-1"><span class="nav-number">1.0.1.0.2.</span> <span class="nav-text">图1-1</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第一部分"><span class="nav-number">1.0.2.</span> <span class="nav-text">第一部分</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-2"><span class="nav-number">1.0.2.0.1.</span> <span class="nav-text">图1-2</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#1-3"><span class="nav-number">1.0.2.0.2.</span> <span class="nav-text">图1-3</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#1-4"><span class="nav-number">1.0.2.0.3.</span> <span class="nav-text">图1-4</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#1-5"><span class="nav-number">1.0.2.0.4.</span> <span class="nav-text">图1-5</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#1-6"><span class="nav-number">1.0.2.0.5.</span> <span class="nav-text">图1-6</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第二部分"><span class="nav-number">1.0.3.</span> <span class="nav-text">第二部分</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-7"><span class="nav-number">1.0.3.0.1.</span> <span class="nav-text">图1-7</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第三部分"><span class="nav-number">1.0.4.</span> <span class="nav-text">第三部分</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#func-Compare"><span class="nav-number">1.</span> <span class="nav-text">func Compare</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#func-Contains"><span class="nav-number">2.</span> <span class="nav-text">func Contains</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#func-ContainsAny"><span class="nav-number">3.</span> <span class="nav-text">func ContainsAny</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#func-ContainsRune"><span class="nav-number">4.</span> <span class="nav-text">func ContainsRune</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#func-Count"><span class="nav-number">5.</span> <span class="nav-text">func Count</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#func-EqualFold"><span class="nav-number">6.</span> <span class="nav-text">func EqualFold</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#func-Fields"><span class="nav-number">7.</span> <span class="nav-text">func Fields</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#func-FieldsFunc"><span class="nav-number">8.</span> <span class="nav-text">func FieldsFunc</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#func-HasPrefix"><span class="nav-number">9.</span> <span class="nav-text">func HasPrefix</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#func-HasSuffix"><span class="nav-number">10.</span> <span class="nav-text">func HasSuffix</span></a></li></ol></div>
             
 
           </div>
