@@ -70,7 +70,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="JVM,Class文件结构," />
+  <meta name="keywords" content="Go,Go原理,Go源码," />
 
 
 
@@ -86,23 +86,43 @@
 
 
 
-<meta name="description" content="Class文件结构目前活跃在JVM上的语言，除了Java，还有Scala、Groovy、Clojure等等。对于JVM来说，Class文件是其对外的一个接口。只要Class文件的结构符合标准，不管编写这个程序的源语言是什么，JVM都能够执行它。详细的Class文件结构描述，可以查看相应版本的Java虚拟机规范，本系列文章主要结合实例探索Class文件的主要组成部分。
-Class文件整体结构Java">
+<meta name="description" content="func Indexfunc Index(s, sep string) int
+返回值：sep在s中的第一次出现的index，如果不存在，则为-1。
+实现原理：
+// n 为 sep 的长度，用于选择不同的处理方式
+n := len(sep)
+switch {
+case n == 0:
+    return 0
+case n == 1:
+   // n为1时，这个就退化成了在s中查一个byte">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Class文件结构(一)">
-<meta property="og:url" content="https://zgjai.github.io/2016/12/14/Class文件结构-一/index.html">
+<meta property="og:title" content="strings包(二)">
+<meta property="og:url" content="https://zgjai.github.io/2017/04/05/Go-strings包-二/index.html">
 <meta property="og:site_name" content="知行合一">
-<meta property="og:description" content="Class文件结构目前活跃在JVM上的语言，除了Java，还有Scala、Groovy、Clojure等等。对于JVM来说，Class文件是其对外的一个接口。只要Class文件的结构符合标准，不管编写这个程序的源语言是什么，JVM都能够执行它。详细的Class文件结构描述，可以查看相应版本的Java虚拟机规范，本系列文章主要结合实例探索Class文件的主要组成部分。
-Class文件整体结构Java">
-<meta property="og:image" content="http://o793hh4oz.bkt.clouddn.com/14764462536409.jpg">
-<meta property="og:image" content="http://o793hh4oz.bkt.clouddn.com/14764470928090.jpg">
-<meta property="og:image" content="http://o793hh4oz.bkt.clouddn.com/14764376829625.jpg">
-<meta property="og:updated_time" content="2017-01-22T01:49:24.000Z">
+<meta property="og:description" content="func Indexfunc Index(s, sep string) int
+返回值：sep在s中的第一次出现的index，如果不存在，则为-1。
+实现原理：
+// n 为 sep 的长度，用于选择不同的处理方式
+n := len(sep)
+switch {
+case n == 0:
+    return 0
+case n == 1:
+   // n为1时，这个就退化成了在s中查一个byte">
+<meta property="og:updated_time" content="2017-04-05T02:05:26.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Class文件结构(一)">
-<meta name="twitter:description" content="Class文件结构目前活跃在JVM上的语言，除了Java，还有Scala、Groovy、Clojure等等。对于JVM来说，Class文件是其对外的一个接口。只要Class文件的结构符合标准，不管编写这个程序的源语言是什么，JVM都能够执行它。详细的Class文件结构描述，可以查看相应版本的Java虚拟机规范，本系列文章主要结合实例探索Class文件的主要组成部分。
-Class文件整体结构Java">
-<meta name="twitter:image" content="http://o793hh4oz.bkt.clouddn.com/14764462536409.jpg">
+<meta name="twitter:title" content="strings包(二)">
+<meta name="twitter:description" content="func Indexfunc Index(s, sep string) int
+返回值：sep在s中的第一次出现的index，如果不存在，则为-1。
+实现原理：
+// n 为 sep 的长度，用于选择不同的处理方式
+n := len(sep)
+switch {
+case n == 0:
+    return 0
+case n == 1:
+   // n为1时，这个就退化成了在s中查一个byte">
 
 
 
@@ -130,13 +150,13 @@ Class文件整体结构Java">
 
 
 
-  <link rel="canonical" href="https://zgjai.github.io/2016/12/14/Class文件结构-一/"/>
+  <link rel="canonical" href="https://zgjai.github.io/2017/04/05/Go-strings包-二/"/>
 
 
 
 
 
-  <title> Class文件结构(一) | 知行合一 </title>
+  <title> strings包(二) | 知行合一 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -276,7 +296,7 @@ Class文件整体结构Java">
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="https://zgjai.github.io/2016/12/14/Class文件结构-一/">
+  <link itemprop="mainEntityOfPage" href="https://zgjai.github.io/2017/04/05/Go-strings包-二/">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <meta itemprop="name" content="guijiang.zhang">
@@ -300,7 +320,7 @@ Class文件整体结构Java">
             
             
               
-                Class文件结构(一)
+                strings包(二)
               
             
           </h1>
@@ -312,8 +332,8 @@ Class文件整体结构Java">
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-12-14T20:39:35+08:00">
-              2016-12-14
+            <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-04-05T10:01:19+08:00">
+              2017-04-05
             </time>
 
             
@@ -331,8 +351,20 @@ Class文件整体结构Java">
               <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/JVM/" itemprop="url" rel="index">
-                    <span itemprop="name">JVM</span>
+                  <a href="/categories/Go/" itemprop="url" rel="index">
+                    <span itemprop="name">Go</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Go/Go源码阅读笔记/" itemprop="url" rel="index">
+                    <span itemprop="name">Go源码阅读笔记</span>
                   </a>
                 </span>
 
@@ -351,7 +383,7 @@ Class文件整体结构Java">
 
           
           
-             <span id="/2016/12/14/Class文件结构-一/" class="leancloud_visitors" data-flag-title="Class文件结构(一)">
+             <span id="/2017/04/05/Go-strings包-二/" class="leancloud_visitors" data-flag-title="strings包(二)">
                &nbsp; | &nbsp;
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -376,46 +408,215 @@ Class文件整体结构Java">
       
 
       
-        <h1 id="Class文件结构"><a href="#Class文件结构" class="headerlink" title="Class文件结构"></a>Class文件结构</h1><p>目前活跃在JVM上的语言，除了Java，还有Scala、Groovy、Clojure等等。对于JVM来说，Class文件是其对外的一个接口。只要Class文件的结构符合标准，不管编写这个程序的源语言是什么，JVM都能够执行它。详细的Class文件结构描述，可以查看相应版本的Java虚拟机规范，本系列文章主要结合实例探索Class文件的主要组成部分。</p>
-<h3 id="Class文件整体结构"><a href="#Class文件整体结构" class="headerlink" title="Class文件整体结构"></a>Class文件整体结构</h3><p>Java8虚拟机规范中对Class文件结构的定义如下：</p>
-<pre><code>ClassFile {
-   u4             magic;
-   u2             minor_version;
-   u2             major_version;
-   u2             constant_pool_count;
-   cp_info        constant_pool[constant_pool_count-1];
-   u2             access_flags;
-   u2             this_class;
-   u2             super_class;
-   u2             interfaces_count;
-   u2             interfaces[interfaces_count];
-   u2             fields_count;
-   field_info     fields[fields_count];
-   u2             methods_count;
-   method_info    methods[methods_count];
-   u2             attributes_count;
-   attribute_info attributes[attributes_count];
+        <h2 id="func-Index"><a href="#func-Index" class="headerlink" title="func Index"></a>func Index</h2><pre><code>func Index(s, sep string) int
+返回值：sep在s中的第一次出现的index，如果不存在，则为-1。
+</code></pre><p><strong>实现原理：</strong></p>
+<pre><code>// n 为 sep 的长度，用于选择不同的处理方式
+n := len(sep)
+switch {
+case n == 0:
+    return 0
+case n == 1:
+   // n为1时，这个就退化成了在s中查一个byte
+    return IndexByte(s, sep[0])
+case n == len(s):
+   // 长度相同时，直接判断是否相等
+    if sep == s {
+        return 0
+    }
+    return -1
+case n &gt; len(s):
+    return -1
+case n &lt;= shortStringLen:
+   // 当n小于等于31或63时(根据系统不同不一样)
+    // Use brute force when s and sep both are small
+    if len(s) &lt;= 64 {
+      // s跟sep同时为短字符串，暴力解
+        return indexShortStr(s, sep)
+    }
+    // s不为短字符串时
+    c := sep[0]
+    i := 0
+    // t的作用，取出s中前面一部分，余下的长度正好是sep的长度-1
+    t := s[:len(s)-n+1]
+    fails := 0
+    for i &lt; len(t) {
+        if t[i] != c {
+            // IndexByte skips 16/32 bytes per iteration,
+            // so it&apos;s faster than indexShortStr.
+            o := IndexByte(t[i:], c)
+            // 如果截取的t[i:]中不包含c，则一定失败，因为剩下的长度已经小于sep的长度了
+            if o &lt; 0 {
+                return -1
+            }
+            // 调整i的值，指向与c相等的位置
+            i += o
+        }
+        if s[i:i+n] == sep {
+            return i
+        }
+        fails++
+        i++
+        // Switch to indexShortStr when IndexByte produces too many false positives.
+        // Too many means more that 1 error per 8 characters.
+        // Allow some errors in the beginning.
+        // 当失败太过频繁，则切换到indexShortStr方式
+        if fails &gt; (i+16)/8 {
+            r := indexShortStr(s[i:], sep)
+            if r &gt;= 0 {
+                return r + i
+            }
+            return -1
+        }
+    }
+    return -1
 }
-</code></pre><p>所有的数据类型都是无符号数(u)，数字表示所占用的字节数(4表示4字节，2表示2字节)。</p>
-<p>先介绍一下本系列查看Class文件内容结构的两个工具：<br><strong>a.Hex Fiend</strong><br>作用为查看一个Class文件的16进制源码，效果如(图1)所示</p>
-<h5 id="图1"><a href="#图1" class="headerlink" title="图1:"></a>图1:</h5><p><img src="http://o793hh4oz.bkt.clouddn.com/14764462536409.jpg" alt=""></p>
-<p><strong>b.jclasslib</strong><br>作用为可视化的查看Class文件的内容结构，效果如(图2)所示</p>
-<h5 id="图2"><a href="#图2" class="headerlink" title="图2:"></a>图2:</h5><p><img src="http://o793hh4oz.bkt.clouddn.com/14764470928090.jpg" alt=""></p>
-<h5 id="图1-1"><a href="#图1-1" class="headerlink" title="图1-1:"></a>图1-1:</h5><p><img src="http://o793hh4oz.bkt.clouddn.com/14764376829625.jpg" alt=""></p>
-<p><strong><em>magic(魔数)</em></strong><br>用于标识Class文件，固定为：0xCAFEBABE。图1-1是一个class文件的开头一部分，可以看到文件的开始就是magic，占用4字节。</p>
-<p><strong><em>minor_version(次版本号)</em></strong> &amp;&amp; <strong><em>major_version(主版本号)</em></strong><br>这两个版本号共同构成了class文件的版本，这个版本的作用在于，让虚拟机知道，当前class文件是不是可被执行。基本规则是，高版本的虚拟机可以执行低版本(&lt;=关系)的class文件，低版本的虚拟机不能执行高版本(&gt;关系)的class文件。<br>如上图1-1，可以看出这个class文件的主版本为52(十进制)，次版本为0。由1.8版本的javac编译器编译生成的class文件的版本号就是这样的，而这个class就可以被1.8的虚拟机执行。</p>
-<p><strong><em>constant_pool_count(常量池数量)</em></strong><br>记录了这个Class中的所有常量的数量加1，也即常量池的大小。<br>如上图1-1，这个class的常量池数量的大小为129。</p>
-<p><strong><em>constant_pool(常量池)</em></strong><br>常量池中存储着这个class相关的所有常量，它的大小是所有常量的数量加1，因为index为0时，内容为空。</p>
-<blockquote>
-<p>在Class文件格式规范制定之时，设计者将第0项常量空出来是有特殊考虑的，这样做的目的在于满足后面某些指向常量池的索引值的数据在特定情况下需要表达“不引用任何一个常量池项目”的含义，这种情况就可以把索引值置为0来表示。(该段话引用自周志明老师的《深入理解Java虚拟机》第2版)</p>
-</blockquote>
-<p>常量池中存储的数据类型有多种，但它们又一个共同的抽象结构：</p>
-<pre><code>cp_info {
-    u1 tag;
-    u1 info[];
+// Rabin-Karp search
+// https://en.wikipedia.org/wiki/Rabin–Karp_algorithm
+hashsep, pow := hashStr(sep)
+var h uint32
+// 计算s前len(sep)的hash值
+for i := 0; i &lt; n; i++ {
+    h = h*primeRK + uint32(s[i])
 }
-</code></pre><p>其中tag用于标识是哪种类型的常量，具体的对应关系表见<a href="http://docs.oracle.com/javase/specs/jvms/se8/html/jvms-4.html#jvms-4.4-140" target="_blank" rel="external">官方文档</a>。info[]字段的内容格式根据tag的值的变化而变化。具体的每种常量类型的介绍在本系列后续进行。</p>
-<h3 id="未完待续。。。"><a href="#未完待续。。。" class="headerlink" title="未完待续。。。"></a>未完待续。。。</h3><h3 id="看系列下一篇"><a href="#看系列下一篇" class="headerlink" title="看系列下一篇"></a><a href="https://zgjai.github.io/2016/10/20/Class文件结构-二/">看系列下一篇</a></h3>
+if h == hashsep &amp;&amp; s[:n] == sep {
+    return 0
+}
+// 依次向后移一位，比较hash值
+for i := n; i &lt; len(s); {
+    h *= primeRK
+    h += uint32(s[i])
+    h -= pow * uint32(s[i-n])
+    i++
+    // hash值相等的情况下再比较字符串是否相等
+    if h == hashsep &amp;&amp; s[i-n:i] == sep {
+        return i - n
+    }
+}
+return -1
+</code></pre><p>hashStr的实现：</p>
+<pre><code>// hashStr returns the hash and the appropriate multiplicative
+// factor for use in Rabin-Karp algorithm.
+func hashStr(sep string) (uint32, uint32) {
+    hash := uint32(0)
+    // 计算sep的hash值，可以参考该算法的理论，还是很好理解的
+    for i := 0; i &lt; len(sep); i++ {
+        hash = hash*primeRK + uint32(sep[i])
+    }
+    var pow, sq uint32 = 1, primeRK
+    // 这个循环就是求primeRK的len(sep)次方
+    // 用这种计算方式能节省很多乘法运算
+    for i := len(sep); i &gt; 0; i &gt;&gt;= 1 {
+        if i&amp;1 != 0 {
+            pow *= sq
+        }
+        sq *= sq
+    }
+    return hash, pow
+}
+</code></pre><h2 id="func-IndexAny"><a href="#func-IndexAny" class="headerlink" title="func IndexAny"></a>func IndexAny</h2><pre><code>func IndexAny(s, chars string) int
+返回值：s中第一个出现的chars中的任一字符的index，不存在则返回-1.
+</code></pre><p><strong>实现原理：</strong></p>
+<pre><code>func IndexAny(s, chars string) int {
+    if len(chars) &gt; 0 {
+       // s长度小于等于8时，
+        if len(s) &gt; 8 {
+            if as, isASCII := makeASCIISet(chars); isASCII {
+               // chars全为ACSII时，采用这种方式计算
+               // 这部分的核心在as上
+                for i := 0; i &lt; len(s); i++ {
+                    if as.contains(s[i]) {
+                        return i
+                    }
+                }
+                return -1
+            }
+        }
+        // 暴力解，注意使用range遍历
+        for i, c := range s {
+            for _, m := range chars {
+                if c == m {
+                    return i
+                }
+            }
+        }
+    }
+    return -1
+}
+</code></pre><p>变量as的类型：</p>
+<pre><code>// asciiSet is a 32-byte value, where each bit represents the presence of a
+// given ASCII character in the set. The 128-bits of the lower 16 bytes,
+// starting with the least-significant bit of the lowest word to the
+// most-significant bit of the highest word, map to the full range of all
+// 128 ASCII characters. The 128-bits of the upper 16 bytes will be zeroed,
+// ensuring that any non-ASCII character will be reported as not in the set.
+
+// 这个结构以bit map的形式表示0-127的ASCII字符是否存在
+// 数组的index为0-3的uint32数值，共128bit，每个bit对应一个ASCII字符
+// 128个字符需用8个bit表示，通过前两个bit确定在0-3哪个位置，后6bit确定对应uint32的哪个bit
+type asciiSet [8]uint32
+</code></pre><p>makeASCIISet函数：</p>
+<pre><code>// makeASCIISet creates a set of ASCII characters and reports whether all
+// characters in chars are ASCII.
+func makeASCIISet(chars string) (as asciiSet, ok bool) {
+    for i := 0; i &lt; len(chars); i++ {
+        c := chars[i]
+        // 超过128就不是ASCII字符了
+        if c &gt;= utf8.RuneSelf {
+            return as, false
+        }
+        // 关键步骤，将字符c转化到as中的一个bit上
+        // c&gt;&gt;5 : c原本是有7位有效位，右移5位后只剩下最高2bit有效位，通过这2bit确定index
+        // 1 &lt;&lt; uint(c&amp;31) : c&amp;31之后，只剩下低5bit有效；通过左移，确定对应32bit中的其中一个bit
+        as[c&gt;&gt;5] |= 1 &lt;&lt; uint(c&amp;31)
+    }
+    return as, true
+}
+</code></pre><h2 id="func-IndexFunc"><a href="#func-IndexFunc" class="headerlink" title="func IndexFunc"></a>func IndexFunc</h2><pre><code>func IndexFunc(s string, f func(rune) bool) int
+返回值：返回s中第一个符合f的unicode字符的index，不存在则返回-1。
+</code></pre><p><strong>实现原理：</strong><br>调用indexFunc(s string, f func(rune) bool, truth bool)实现</p>
+<pre><code>// truth参数为true时表示查找第一个符合f的，为false时表示查找第一个不符合f的
+func indexFunc(s string, f func(rune) bool, truth bool) int {
+    start := 0
+    for start &lt; len(s) {
+        wid := 1
+        r := rune(s[start])
+        if r &gt;= utf8.RuneSelf {
+          // 当r超出ASCII的范围时，通过这个函数取出第一个完整字符
+            r, wid = utf8.DecodeRuneInString(s[start:])
+        }
+        if f(r) == truth {
+            return start
+        }
+        start += wid
+    }
+    return -1
+}
+</code></pre><h2 id="func-IndexRune"><a href="#func-IndexRune" class="headerlink" title="func IndexRune"></a>func IndexRune</h2><pre><code>func IndexRune(s string, r rune) int
+返回值：返回r在s中第一次出现的index，不存在则-1。
+</code></pre><p><strong>实现原理：</strong></p>
+<pre><code>func IndexRune(s string, r rune) int {
+    switch {
+    // r在ASCII范围内
+    case 0 &lt;= r &amp;&amp; r &lt; utf8.RuneSelf:
+        return IndexByte(s, byte(r))
+    // r为RuneError
+    case r == utf8.RuneError:
+        for i, r := range s {
+            if r == utf8.RuneError {
+                return i
+            }
+        }
+        return -1
+    // r非法，直接-1
+    case !utf8.ValidRune(r):
+        return -1
+    // 其它情况，调Index
+    default:
+        return Index(s, string(r))
+    }
+}
+</code></pre>
       
     </div>
 
@@ -459,9 +660,11 @@ Class文件整体结构Java">
       
         <div class="post-tags">
           
-            <a href="/tags/JVM/" rel="tag"># JVM</a>
+            <a href="/tags/Go/" rel="tag"># Go</a>
           
-            <a href="/tags/Class文件结构/" rel="tag"># Class文件结构</a>
+            <a href="/tags/Go原理/" rel="tag"># Go原理</a>
+          
+            <a href="/tags/Go源码/" rel="tag"># Go源码</a>
           
         </div>
       
@@ -470,8 +673,8 @@ Class文件整体结构Java">
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/12/02/Top命令详解-一/" rel="next" title="Top命令详解">
-                <i class="fa fa-chevron-left"></i> Top命令详解
+              <a href="/2017/03/23/Go-strings包-一/" rel="next" title="strings包(一)">
+                <i class="fa fa-chevron-left"></i> strings包(一)
               </a>
             
           </div>
@@ -479,10 +682,6 @@ Class文件整体结构Java">
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/12/20/Class文件结构-二/" rel="prev" title="Class文件结构(二)">
-                Class文件结构(二) <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -602,7 +801,7 @@ Class文件整体结构Java">
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Class文件结构"><span class="nav-number">1.</span> <span class="nav-text">Class文件结构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Class文件整体结构"><span class="nav-number">1.0.1.</span> <span class="nav-text">Class文件整体结构</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#图1"><span class="nav-number">1.0.1.0.1.</span> <span class="nav-text">图1:</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#图2"><span class="nav-number">1.0.1.0.2.</span> <span class="nav-text">图2:</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#图1-1"><span class="nav-number">1.0.1.0.3.</span> <span class="nav-text">图1-1:</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#未完待续。。。"><span class="nav-number">1.0.2.</span> <span class="nav-text">未完待续。。。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#看系列下一篇"><span class="nav-number">1.0.3.</span> <span class="nav-text">看系列下一篇</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#func-Index"><span class="nav-number">1.</span> <span class="nav-text">func Index</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#func-IndexAny"><span class="nav-number">2.</span> <span class="nav-text">func IndexAny</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#func-IndexFunc"><span class="nav-number">3.</span> <span class="nav-text">func IndexFunc</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#func-IndexRune"><span class="nav-number">4.</span> <span class="nav-text">func IndexRune</span></a></li></ol></div>
             
 
           </div>
