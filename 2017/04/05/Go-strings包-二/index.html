@@ -110,7 +110,7 @@ case n == 0:
     return 0
 case n == 1:
    // n为1时，这个就退化成了在s中查一个byte">
-<meta property="og:updated_time" content="2017-04-05T02:05:26.000Z">
+<meta property="og:updated_time" content="2017-04-14T03:42:18.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="strings包(二)">
 <meta name="twitter:description" content="func Indexfunc Index(s, sep string) int
@@ -616,6 +616,7 @@ func indexFunc(s string, f func(rune) bool, truth bool) int {
         return Index(s, string(r))
     }
 }
+</code></pre><h2 id="func-LastIndex"><a href="#func-LastIndex" class="headerlink" title="func LastIndex"></a>func LastIndex</h2><h2 id="func-LastIndexAny"><a href="#func-LastIndexAny" class="headerlink" title="func LastIndexAny"></a>func LastIndexAny</h2><h2 id="func-LastIndexByte"><a href="#func-LastIndexByte" class="headerlink" title="func LastIndexByte"></a>func LastIndexByte</h2><h2 id="func-LastIndexFunc"><a href="#func-LastIndexFunc" class="headerlink" title="func LastIndexFunc"></a>func LastIndexFunc</h2><pre><code>LastIndex系列跟Index系列实现原理上是相同的，不过有个疑问，为什么IndexByte是用汇编写的，而LastIndexByte却没有？
 </code></pre>
       
     </div>
@@ -683,6 +684,10 @@ func indexFunc(s string, f func(rune) bool, truth bool) int {
 
           <div class="post-nav-prev post-nav-item">
             
+              <a href="/2017/04/14/Go-strings包-三/" rel="prev" title="strings包(三)">
+                strings包(三) <i class="fa fa-chevron-right"></i>
+              </a>
+            
           </div>
         </div>
       
@@ -749,7 +754,7 @@ func indexFunc(s string, f func(rune) bool, truth bool) int {
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">11</span>
+              <span class="site-state-item-count">12</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -801,7 +806,7 @@ func indexFunc(s string, f func(rune) bool, truth bool) int {
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#func-Index"><span class="nav-number">1.</span> <span class="nav-text">func Index</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#func-IndexAny"><span class="nav-number">2.</span> <span class="nav-text">func IndexAny</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#func-IndexFunc"><span class="nav-number">3.</span> <span class="nav-text">func IndexFunc</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#func-IndexRune"><span class="nav-number">4.</span> <span class="nav-text">func IndexRune</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#func-Index"><span class="nav-number">1.</span> <span class="nav-text">func Index</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#func-IndexAny"><span class="nav-number">2.</span> <span class="nav-text">func IndexAny</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#func-IndexFunc"><span class="nav-number">3.</span> <span class="nav-text">func IndexFunc</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#func-IndexRune"><span class="nav-number">4.</span> <span class="nav-text">func IndexRune</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#func-LastIndex"><span class="nav-number">5.</span> <span class="nav-text">func LastIndex</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#func-LastIndexAny"><span class="nav-number">6.</span> <span class="nav-text">func LastIndexAny</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#func-LastIndexByte"><span class="nav-number">7.</span> <span class="nav-text">func LastIndexByte</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#func-LastIndexFunc"><span class="nav-number">8.</span> <span class="nav-text">func LastIndexFunc</span></a></li></ol></div>
             
 
           </div>

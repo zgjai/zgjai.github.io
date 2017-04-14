@@ -1,0 +1,1201 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+  <meta name="google-site-verification" content="OPqF-S-HpTv1BhNfvTsJ6VRCkKDz8x4tofFVEWXbRKU" />
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Go,Go原理,Go源码," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="func Joinfunc Join(a []string, sep string) string
+返回值：以sep为分隔符将a拼接起来。
+实现原理：
+// 先计算出拼接完成后string的长度
+n := len(sep) * (len(a) - 1)
+for i := 0; i &amp;lt; len(a); i++ {
+    n += len(a[i])
+}
+
+b := make([]byte,">
+<meta property="og:type" content="article">
+<meta property="og:title" content="strings包(三)">
+<meta property="og:url" content="https://zgjai.github.io/2017/04/14/Go-strings包-三/index.html">
+<meta property="og:site_name" content="知行合一">
+<meta property="og:description" content="func Joinfunc Join(a []string, sep string) string
+返回值：以sep为分隔符将a拼接起来。
+实现原理：
+// 先计算出拼接完成后string的长度
+n := len(sep) * (len(a) - 1)
+for i := 0; i &amp;lt; len(a); i++ {
+    n += len(a[i])
+}
+
+b := make([]byte,">
+<meta property="og:updated_time" content="2017-04-14T03:42:21.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="strings包(三)">
+<meta name="twitter:description" content="func Joinfunc Join(a []string, sep string) string
+返回值：以sep为分隔符将a拼接起来。
+实现原理：
+// 先计算出拼接完成后string的长度
+n := len(sep) * (len(a) - 1)
+for i := 0; i &amp;lt; len(a); i++ {
+    n += len(a[i])
+}
+
+b := make([]byte,">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"hide"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: 'guijiang.zhang'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: "",
+      labels: ""
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://zgjai.github.io/2017/04/14/Go-strings包-三/"/>
+
+
+
+
+
+  <title> strings包(三) | 知行合一 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-85448252-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">知行合一</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="https://zgjai.github.io/2017/04/14/Go-strings包-三/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="guijiang.zhang">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/images/pic.jpg">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="知行合一">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="知行合一" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                strings包(三)
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-04-14T09:37:05+08:00">
+              2017-04-14
+            </time>
+
+            
+
+
+
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Go/" itemprop="url" rel="index">
+                    <span itemprop="name">Go</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Go/Go源码阅读笔记/" itemprop="url" rel="index">
+                    <span itemprop="name">Go源码阅读笔记</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+             <span id="/2017/04/14/Go-strings包-三/" class="leancloud_visitors" data-flag-title="strings包(三)">
+               &nbsp; | &nbsp;
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               <span class="post-meta-item-text">阅读次数 </span>
+               <span class="leancloud-visitors-count"></span>
+              </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="func-Join"><a href="#func-Join" class="headerlink" title="func Join"></a>func Join</h2><pre><code>func Join(a []string, sep string) string
+返回值：以sep为分隔符将a拼接起来。
+</code></pre><p><strong>实现原理：</strong></p>
+<pre><code>// 先计算出拼接完成后string的长度
+n := len(sep) * (len(a) - 1)
+for i := 0; i &lt; len(a); i++ {
+    n += len(a[i])
+}
+
+b := make([]byte, n)
+bp := copy(b, a[0])
+for _, s := range a[1:] {
+    bp += copy(b[bp:], sep)
+    bp += copy(b[bp:], s)
+}
+</code></pre><h2 id="func-Map"><a href="#func-Map" class="headerlink" title="func Map"></a>func Map</h2><pre><code>func Map(mapping func(rune) rune, s string) string
+返回值：对s中的每个字符进行mapping，如果mapping结果为负则丢弃，构成新的string。
+</code></pre><p><strong>实现原理：</strong></p>
+<pre><code>func Map(mapping func(rune) rune, s string) string {
+    // In the worst case, the string can grow when mapped, making
+    // things unpleasant. But it&apos;s so rare we barge in assuming it&apos;s
+    // fine. It could also shrink but that falls out naturally.
+    maxbytes := len(s) // length of b
+    nbytes := 0        // number of bytes encoded in b
+    // The output buffer b is initialized on demand, the first
+    // time a character differs.
+    var b []byte
+
+    for i, c := range s {
+        r := mapping(c)
+        // 这个if是应对mapping之后跟原字符串完全相同的情况
+        if b == nil {
+            if r == c {
+                continue
+            }
+            b = make([]byte, maxbytes)
+            nbytes = copy(b, s[:i])
+        }
+        if r &gt;= 0 {
+            wid := 1
+            // 超出了ASCII范围
+            if r &gt;= utf8.RuneSelf {
+                wid = utf8.RuneLen(r)
+            }
+            if nbytes+wid &gt; maxbytes {
+                // Grow the buffer.
+                maxbytes = maxbytes*2 + utf8.UTFMax
+                nb := make([]byte, maxbytes)
+                copy(nb, b[0:nbytes])
+                b = nb
+            }
+            nbytes += utf8.EncodeRune(b[nbytes:maxbytes], r)
+        }
+    }
+    if b == nil {
+        return s
+    }
+    return string(b[0:nbytes])
+}
+</code></pre><h2 id="func-Repeat"><a href="#func-Repeat" class="headerlink" title="func Repeat"></a>func Repeat</h2><pre><code>func Repeat(s string, count int) string
+返回值：s重复count次组成的string。
+</code></pre><p><strong>实现原理：</strong></p>
+<pre><code>func Repeat(s string, count int) string {
+    // Since we cannot return an error on overflow,
+    // we should panic if the repeat will generate
+    // an overflow.
+    // See Issue golang.org/issue/16237
+    if count &lt; 0 {
+        panic(&quot;strings: negative Repeat count&quot;)
+    } else if count &gt; 0 &amp;&amp; len(s)*count/count != len(s) {
+       // 需要注意检查长度是不是会溢出
+        panic(&quot;strings: Repeat count causes overflow&quot;)
+    }
+
+    // 直接创建一个最终长度的byte slice
+    // 不仅仅是为了避免扩容，也是为了求得正确结果的必要条件
+    b := make([]byte, len(s)*count)
+    bp := copy(b, s)
+    for bp &lt; len(b) {
+       // 指数级增长，如果count不是2的整数幂，最后一次copy时会被截断到正确的长度
+        copy(b[bp:], b[:bp])
+        bp *= 2
+    }
+    return string(b)
+}
+</code></pre><h2 id="func-Replace"><a href="#func-Replace" class="headerlink" title="func Replace"></a>func Replace</h2><pre><code>func Replace(s, old, new string, n int) string
+返回值：这个还是需要动手实验一下才行，各种情况还是比较多的。
+</code></pre><p><strong>实现原理：</strong></p>
+<pre><code>// Replace returns a copy of the string s with the first n
+// non-overlapping instances of old replaced by new.
+// If old is empty, it matches at the beginning of the string
+// and after each UTF-8 sequence, yielding up to k+1 replacements
+// for a k-rune string.
+// If n &lt; 0, there is no limit on the number of replacements.
+func Replace(s, old, new string, n int) string {
+    if old == new || n == 0 {
+        return s // avoid allocation
+    }
+
+    // Compute number of replacements.
+    // Count可以计算出s中old出现了多少次
+    if m := Count(s, old); m == 0 {
+        return s // avoid allocation
+    } else if n &lt; 0 || m &lt; n {
+       // n为实际替换次数
+        n = m
+    }
+
+    // Apply replacements to buffer.
+    t := make([]byte, len(s)+n*(len(new)-len(old)))
+    w := 0
+    start := 0
+    for i := 0; i &lt; n; i++ {
+        j := start
+        if len(old) == 0 {
+            // old 为空时，在每两个字符中间添加new
+            if i &gt; 0 {
+                // 计算字符长度
+                _, wid := utf8.DecodeRuneInString(s[start:])
+                j += wid
+            }
+        } else {
+            // 定位到下一个old
+            j += Index(s[start:], old)
+        }
+        // copy不需要被替换掉部分
+        w += copy(t[w:], s[start:j])
+        // 添加new
+        w += copy(t[w:], new)
+        start = j + len(old)
+    }
+    w += copy(t[w:], s[start:])
+    return string(t[0:w])
+}
+</code></pre><h2 id="func-Split"><a href="#func-Split" class="headerlink" title="func Split"></a>func Split</h2><pre><code>func Split(s, sep string) []string
+返回值：将s以sep分隔，如果sep为空则分隔成一个个的utf-8字符。
+</code></pre><p><strong>实现原理：</strong></p>
+<pre><code>func Split(s, sep string) []string {
+    return genSplit(s, sep, 0, -1)
+}
+</code></pre><h2 id="func-SplitN"><a href="#func-SplitN" class="headerlink" title="func SplitN"></a>func SplitN</h2><pre><code>func SplitN(s, sep string, n int) []string
+返回值：跟Split的区别在参数n上
+n&gt;0时，最多分为n个子串；
+n=0时，返回nil；
+n&lt;0时，同Split。
+</code></pre><p><strong>实现原理：</strong></p>
+<pre><code>func SplitN(s, sep string, n int) []string {
+    return genSplit(s, sep, 0, n)
+}
+</code></pre><h2 id="func-SplitAfter"><a href="#func-SplitAfter" class="headerlink" title="func SplitAfter"></a>func SplitAfter</h2><pre><code>func SplitAfter(s, sep string) []string
+返回值：跟Split的区别在于sep会被保留在分隔后的结果中。
+</code></pre><p><strong>实现原理：</strong></p>
+<pre><code>func SplitAfter(s, sep string) []string {
+    return genSplit(s, sep, len(sep), -1)
+}
+</code></pre><h2 id="func-SplitAfterN"><a href="#func-SplitAfterN" class="headerlink" title="func SplitAfterN"></a>func SplitAfterN</h2><pre><code>func SplitAfterN(s, sep string, n int) []string
+SplitAfter与SplitN的结合。
+</code></pre><p><strong>实现原理：</strong></p>
+<pre><code>func SplitAfterN(s, sep string, n int) []string {
+    return genSplit(s, sep, len(sep), n)
+}
+</code></pre><p>几个Split中共用的部分：</p>
+<pre><code>// s是源字符串，sep是分隔字符串，sepSave是保留sep的多少位，n是分隔后的slice的最长长度
+func genSplit(s, sep string, sepSave, n int) []string {
+        if n == 0 {
+            return nil
+        }
+        if sep == &quot;&quot; {
+            return explode(s, n)
+        }
+        if n &lt; 0 {
+           // n&lt;0表示完全分隔，计算出分隔后的字符串的数量
+            n = Count(s, sep) + 1
+        }
+        c := sep[0]
+        start := 0
+        a := make([]string, n)
+        na := 0
+        for i := 0; i+len(sep) &lt;= len(s) &amp;&amp; na+1 &lt; n; i++ {
+            if s[i] == c &amp;&amp; (len(sep) == 1 || s[i:i+len(sep)] == sep) {
+                a[na] = s[start : i+sepSave]
+                na++
+                // start是每个分隔出来的字符串的起始位置
+                start = i + len(sep)
+                // i是每个分隔出来的字符串的结束位置
+                i += len(sep) - 1
+            }
+        }
+        // 剩余部分
+        a[na] = s[start:]
+        return a[0 : na+1]
+}
+</code></pre><p>展开字符串函数：</p>
+<pre><code>func explode(s string, n int) []string {
+    // 获取s中unicode字符数量
+        l := utf8.RuneCountInString(s)
+        if n &lt; 0 || n &gt; l {
+            n = l
+        }
+        a := make([]string, n)
+        for i := 0; i &lt; n-1; i++ {
+           // 拆解
+            ch, size := utf8.DecodeRuneInString(s)
+            a[i] = s[:size]
+            s = s[size:]
+            if ch == utf8.RuneError {
+                a[i] = string(utf8.RuneError)
+            }
+        }
+        if n &gt; 0 {
+            a[n-1] = s
+        }
+        return a
+}
+</code></pre><h2 id="func-Title"><a href="#func-Title" class="headerlink" title="func Title"></a>func Title</h2><pre><code>func Title(s string) string
+返回值：&quot;her royal highness&quot; -&gt; &quot;Her Royal Highness&quot;
+</code></pre><p><strong>实现原理：</strong></p>
+<pre><code>// Title returns a copy of the string s with all Unicode letters that begin words
+// mapped to their title case.
+//
+// BUG(rsc): The rule Title uses for word boundaries does not handle Unicode punctuation properly.
+func Title(s string) string {
+    // Use a closure here to remember state.
+    // Hackish but effective. Depends on Map scanning in order and calling
+    // the closure once per rune.
+    prev := &apos; &apos;
+    return Map(
+        func(r rune) rune {
+          // 闭包体现在变量prev上
+          // 个人觉得闭包的本质，就是将某些原本不属于某个函数的变量绑定到了这个函数上
+          // 比如这里的prev跟这个匿名函数的关系
+            if isSeparator(prev) {
+                prev = r
+                return unicode.ToTitle(r)
+            }
+            prev = r
+            return r
+        },
+        s)
+}
+</code></pre><h2 id="func-ToLower"><a href="#func-ToLower" class="headerlink" title="func ToLower"></a>func ToLower</h2><pre><code>func ToLower(s string) string
+返回值：所有大写字母转小写
+</code></pre><h2 id="func-ToLowerSpecial"><a href="#func-ToLowerSpecial" class="headerlink" title="func ToLowerSpecial"></a>func ToLowerSpecial</h2><pre><code>func ToLowerSpecial(c unicode.SpecialCase, s string) string
+返回值：对只使用中文跟英语的人来说，应该没啥用。。。对那些语言字符跟英文重合的语言来说是必要的。
+</code></pre><h2 id="func-ToTitle"><a href="#func-ToTitle" class="headerlink" title="func ToTitle"></a>func ToTitle</h2><pre><code>func ToTitle(s string) string
+返回值：所有字符转title
+</code></pre><h2 id="func-ToTitleSpecial"><a href="#func-ToTitleSpecial" class="headerlink" title="func ToTitleSpecial"></a>func ToTitleSpecial</h2><pre><code>func ToTitleSpecial(c unicode.SpecialCase, s string) string
+</code></pre><h2 id="func-ToUpper"><a href="#func-ToUpper" class="headerlink" title="func ToUpper"></a>func ToUpper</h2><pre><code>func ToUpper(s string) string
+返回值：所有小写字符转大写
+</code></pre><h2 id="func-ToUpperSpecial"><a href="#func-ToUpperSpecial" class="headerlink" title="func ToUpperSpecial"></a>func ToUpperSpecial</h2><pre><code>func ToUpperSpecial(c unicode.SpecialCase, s string) string
+</code></pre><p>上面6个to开头的函数的实现方式其实是一样的，用Map函数实现，区别在于传过去的匹配函数不同。</p>
+<h2 id="func-TrimLeftFunc"><a href="#func-TrimLeftFunc" class="headerlink" title="func TrimLeftFunc"></a>func TrimLeftFunc</h2><pre><code>func TrimLeftFunc(s string, f func(rune) bool) string
+返回值：将s从开头部分开始，移除符合f的字符，直至遇到第一个不符合f的即停止。
+</code></pre><p><strong>实现原理：</strong></p>
+<pre><code>// TrimLeftFunc returns a slice of the string s with all leading
+// Unicode code points c satisfying f(c) removed.
+func TrimLeftFunc(s string, f func(rune) bool) string {
+    // 找到第一个不符合f的字符index
+    i := indexFunc(s, f, false)
+    if i == -1 {
+        return &quot;&quot;
+    }
+    // 切割
+    return s[i:]
+}
+</code></pre><h2 id="func-TrimRightFunc"><a href="#func-TrimRightFunc" class="headerlink" title="func TrimRightFunc"></a>func TrimRightFunc</h2><pre><code>func TrimRightFunc(s string, f func(rune) bool) string
+返回值：将s从结尾部分开始，移除符合f的字符，直至遇到第一个不符合f的即停止。
+</code></pre><p><strong>实现原理：</strong></p>
+<pre><code>// TrimRightFunc returns a slice of the string s with all trailing
+// Unicode code points c satisfying f(c) removed.
+func TrimRightFunc(s string, f func(rune) bool) string {
+    // 从尾部找到第一个不符合f的字符index
+    i := lastIndexFunc(s, f, false)
+    if i &gt;= 0 &amp;&amp; s[i] &gt;= utf8.RuneSelf {
+        _, wid := utf8.DecodeRuneInString(s[i:])
+        i += wid
+    } else {
+        i++
+    }
+    // 切割，需要注意的是前闭后开，故有上面那一段
+    return s[0:i]
+}
+</code></pre><h2 id="func-TrimFunc"><a href="#func-TrimFunc" class="headerlink" title="func TrimFunc"></a>func TrimFunc</h2><pre><code>func TrimFunc(s string, f func(rune) bool) string
+返回值：TrimLeftFunc和TrimRightFunc的结合
+</code></pre><h2 id="func-TrimLeft"><a href="#func-TrimLeft" class="headerlink" title="func TrimLeft"></a>func TrimLeft</h2><pre><code>func TrimLeft(s string, cutset string) string
+返回值：将s从开头部分开始，移除存在于cutset中的字符，直至遇到第一个不存在的即停止。
+</code></pre><p><strong>实现原理：</strong></p>
+<pre><code>// TrimLeft returns a slice of the string s with all leading
+// Unicode code points contained in cutset removed.
+func TrimLeft(s string, cutset string) string {
+    if s == &quot;&quot; || cutset == &quot;&quot; {
+        return s
+    }
+    return TrimLeftFunc(s, makeCutsetFunc(cutset))
+}
+
+func makeCutsetFunc(cutset string) func(rune) bool {
+    if len(cutset) == 1 &amp;&amp; cutset[0] &lt; utf8.RuneSelf {
+       // cutset只有1个字符且为ASCII
+        return func(r rune) bool {
+            return r == rune(cutset[0])
+        }
+    }
+    if as, isASCII := makeASCIISet(cutset); isASCII {
+       // 全为ASCII时，使用makeASCIISet，之前用到过
+        return func(r rune) bool {
+            return r &lt; utf8.RuneSelf &amp;&amp; as.contains(byte(r))
+        }
+    }
+    return func(r rune) bool { return IndexRune(cutset, r) &gt;= 0 }
+}
+</code></pre><h2 id="func-TrimRight"><a href="#func-TrimRight" class="headerlink" title="func TrimRight"></a>func TrimRight</h2><pre><code>func TrimRight(s string, cutset string) string
+返回值：将s从结尾部分开始，移除存在于cutset中的字符，直至遇到第一个不存在的即停止。
+</code></pre><p><strong>实现原理：</strong></p>
+<pre><code>// TrimRight returns a slice of the string s, with all trailing
+// Unicode code points contained in cutset removed.
+func TrimRight(s string, cutset string) string {
+    if s == &quot;&quot; || cutset == &quot;&quot; {
+        return s
+    }
+    // 跟TrimLeft唯一区别
+    return TrimRightFunc(s, makeCutsetFunc(cutset))
+}
+</code></pre><h2 id="func-Trim"><a href="#func-Trim" class="headerlink" title="func Trim"></a>func Trim</h2><pre><code>func Trim(s string, cutset string) string
+返回值：TrimLeft和TrimRight的结合
+</code></pre><p><strong>实现原理：</strong></p>
+<pre><code>func Trim(s string, cutset string) string {
+    if s == &quot;&quot; || cutset == &quot;&quot; {
+        return s
+    }
+    return TrimFunc(s, makeCutsetFunc(cutset))
+}
+</code></pre><h2 id="func-TrimSpace"><a href="#func-TrimSpace" class="headerlink" title="func TrimSpace"></a>func TrimSpace</h2><pre><code>func TrimSpace(s string) string
+返回值：等同于Trim的cutest是定义为space的字符集合
+</code></pre><p><strong>实现原理：</strong></p>
+<pre><code>func TrimSpace(s string) string {
+   return TrimFunc(s, unicode.IsSpace)
+}
+</code></pre><h2 id="func-TrimPrefix"><a href="#func-TrimPrefix" class="headerlink" title="func TrimPrefix"></a>func TrimPrefix</h2><pre><code>func TrimPrefix(s, prefix string) string
+返回值：移除prefix前缀
+</code></pre><h2 id="func-TrimSuffix"><a href="#func-TrimSuffix" class="headerlink" title="func TrimSuffix"></a>func TrimSuffix</h2><pre><code>func TrimSuffix(s, suffix string) string
+返回值：移除suffix后缀
+</code></pre><p>这俩虽然也是Trim函数，但是实现上完全跟前几个Trim不同。</p>
+<pre><code>func TrimPrefix(s, prefix string) string {
+    // 判断是否包含前缀
+    if HasPrefix(s, prefix) {
+       // 截断
+        return s[len(prefix):]
+    }
+    return s
+}
+</code></pre>
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="https://ww4.sinaimg.cn/large/006tNc79ly1fczcodf6v0j30yi1au78o.jpg" alt="guijiang.zhang WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="https://ww1.sinaimg.cn/large/006tNc79ly1fczcoe0gs2j30go0p00uq.jpg" alt="guijiang.zhang Alipay"/>
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Go/" rel="tag"># Go</a>
+          
+            <a href="/tags/Go原理/" rel="tag"># Go原理</a>
+          
+            <a href="/tags/Go源码/" rel="tag"># Go源码</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/04/05/Go-strings包-二/" rel="next" title="strings包(二)">
+                <i class="fa fa-chevron-left"></i> strings包(二)
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/pic.jpg"
+               alt="guijiang.zhang" />
+          <p class="site-author-name" itemprop="name">guijiang.zhang</p>
+          <p class="site-description motion-element" itemprop="description">若文章有误，可email:18710057269@163.com</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">12</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">10</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#func-Join"><span class="nav-number">1.</span> <span class="nav-text">func Join</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#func-Map"><span class="nav-number">2.</span> <span class="nav-text">func Map</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#func-Repeat"><span class="nav-number">3.</span> <span class="nav-text">func Repeat</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#func-Replace"><span class="nav-number">4.</span> <span class="nav-text">func Replace</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#func-Split"><span class="nav-number">5.</span> <span class="nav-text">func Split</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#func-SplitN"><span class="nav-number">6.</span> <span class="nav-text">func SplitN</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#func-SplitAfter"><span class="nav-number">7.</span> <span class="nav-text">func SplitAfter</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#func-SplitAfterN"><span class="nav-number">8.</span> <span class="nav-text">func SplitAfterN</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#func-Title"><span class="nav-number">9.</span> <span class="nav-text">func Title</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#func-ToLower"><span class="nav-number">10.</span> <span class="nav-text">func ToLower</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#func-ToLowerSpecial"><span class="nav-number">11.</span> <span class="nav-text">func ToLowerSpecial</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#func-ToTitle"><span class="nav-number">12.</span> <span class="nav-text">func ToTitle</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#func-ToTitleSpecial"><span class="nav-number">13.</span> <span class="nav-text">func ToTitleSpecial</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#func-ToUpper"><span class="nav-number">14.</span> <span class="nav-text">func ToUpper</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#func-ToUpperSpecial"><span class="nav-number">15.</span> <span class="nav-text">func ToUpperSpecial</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#func-TrimLeftFunc"><span class="nav-number">16.</span> <span class="nav-text">func TrimLeftFunc</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#func-TrimRightFunc"><span class="nav-number">17.</span> <span class="nav-text">func TrimRightFunc</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#func-TrimFunc"><span class="nav-number">18.</span> <span class="nav-text">func TrimFunc</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#func-TrimLeft"><span class="nav-number">19.</span> <span class="nav-text">func TrimLeft</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#func-TrimRight"><span class="nav-number">20.</span> <span class="nav-text">func TrimRight</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#func-Trim"><span class="nav-number">21.</span> <span class="nav-text">func Trim</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#func-TrimSpace"><span class="nav-number">22.</span> <span class="nav-text">func TrimSpace</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#func-TrimPrefix"><span class="nav-number">23.</span> <span class="nav-text">func TrimPrefix</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#func-TrimSuffix"><span class="nav-number">24.</span> <span class="nav-text">func TrimSuffix</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">guijiang.zhang</span>
+</div>
+
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("8bXnf5LD9PH63Gz10MMV7Hp7-gzGzoHsz", "RAnKE7OMwrtJdcj8FtchCQ2q");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+
+
+</body>
+</html>
