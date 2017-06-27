@@ -1,0 +1,978 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+  <meta name="google-site-verification" content="OPqF-S-HpTv1BhNfvTsJ6VRCkKDz8x4tofFVEWXbRKU" />
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="基础,网络," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="ARP(地址解析协议)
+地址解析协议（Address Resolution Protocol），其基本功能为透过目标设备的IP地址，查询目标设备的MAC地址，以保证通信的顺利进行。它是IPv4中网络层必不可少的协议，不过在IPv6中已不再适用，并被邻居发现协议（NDP）所替代。
+
+报文格式
+通过Wireshark可以进行实际抓包分析。
+ARP请求包
+ARP应答包
+IP(互联网协议)这里仅介绍IPv">
+<meta property="og:type" content="article">
+<meta property="og:title" content="TCP/IP协议学习">
+<meta property="og:url" content="https://zgjai.github.io/2017/06/27/TCP-IP协议学习/index.html">
+<meta property="og:site_name" content="知行合一">
+<meta property="og:description" content="ARP(地址解析协议)
+地址解析协议（Address Resolution Protocol），其基本功能为透过目标设备的IP地址，查询目标设备的MAC地址，以保证通信的顺利进行。它是IPv4中网络层必不可少的协议，不过在IPv6中已不再适用，并被邻居发现协议（NDP）所替代。
+
+报文格式
+通过Wireshark可以进行实际抓包分析。
+ARP请求包
+ARP应答包
+IP(互联网协议)这里仅介绍IPv">
+<meta property="og:image" content="http://o793hh4oz.bkt.clouddn.com/14968975557171.jpg">
+<meta property="og:image" content="http://o793hh4oz.bkt.clouddn.com/14968991664724.jpg">
+<meta property="og:image" content="http://o793hh4oz.bkt.clouddn.com/14968996767466.jpg">
+<meta property="og:image" content="http://o793hh4oz.bkt.clouddn.com/14969869117990.jpg">
+<meta property="og:image" content="http://o793hh4oz.bkt.clouddn.com/14974166250614.jpg">
+<meta property="og:image" content="http://o793hh4oz.bkt.clouddn.com/14974167717867.jpg">
+<meta property="og:image" content="http://o793hh4oz.bkt.clouddn.com/14974168944022.jpg">
+<meta property="og:image" content="http://o793hh4oz.bkt.clouddn.com/14973319932429.jpg">
+<meta property="og:image" content="http://o793hh4oz.bkt.clouddn.com/14973320477002.jpg">
+<meta property="og:image" content="http://o793hh4oz.bkt.clouddn.com/14974180706603.jpg">
+<meta property="og:image" content="http://o793hh4oz.bkt.clouddn.com/14978500044051.jpg">
+<meta property="og:image" content="http://o793hh4oz.bkt.clouddn.com/14978502649809.jpg">
+<meta property="og:image" content="http://o793hh4oz.bkt.clouddn.com/14978503891458.jpg">
+<meta property="og:image" content="http://o793hh4oz.bkt.clouddn.com/14980217938310.jpg">
+<meta property="og:image" content="http://o793hh4oz.bkt.clouddn.com/14980218725508.jpg">
+<meta property="og:image" content="http://o793hh4oz.bkt.clouddn.com/14980221325163.jpg">
+<meta property="og:image" content="http://o793hh4oz.bkt.clouddn.com/14980221382642.jpg">
+<meta property="og:image" content="http://o793hh4oz.bkt.clouddn.com/14980227852179.jpg">
+<meta property="og:image" content="http://o793hh4oz.bkt.clouddn.com/14980227925977.jpg">
+<meta property="og:image" content="http://o793hh4oz.bkt.clouddn.com/14981085557382.jpg">
+<meta property="og:image" content="http://o793hh4oz.bkt.clouddn.com/14981088363892.jpg">
+<meta property="og:updated_time" content="2017-06-27T12:30:37.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="TCP/IP协议学习">
+<meta name="twitter:description" content="ARP(地址解析协议)
+地址解析协议（Address Resolution Protocol），其基本功能为透过目标设备的IP地址，查询目标设备的MAC地址，以保证通信的顺利进行。它是IPv4中网络层必不可少的协议，不过在IPv6中已不再适用，并被邻居发现协议（NDP）所替代。
+
+报文格式
+通过Wireshark可以进行实际抓包分析。
+ARP请求包
+ARP应答包
+IP(互联网协议)这里仅介绍IPv">
+<meta name="twitter:image" content="http://o793hh4oz.bkt.clouddn.com/14968975557171.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"hide"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: 'guijiang.zhang'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: "",
+      labels: ""
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://zgjai.github.io/2017/06/27/TCP-IP协议学习/"/>
+
+
+
+
+
+  <title> TCP/IP协议学习 | 知行合一 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-85448252-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">知行合一</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="https://zgjai.github.io/2017/06/27/TCP-IP协议学习/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="guijiang.zhang">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/images/pic.jpg">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="知行合一">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="知行合一" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                TCP/IP协议学习
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-06-27T20:28:25+08:00">
+              2017-06-27
+            </time>
+
+            
+
+
+
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/网络/" itemprop="url" rel="index">
+                    <span itemprop="name">网络</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+             <span id="/2017/06/27/TCP-IP协议学习/" class="leancloud_visitors" data-flag-title="TCP/IP协议学习">
+               &nbsp; | &nbsp;
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               <span class="post-meta-item-text">阅读次数 </span>
+               <span class="leancloud-visitors-count"></span>
+              </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="ARP-地址解析协议"><a href="#ARP-地址解析协议" class="headerlink" title="ARP(地址解析协议)"></a>ARP(地址解析协议)</h1><blockquote>
+<p>地址解析协议（Address Resolution Protocol），其基本功能为透过目标设备的IP地址，查询目标设备的MAC地址，以保证通信的顺利进行。它是IPv4中网络层必不可少的协议，不过在IPv6中已不再适用，并被邻居发现协议（NDP）所替代。</p>
+</blockquote>
+<h3 id="报文格式"><a href="#报文格式" class="headerlink" title="报文格式"></a>报文格式</h3><p><img src="http://o793hh4oz.bkt.clouddn.com/14968975557171.jpg" alt=""></p>
+<p>通过Wireshark可以进行实际抓包分析。</p>
+<h4 id="ARP请求包"><a href="#ARP请求包" class="headerlink" title="ARP请求包"></a>ARP请求包</h4><p><img src="http://o793hh4oz.bkt.clouddn.com/14968991664724.jpg" alt=""></p>
+<h4 id="ARP应答包"><a href="#ARP应答包" class="headerlink" title="ARP应答包"></a>ARP应答包</h4><p><img src="http://o793hh4oz.bkt.clouddn.com/14968996767466.jpg" alt=""></p>
+<h1 id="IP-互联网协议"><a href="#IP-互联网协议" class="headerlink" title="IP(互联网协议)"></a>IP(互联网协议)</h1><p>这里仅介绍IPv4协议。</p>
+<h3 id="IPv4的数据包格式"><a href="#IPv4的数据包格式" class="headerlink" title="IPv4的数据包格式"></a>IPv4的数据包格式</h3><p><img src="http://o793hh4oz.bkt.clouddn.com/14969869117990.jpg" alt=""></p>
+<ul>
+<li><p><strong>版本号</strong><br>  IP所使用的版本。对IPv4来说，这个字段的值是4。</p>
+</li>
+<li><p><strong>首部长度</strong><br>  IP头的长度。</p>
+</li>
+<li><p><strong>服务类型/区分服务</strong><br>  最初被定义为服务类型字段，实际上并未使用，但被RFC 2474重定义为DiffServ。新的需要实时数据流的技术会应用这个字段，一个例子是VoIP。</p>
+</li>
+<li><p><strong>显式拥塞通告</strong><br>  在RFC 3168中定义，允许在不丢弃报文的同时通知对方网络拥塞的发生。ECN是一种可选的功能，仅当两端都支持并希望使用，且底层网络支持时才被使用。</p>
+</li>
+<li><p><strong>总长度</strong><br>  这个16位字段定义了报文总长，包含首部和数据，单位为字节。这个字段的最小值是20（20字节首部+0字节数据），最大值是216-1=65,535。IP规定所有主机都必须支持最小576字节的报文，这是假定上层数据长度512字节，加上最长IP首部60字节，加上4字节富裕量，得出576字节，但大多数现代主机支持更大的报文。有时候子网会限制报文的大小，这时报文就必须被分片。</p>
+</li>
+<li><p><strong>标识符</strong><br>  一个唯一的标识数字，用来识别一个数据包或者被分片数据包的次序。</p>
+</li>
+<li><p><strong>标志</strong><br>  这个3位字段用于控制和识别分片，它们是：  </p>
+<ul>
+<li>位0：保留，必须为0；  </li>
+<li>位1：禁止分片（DF），当DF=0时才允许分片；  </li>
+<li>位2：更多分片（MF），MF=1代表后面还有分片，MF=0 代表已经是最后一个分片。<br>如果DF标志被设置为1，但路由要求必须分片报文，此报文会被丢弃。这个标志可被用于发往没有能力组装分片的主机。<br>当一个报文被分片，除了最后一片外的所有分片都设置MF为1。最后一个片段具有非零片段偏移字段，将其与未分片数据包区分开，未分片的偏移字段为0。</li>
+</ul>
+</li>
+<li><p><strong>分片偏移</strong><br>  指明了每个分片相对于原始报文开头的偏移量</p>
+<p>  <img src="http://o793hh4oz.bkt.clouddn.com/14974166250614.jpg" alt=""><br>  <img src="http://o793hh4oz.bkt.clouddn.com/14974167717867.jpg" alt=""><br>  <img src="http://o793hh4oz.bkt.clouddn.com/14974168944022.jpg" alt=""></p>
+</li>
+</ul>
+<ul>
+<li><p><strong>存活时间</strong><br>  这个8位字段避免报文在互联网中永远存在（例如陷入路由环路）。存活时间以秒为单位，但小于一秒的时间均向上取整到一秒。在现实中，这实际上成了一个跳数计数器：报文经过的每个路由器都将此字段减1，当此字段等于0时，报文不再向下一跳传送并被丢弃，最大值是255。常规地，一份ICMP报文被发回报文发送端说明其发送的报文已被丢弃。这也是traceroute的核心原理。</p>
+<p>  <img src="http://o793hh4oz.bkt.clouddn.com/14973319932429.jpg" alt=""><br>  <img src="http://o793hh4oz.bkt.clouddn.com/14973320477002.jpg" alt=""></p>
+<p>  上面一张图是发送方发出时的数据包内容，TTL的值为128；下面一张图是接收方接收到的数据包的内容，TTL的值为127，比原先的TTL减少了1，即使不知道网络的结构，也可以知道这两台设备是由一台路由器隔开的。</p>
+</li>
+</ul>
+<ul>
+<li><p><strong>协议</strong><br>  用来识别在数据包序列上层协议数据包的类型</p>
+</li>
+<li><p><strong>首部校验和</strong><br>  这个16位检验和字段只对首部查错，不包括数据部分。在每一跳，路由器都要重新计算出的首部检验和并与此字段进行比对，如果不一致，此报文被丢弃。重新计算的必要性是因为每一跳的一些首部字段（如TTL、Flag、Offset等）都有可能发生变化，不检查数据部分是为了减少工作量。数据区的错误留待上层协议处理——用户数据报协议（UDP）和传输控制协议（TCP）都有检验和字段。此处的检验计算方法不使用CRC。</p>
+</li>
+<li><p><strong>源IP地址</strong><br>  发出数据包的主机的IP地址</p>
+</li>
+<li><p><strong>目的IP地址</strong><br>  数据包目的地的IP地址</p>
+</li>
+<li><p><strong>选项</strong><br>  附加的首部字段可能跟在目的地址之后，但这并不被经常使用</p>
+</li>
+<li><p><strong>数据</strong><br>  使用IP协议实际传输的数据</p>
+</li>
+</ul>
+<h1 id="TCP-传输控制协议"><a href="#TCP-传输控制协议" class="headerlink" title="TCP(传输控制协议)"></a>TCP(传输控制协议)</h1><h3 id="数据包格式"><a href="#数据包格式" class="headerlink" title="数据包格式"></a>数据包格式</h3><p><img src="http://o793hh4oz.bkt.clouddn.com/14974180706603.jpg" alt=""></p>
+<ul>
+<li><p><strong>源端口</strong><br>  用来传输数据包的端口</p>
+</li>
+<li><p><strong>目的端口</strong><br>  数据包将要被发送到的端口</p>
+</li>
+<li><p><strong>序列号码</strong>  </p>
+<ul>
+<li>如果含有同步化旗标（SYN），则此为最初的序列号；第一个数据比特的序列码为本序列号加一。</li>
+<li>如果没有同步化旗标（SYN），则此为第一个数据比特的序列码。</li>
+</ul>
+</li>
+<li><p><strong>确认号码</strong><br>  期望收到的数据的开始序列号。也即已经收到的数据的字节长度加1</p>
+</li>
+<li><p><strong>报头长度</strong><br>  以4字节为单位计算出的数据段开始地址的偏移值</p>
+</li>
+<li><p><strong>标志符</strong>  </p>
+<ul>
+<li>URG—为1表示高优先级数据包，紧急指针字段有效。</li>
+<li>ACK—为1表示确认号字段有效</li>
+<li>PSH—为1表示是带有PUSH标志的数据，指示接收方应该尽快将这个报文段交给应用层而不用等待缓冲区装满。</li>
+<li>RST—为1表示出现严重差错。可能需要重现创建TCP连接。还可以用于拒绝非法的报文段和拒绝连接请求。</li>
+<li>SYN—为1表示这是连接请求或是连接接受请求，用于创建连接和使顺序号同步</li>
+<li>FIN—为1表示发送方没有数据要传输了，要求释放连接。</li>
+</ul>
+</li>
+<li><p><strong>窗口大小</strong><br>  表示从确认号开始，本报文的接受方可以接收的字节数，即接收窗口大小。用于流量控制。</p>
+</li>
+<li><p><strong>校验和</strong><br>  对整个的TCP报文段，包括TCP头部和TCP数据，以16位字进行计算所得。这是一个强制性的字段。</p>
+</li>
+<li><p><strong>紧急指针</strong><br>  本报文段中的紧急数据的最后一个字节的序号</p>
+</li>
+<li><p><strong>选项</strong><br>  最多40字节。每个选项的开始是1字节的kind字段，说明选项的类型。</p>
+<ul>
+<li>0：选项表结束（1字节）</li>
+<li>1：无操作（1字节）用于选项字段之间的字边界对齐。</li>
+<li>2：最大报文段长度（4字节，Maximum Segment Size，MSS）通常在创建连接而设置SYN标志的数据包中指明这个选项，指明本端所能接收的最大长度的报文段。通常将MSS设置为（MTU-40）字节，携带TCP报文段的IP数据报的长度就不会超过MTU，从而避免本机发生IP分片。只能出现在同步报文段中，否则将被忽略。</li>
+<li>3：窗口扩大因子（4字节，wscale），取值0-14。用来把TCP的窗口的值左移的位数。只能出现在同步报文段中，否则将被忽略。这是因为现在的TCP接收数据缓冲区（接收窗口）的长度通常大于65535字节。</li>
+<li>4：sackOK—发送端支持并同意使用SACK选项。</li>
+<li>5：SACK实际工作的选项。</li>
+<li>8：时间戳（10字节，TCP Timestamps Option，TSopt）<ul>
+<li>发送端的时间戳（Timestamp Value field，TSval，4字节）</li>
+<li>时间戳回显应答（Timestamp Echo Reply field，TSecr，4字节）</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="TCP连接过程"><a href="#TCP连接过程" class="headerlink" title="TCP连接过程"></a>TCP连接过程</h3><p><strong>客户端发送的SYN数据包（三次握手的第一阶段）</strong></p>
+<p><img src="http://o793hh4oz.bkt.clouddn.com/14978500044051.jpg" alt=""></p>
+<p><strong>服务端应答的ACK及SYN数据包（三次握手的第二阶段）</strong></p>
+<p><img src="http://o793hh4oz.bkt.clouddn.com/14978502649809.jpg" alt=""></p>
+<p><strong>客户端应答的ACK数据包（三次握手的第三阶段）</strong></p>
+<p><img src="http://o793hh4oz.bkt.clouddn.com/14978503891458.jpg" alt=""></p>
+<h3 id="TCP终止过程"><a href="#TCP终止过程" class="headerlink" title="TCP终止过程"></a>TCP终止过程</h3><p>其实终止过程可以分为两个相对独立的阶段</p>
+<p><strong>某一端发送表示连接关闭的FIN数据包（第一阶段的请求关闭）</strong><br><img src="http://o793hh4oz.bkt.clouddn.com/14980217938310.jpg" alt=""></p>
+<p><strong>另一端对关闭请求的应答ACK数据包（第一阶段的关闭应答）</strong><br><img src="http://o793hh4oz.bkt.clouddn.com/14980218725508.jpg" alt=""></p>
+<p><strong>第二阶段跟第一阶段是一样的，只是发送方跟应答方角色互换</strong><br><img src="http://o793hh4oz.bkt.clouddn.com/14980221325163.jpg" alt=""></p>
+<p><img src="http://o793hh4oz.bkt.clouddn.com/14980221382642.jpg" alt=""></p>
+<h3 id="TCP重置"><a href="#TCP重置" class="headerlink" title="TCP重置"></a>TCP重置</h3><p>在进行TCP通信的过程中，可能会出现某一端发生错误的情况，比如当机之后重启了，但是之前的连接信息都已经丢失了。<br><img src="http://o793hh4oz.bkt.clouddn.com/14980227852179.jpg" alt=""></p>
+<p><img src="http://o793hh4oz.bkt.clouddn.com/14980227925977.jpg" alt=""></p>
+<h1 id="UDP（用户数据报协议）"><a href="#UDP（用户数据报协议）" class="headerlink" title="UDP（用户数据报协议）"></a>UDP（用户数据报协议）</h1><h3 id="UDP报头"><a href="#UDP报头" class="headerlink" title="UDP报头"></a>UDP报头</h3><p><img src="http://o793hh4oz.bkt.clouddn.com/14981085557382.jpg" alt=""></p>
+<ul>
+<li><p><strong>源端口</strong><br>  用来传输数据包的端口</p>
+</li>
+<li><p><strong>目标端口</strong><br>  数据包将要被传输到的端口</p>
+</li>
+<li><p><strong>数据包长度</strong><br>  数据包的字节长度</p>
+</li>
+<li><p><strong>校验和</strong><br>  用来确保UDP头和数据到达时的完整性</p>
+</li>
+</ul>
+<p><img src="http://o793hh4oz.bkt.clouddn.com/14981088363892.jpg" alt=""></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="https://ww4.sinaimg.cn/large/006tNc79ly1fczcodf6v0j30yi1au78o.jpg" alt="guijiang.zhang WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="https://ww1.sinaimg.cn/large/006tNc79ly1fczcoe0gs2j30go0p00uq.jpg" alt="guijiang.zhang Alipay"/>
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/基础/" rel="tag"># 基础</a>
+          
+            <a href="/tags/网络/" rel="tag"># 网络</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/06/14/自动内存管理-一/" rel="next" title="自动内存管理(一)">
+                <i class="fa fa-chevron-left"></i> 自动内存管理(一)
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/pic.jpg"
+               alt="guijiang.zhang" />
+          <p class="site-author-name" itemprop="name">guijiang.zhang</p>
+          <p class="site-description motion-element" itemprop="description">若文章有误，可email:18710057269@163.com</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">14</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">14</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#ARP-地址解析协议"><span class="nav-number">1.</span> <span class="nav-text">ARP(地址解析协议)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#报文格式"><span class="nav-number">1.0.1.</span> <span class="nav-text">报文格式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#ARP请求包"><span class="nav-number">1.0.1.1.</span> <span class="nav-text">ARP请求包</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ARP应答包"><span class="nav-number">1.0.1.2.</span> <span class="nav-text">ARP应答包</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#IP-互联网协议"><span class="nav-number">2.</span> <span class="nav-text">IP(互联网协议)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#IPv4的数据包格式"><span class="nav-number">2.0.1.</span> <span class="nav-text">IPv4的数据包格式</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#TCP-传输控制协议"><span class="nav-number">3.</span> <span class="nav-text">TCP(传输控制协议)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#数据包格式"><span class="nav-number">3.0.1.</span> <span class="nav-text">数据包格式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#TCP连接过程"><span class="nav-number">3.0.2.</span> <span class="nav-text">TCP连接过程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#TCP终止过程"><span class="nav-number">3.0.3.</span> <span class="nav-text">TCP终止过程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#TCP重置"><span class="nav-number">3.0.4.</span> <span class="nav-text">TCP重置</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#UDP（用户数据报协议）"><span class="nav-number">4.</span> <span class="nav-text">UDP（用户数据报协议）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#UDP报头"><span class="nav-number">4.0.1.</span> <span class="nav-text">UDP报头</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">guijiang.zhang</span>
+</div>
+
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("8bXnf5LD9PH63Gz10MMV7Hp7-gzGzoHsz", "RAnKE7OMwrtJdcj8FtchCQ2q");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+
+
+</body>
+</html>
