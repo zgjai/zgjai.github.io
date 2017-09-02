@@ -1,0 +1,1216 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+  <meta name="google-site-verification" content="OPqF-S-HpTv1BhNfvTsJ6VRCkKDz8x4tofFVEWXbRKU" />
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="java,并发编程," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="锁AbstractQueuedSynchronizerAbstractQueuedSynchronizer（简称为AQS）是整个locks包的基石，它提供了一个基于FIFO队列，可以用于构建锁或者其他相关同步装置的基础框架。该类利用了一个int来同步表示状态，期望它能够成为实现大部分同步需求的基础。使用的方法是继承，子类通过继承同步器并需要实现它的方法来管理其状态，管理的方式就是通过类似acqui">
+<meta property="og:type" content="article">
+<meta property="og:title" content="java并发编程(二)">
+<meta property="og:url" content="https://zgjai.github.io/2017/09/02/java并发编程-二/index.html">
+<meta property="og:site_name" content="知行合一">
+<meta property="og:description" content="锁AbstractQueuedSynchronizerAbstractQueuedSynchronizer（简称为AQS）是整个locks包的基石，它提供了一个基于FIFO队列，可以用于构建锁或者其他相关同步装置的基础框架。该类利用了一个int来同步表示状态，期望它能够成为实现大部分同步需求的基础。使用的方法是继承，子类通过继承同步器并需要实现它的方法来管理其状态，管理的方式就是通过类似acqui">
+<meta property="og:image" content="http://o793hh4oz.bkt.clouddn.com/15039712341176.jpg">
+<meta property="og:updated_time" content="2017-09-02T13:13:08.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="java并发编程(二)">
+<meta name="twitter:description" content="锁AbstractQueuedSynchronizerAbstractQueuedSynchronizer（简称为AQS）是整个locks包的基石，它提供了一个基于FIFO队列，可以用于构建锁或者其他相关同步装置的基础框架。该类利用了一个int来同步表示状态，期望它能够成为实现大部分同步需求的基础。使用的方法是继承，子类通过继承同步器并需要实现它的方法来管理其状态，管理的方式就是通过类似acqui">
+<meta name="twitter:image" content="http://o793hh4oz.bkt.clouddn.com/15039712341176.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"hide"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: 'guijiang.zhang'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: "",
+      labels: ""
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://zgjai.github.io/2017/09/02/java并发编程-二/"/>
+
+
+
+
+
+  <title> java并发编程(二) | 知行合一 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-85448252-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">知行合一</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="https://zgjai.github.io/2017/09/02/java并发编程-二/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="guijiang.zhang">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/images/pic.jpg">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="知行合一">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="知行合一" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                java并发编程(二)
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-09-02T21:11:40+08:00">
+              2017-09-02
+            </time>
+
+            
+
+
+
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/java/" itemprop="url" rel="index">
+                    <span itemprop="name">java</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+             <span id="/2017/09/02/java并发编程-二/" class="leancloud_visitors" data-flag-title="java并发编程(二)">
+               &nbsp; | &nbsp;
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               <span class="post-meta-item-text">阅读次数 </span>
+               <span class="leancloud-visitors-count"></span>
+              </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="锁"><a href="#锁" class="headerlink" title="锁"></a>锁</h2><h3 id="AbstractQueuedSynchronizer"><a href="#AbstractQueuedSynchronizer" class="headerlink" title="AbstractQueuedSynchronizer"></a>AbstractQueuedSynchronizer</h3><p>AbstractQueuedSynchronizer（简称为AQS）是整个locks包的基石，它提供了一个基于FIFO队列，可以用于构建锁或者其他相关同步装置的基础框架。该类利用了一个int来同步表示状态，期望它能够成为实现大部分同步需求的基础。使用的方法是继承，子类通过继承同步器并需要实现它的方法来管理其状态，管理的方式就是通过类似acquire和release的方式来操纵状态。<br>AQS提供了两种机制：排他模式和共享模式，也可以两种模式共存。处于排他模式时，其他线程试图获取该锁将无法取得成功。在共享模式下，多个线程获取某个锁可能会获得成功。</p>
+<p><strong>使用实例：</strong></p>
+<h4 id="通过AQS实现一个不可重入的独占锁"><a href="#通过AQS实现一个不可重入的独占锁" class="headerlink" title="通过AQS实现一个不可重入的独占锁"></a>通过AQS实现一个不可重入的独占锁</h4><pre><code>public class Mutex implements Lock {
+
+    // 内部静态类Sync，继承AQS，Mutex的所有操作其实都是委托Sync实现的
+    private final Sync sync = new Sync();
+
+    private static final class Sync extends AbstractQueuedSynchronizer {
+        @Override
+        protected boolean tryAcquire(int ignore) {
+            // 通过CAS的方式改变state的值，成功则表示加锁成功
+            if (compareAndSetState(0, 1)) {
+                // 设置独占锁的线程为当前线程
+                setExclusiveOwnerThread(Thread.currentThread());
+                return true;
+            }
+            return false;
+        }
+
+        @Override
+        protected boolean tryRelease(int ignore) {
+            // 校验独占线程是否为当前线程
+            if (Thread.currentThread() != getExclusiveOwnerThread()) {
+                throw new IllegalMonitorStateException();
+            }
+            // 设置独占线程为null
+            setExclusiveOwnerThread(null);
+            // 直接设置state的值，不需要CAS的原因是，当前线程还占用着该锁，没有线程安全的问题
+            setState(0);
+            return true;
+        }
+
+        @Override
+        protected boolean isHeldExclusively() {
+            return getExclusiveOwnerThread() == Thread.currentThread();
+        }
+
+        final ConditionObject newCondition() {
+            return new ConditionObject();
+        }
+    }
+
+    @Override
+    public void lock() {
+        sync.acquire(1);
+    }
+
+    @Override
+    public void lockInterruptibly() throws InterruptedException {
+        sync.acquireInterruptibly(1);
+    }
+
+    @Override
+    public boolean tryLock() {
+        return sync.tryAcquire(1);
+    }
+
+    @Override
+    public boolean tryLock(long time, TimeUnit unit) throws InterruptedException {
+        return sync.tryAcquireNanos(1, unit.toNanos(time));
+    }
+
+    @Override
+    public void unlock() {
+        sync.release(1);
+    }
+
+    @Override
+    public Condition newCondition() {
+        return sync.newCondition();
+    }
+}
+</code></pre><h4 id="通过AQS实现一个共享锁"><a href="#通过AQS实现一个共享锁" class="headerlink" title="通过AQS实现一个共享锁"></a>通过AQS实现一个共享锁</h4><pre><code>public class TwinsLock implements Lock {
+
+    // 内部静态类Sync，作用同Mutex中的Sync
+    private final Sync sync = new Sync(2);
+
+    private static final class Sync extends AbstractQueuedSynchronizer {
+
+        Sync(int count) {
+            if (count &lt;= 0) {
+                throw new IllegalArgumentException(&quot;count must large than zero.&quot;);
+            }
+            // 将state设置为可共享获取的次数
+            setState(count);
+        }
+
+        @Override
+        protected int tryAcquireShared(int reduceCount) {
+            // 计算是否可获取锁
+            int current = getState();
+            int newCount = current - reduceCount;
+            if (newCount &lt; 0) {
+                return newCount;
+            }
+            // CAS设置state
+            if (compareAndSetState(current, newCount)) {
+                return newCount;
+            }
+            return -1;
+        }
+
+        @Override
+        protected boolean tryReleaseShared(int returnCount) {
+            int current = getState();
+            int newCount = current + returnCount;
+            // 这里需要通过CAS的方式设置state，因为多线程共享锁，存在线程安全问题
+            return compareAndSetState(current, newCount);
+        }
+    }
+
+    @Override
+    public void lock() {
+        sync.acquireShared(1);
+    }
+
+    @Override
+    public void lockInterruptibly() throws InterruptedException {
+        sync.acquireSharedInterruptibly(1);
+    }
+
+    @Override
+    public boolean tryLock() {
+        return sync.tryAcquireShared(1) &gt;= 0;
+    }
+
+    @Override
+    public boolean tryLock(long time, TimeUnit unit) throws InterruptedException {
+        return sync.tryAcquireSharedNanos(1, unit.toNanos(time));
+    }
+
+    @Override
+    public void unlock() {
+        sync.releaseShared(1);
+    }
+
+    @Override
+    public Condition newCondition() {
+        // Condition不支持共享模式下使用
+        throw new UnsupportedOperationException();
+    }
+}
+</code></pre><p>这两个类分别使用了AQS的独占模式和共享模式，实现的方式是通过实现AQS中不同的方法：<br><strong>独占模式：</strong></p>
+<pre><code>tryAcquire(int)：尝试获取资源，成功则返回true，失败则返回false。
+tryRelease(int)：尝试释放资源，成功则返回true，失败则返回false。
+</code></pre><p><strong>共享模式：</strong></p>
+<pre><code>tryAcquireShared(int)：尝试获取资源。负数表示失败；0表示成功，但没有剩余可用资源；正数表示成功，且有剩余资源。
+tryReleaseShared(int)：尝试释放资源，如果释放后允许唤醒后续等待结点返回true，否则返回false。
+</code></pre><p>值得注意的是，这4个方法不是abstract的，为什么呢？因为继承AQS的子类可能只支持一种模式，只需要实现其中两个方法即可。</p>
+<h4 id="AQS的实现原理"><a href="#AQS的实现原理" class="headerlink" title="AQS的实现原理"></a>AQS的实现原理</h4><p> <img src="http://o793hh4oz.bkt.clouddn.com/15039712341176.jpg" alt=""></p>
+<p>AQS中包含一个代表共享资源的state和一个FIFO的等待队列。</p>
+<p><strong>源码分析</strong></p>
+<p>独占模式的加锁源码</p>
+<pre><code>// 独占模式的加锁操作
+public final void acquire(int arg) {
+    if (!tryAcquire(arg) &amp;&amp;
+        acquireQueued(addWaiter(Node.EXCLUSIVE), arg))
+        selfInterrupt();
+}
+
+// 独占模式的子类需要实现的方法
+protected boolean tryAcquire(int arg) {
+    throw new UnsupportedOperationException();
+}
+
+// 创建一个等待节点并入队
+private Node addWaiter(Node mode) {
+    // 创建一个等待node
+    Node node = new Node(Thread.currentThread(), mode);
+    // Try the fast path of enq; backup to full enq on failure
+    // 尝试快速加入队尾
+    Node pred = tail;
+    if (pred != null) {
+        node.prev = pred;
+        // cas的方式设置tail节点
+        if (compareAndSetTail(pred, node)) {
+            pred.next = node;
+            return node;
+        }
+    }
+    enq(node);
+    return node;
+}
+
+// 如果快速入队失败，则通过该函数入队
+private Node enq(final Node node) {
+    // 没有停止的自旋入队
+    for (;;) {
+        Node t = tail;
+        if (t == null) { // Must initialize
+            // 队列为空，初始化队列
+            if (compareAndSetHead(new Node()))
+                tail = head;
+        } else {
+            // 队列不为空，添加到队尾
+            node.prev = t;
+            if (compareAndSetTail(t, node)) {
+                t.next = node;
+                return t;
+            }
+        }
+    }
+}
+
+final boolean acquireQueued(final Node node, int arg) {
+    boolean failed = true;
+    try {
+        boolean interrupted = false;
+        // 自旋
+        for (;;) {
+            final Node p = node.predecessor();
+            // 当前节点成为head节点时，试图获取锁
+            if (p == head &amp;&amp; tryAcquire(arg)) {
+                // 获取锁成功了则将当前节点设置为head
+                setHead(node);
+                p.next = null; // help GC
+                failed = false;
+                return interrupted;
+            }
+            // 进入waiting状态
+            if (shouldParkAfterFailedAcquire(p, node) &amp;&amp;
+                parkAndCheckInterrupt())
+                interrupted = true;
+        }
+    } finally {
+        if (failed)
+            cancelAcquire(node);
+    }
+}
+
+// 检查线程是否应该进入waiting状态
+private static boolean shouldParkAfterFailedAcquire(Node pred, Node node) {
+    // 查看前驱节点的状态
+    int ws = pred.waitStatus;
+    if (ws == Node.SIGNAL)
+        /*
+         * This node has already set status asking a release
+         * to signal it, so it can safely park.
+         */
+         // 前驱节点处于SIGNAL状态，当前节点就可以进入waiting
+        return true;
+    if (ws &gt; 0) {
+        /*
+         * Predecessor was cancelled. Skip over predecessors and
+         * indicate retry.
+         */
+         // 如果前驱节点是CANCELLED状态（表示放弃锁的争用），则一直向前寻找直到找到一个非CANCELLED状态的节点
+        do {
+            node.prev = pred = pred.prev;
+        } while (pred.waitStatus &gt; 0);
+        pred.next = node;
+    } else {
+        /*
+         * waitStatus must be 0 or PROPAGATE.  Indicate that we
+         * need a signal, but don&apos;t park yet.  Caller will need to
+         * retry to make sure it cannot acquire before parking.
+         */
+         // 设置前驱节点的状态为SIGNAL
+        compareAndSetWaitStatus(pred, ws, Node.SIGNAL);
+    }
+    return false;
+}
+
+
+private final boolean parkAndCheckInterrupt() {
+    // 调用park()让当前线程进入waiting
+    LockSupport.park(this);
+    // 如果被唤醒，判断是不是被中断的
+    return Thread.interrupted();
+}
+</code></pre><p>独占模式的释放锁源码</p>
+<pre><code>// 独占模式的释放锁操作
+public final boolean release(int arg) {
+    if (tryRelease(arg)) {
+        // 锁完全释放了则唤醒等待队列中的下一个节点
+        Node h = head;
+        if (h != null &amp;&amp; h.waitStatus != 0)
+            unparkSuccessor(h);
+        return true;
+    }
+    return false;
+}
+
+// 独占模式的子类需要实现的函数
+// 当锁被完全释放时，返回值应该为true
+protected boolean tryRelease(int arg) {
+    throw new UnsupportedOperationException();
+}
+
+// 唤醒队列中第一个需要唤醒的线程
+private void unparkSuccessor(Node node) {
+    /*
+     * If status is negative (i.e., possibly needing signal) try
+     * to clear in anticipation of signalling.  It is OK if this
+     * fails or if status is changed by waiting thread.
+     */
+    int ws = node.waitStatus;
+    if (ws &lt; 0)
+        compareAndSetWaitStatus(node, ws, 0);
+
+    /*
+     * Thread to unpark is held in successor, which is normally
+     * just the next node.  But if cancelled or apparently null,
+     * traverse backwards from tail to find the actual
+     * non-cancelled successor.
+     */
+    Node s = node.next;
+    if (s == null || s.waitStatus &gt; 0) {
+        s = null;
+        for (Node t = tail; t != null &amp;&amp; t != node; t = t.prev)
+            if (t.waitStatus &lt;= 0)
+                s = t;
+    }
+    if (s != null)
+        LockSupport.unpark(s.thread);
+}
+</code></pre><p>共享模式的加锁源码</p>
+<pre><code>// 共享模式的获取资源，参数arg是需要的资源数量
+public final void acquireShared(int arg) {
+    if (tryAcquireShared(arg) &lt; 0)
+        doAcquireShared(arg);
+}
+
+// 实现共享模式的子类需要实现
+// 返回值：负值表示获取失败，0表示获取成功但没有资源剩余，正值表示成功且有资源剩余
+protected int tryAcquireShared(int arg) {
+    throw new UnsupportedOperationException();
+}
+
+// 获取资源失败后放入等待队列尾
+private void doAcquireShared(int arg) {
+    // 加入队列尾，跟独占模式使用的方法相同，只是Node的模式不同
+    final Node node = addWaiter(Node.SHARED);
+    boolean failed = true;
+    try {
+        boolean interrupted = false;
+        for (;;) {
+            final Node p = node.predecessor();
+            // 前驱节点是head节点，则尝试获取资源
+            if (p == head) {
+                int r = tryAcquireShared(arg);
+                if (r &gt;= 0) {
+                    // 获取资源成功
+                    setHeadAndPropagate(node, r);
+                    p.next = null; // help GC
+                    if (interrupted)
+                        selfInterrupt();
+                    failed = false;
+                    return;
+                }
+            }
+            // 使线程进入waiting状态，等待被唤醒
+            if (shouldParkAfterFailedAcquire(p, node) &amp;&amp;
+                parkAndCheckInterrupt())
+                interrupted = true;
+        }
+    } finally {
+        if (failed)
+            cancelAcquire(node);
+    }
+}
+
+private void setHeadAndPropagate(Node node, int propagate) {
+    Node h = head; // Record old head for check below
+    // 将当前节点设置为head节点
+    setHead(node);
+
+    // 如果还有剩余资源，则唤醒后继节点
+    if (propagate &gt; 0 || h == null || h.waitStatus &lt; 0 ||
+        (h = head) == null || h.waitStatus &lt; 0) {
+        Node s = node.next;
+        if (s == null || s.isShared())
+            doReleaseShared();
+    }
+}
+</code></pre><p>共享模式释放资源源码</p>
+<pre><code>public final boolean releaseShared(int arg) {
+    if (tryReleaseShared(arg)) {
+        doReleaseShared();
+        return true;
+    }
+    return false;
+}
+
+// 唤醒后继节点
+private void doReleaseShared() {
+    // 自旋
+    for (;;) {
+        Node h = head;
+        if (h != null &amp;&amp; h != tail) {
+            int ws = h.waitStatus;
+            if (ws == Node.SIGNAL) {
+                if (!compareAndSetWaitStatus(h, Node.SIGNAL, 0))
+                    continue;            // loop to recheck cases
+                // 唤醒后继节点
+                unparkSuccessor(h);
+            }
+            else if (ws == 0 &amp;&amp;
+                     !compareAndSetWaitStatus(h, 0, Node.PROPAGATE))
+                continue;                // loop on failed CAS
+        }
+        if (h == head)                   // loop if head changed
+            break;
+    }
+}
+</code></pre>
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="https://ww4.sinaimg.cn/large/006tNc79ly1fczcodf6v0j30yi1au78o.jpg" alt="guijiang.zhang WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="https://ww1.sinaimg.cn/large/006tNc79ly1fczcoe0gs2j30go0p00uq.jpg" alt="guijiang.zhang Alipay"/>
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/java/" rel="tag"># java</a>
+          
+            <a href="/tags/并发编程/" rel="tag"># 并发编程</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/08/02/java并发编程-一/" rel="next" title="java并发编程(一)">
+                <i class="fa fa-chevron-left"></i> java并发编程(一)
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/pic.jpg"
+               alt="guijiang.zhang" />
+          <p class="site-author-name" itemprop="name">guijiang.zhang</p>
+          <p class="site-description motion-element" itemprop="description">若文章有误，可email:18710057269@163.com</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">16</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">10</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">16</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#锁"><span class="nav-number">1.</span> <span class="nav-text">锁</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#AbstractQueuedSynchronizer"><span class="nav-number">1.1.</span> <span class="nav-text">AbstractQueuedSynchronizer</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#通过AQS实现一个不可重入的独占锁"><span class="nav-number">1.1.1.</span> <span class="nav-text">通过AQS实现一个不可重入的独占锁</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#通过AQS实现一个共享锁"><span class="nav-number">1.1.2.</span> <span class="nav-text">通过AQS实现一个共享锁</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#AQS的实现原理"><span class="nav-number">1.1.3.</span> <span class="nav-text">AQS的实现原理</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">guijiang.zhang</span>
+</div>
+
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("8bXnf5LD9PH63Gz10MMV7Hp7-gzGzoHsz", "RAnKE7OMwrtJdcj8FtchCQ2q");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+
+
+</body>
+</html>
